@@ -1,0 +1,603 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+{{ 'product-brusher.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign current_variant  = product.selected_or_first_available_variant
+  assign trust_cells      = section.blocks | where: 'type', 'trust_cell'
+  assign feature_chips    = section.blocks | where: 'type', 'feature_chip'
+  assign benefit_cards    = section.blocks | where: 'type', 'benefit_card'
+  assign how_steps        = section.blocks | where: 'type', 'how_step'
+  assign spec_rows        = section.blocks | where: 'type', 'spec_row'
+  assign box_items        = section.blocks | where: 'type', 'box_item'
+  assign purchase_trust   = section.settings.purchase_trust | split: ','
+-%}
+
+<div class="pb-product">
+
+  {%- comment -%} ── STICKY BAR ── {%- endcomment -%}
+  <div class="pb-sticky-bar" id="pb-sticky-bar" aria-hidden="true">
+    <div class="pb-sticky-bar-left">
+      <div class="pb-sticky-bar-name">{{ product.title }}</div>
+      <div class="pb-sticky-bar-price" id="pb-sticky-price">{{ current_variant.price | money }}</div>
+    </div>
+    <div class="pb-sticky-bar-actions">
+      <button type="button" class="pb-btn-secondary" tabindex="-1">Save</button>
+      <button type="button" class="pb-btn-primary" id="pb-sticky-add-btn" tabindex="-1"
+        {%- unless current_variant.available %} disabled{%- endunless -%}>
+        {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+      </button>
+    </div>
+  </div>
+
+  {%- comment -%} ── HERO BANNER ── {%- endcomment -%}
+  <div class="pb-hero-banner">
+    <div class="pb-hero-banner-inner">
+
+      {%- comment -%} Left: info {%- endcomment -%}
+      <div class="pb-hero-info">
+        <div class="pb-hero-eyebrow">
+          <div class="pb-hero-eyebrow-dot"></div>
+          <div class="pb-hero-eyebrow-text">{{ section.settings.eyebrow_text }}</div>
+        </div>
+        <h1 class="pb-hero-title">{{ section.settings.hero_title | newline_to_br }}</h1>
+        {%- if section.settings.hero_subtitle != blank -%}
+          <p class="pb-hero-subtitle">{{ section.settings.hero_subtitle }}</p>
+        {%- elsif product.description != blank -%}
+          <p class="pb-hero-subtitle">{{ product.description | strip_html | truncate: 220 }}</p>
+        {%- endif -%}
+
+        <div class="pb-hero-price-row">
+          <span class="pb-hero-price" id="pb-hero-price">{{ current_variant.price | money }}</span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            {%- assign discount = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price -%}
+            <span class="pb-hero-price-orig" id="pb-hero-price-orig">{{ current_variant.compare_at_price | money }}</span>
+            <span class="pb-hero-price-badge" id="pb-hero-price-badge">{{ discount }}% off</span>
+          {%- else -%}
+            <span class="pb-hero-price-orig" id="pb-hero-price-orig" style="display:none"></span>
+            <span class="pb-hero-price-badge" id="pb-hero-price-badge" style="display:none"></span>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.hero_shipping != blank -%}
+          <p class="pb-hero-shipping">{{ section.settings.hero_shipping }}</p>
+        {%- endif -%}
+
+        <div class="pb-hero-ctas">
+          <button type="button" class="pb-btn-primary" id="pb-hero-add-btn">Add to Cart</button>
+          <button type="button" class="pb-btn-secondary">Save for Later</button>
+        </div>
+      </div>
+
+      {%- comment -%} Right: hero image card {%- endcomment -%}
+      <div class="pb-hero-visual">
+        <div class="pb-hero-img-card">
+          {%- if product.featured_image -%}
+            {{
+              product.featured_image
+              | image_url: width: 920
+              | image_tag:
+                alt: product.featured_image.alt | default: product.title | escape,
+                loading: 'eager',
+                widths: '460, 920',
+                sizes: '(max-width: 768px) 80vw, 40vw'
+            }}
+          {%- else -%}
+            <div class="pb-hero-placeholder">
+              <svg width="100" height="90" viewBox="0 0 100 90" fill="none" aria-hidden="true">
+                <rect x="18" y="12" width="64" height="26" rx="8" fill="rgba(163,217,165,0.6)" opacity="0.7"/>
+                <rect x="22" y="16" width="56" height="18" rx="5" fill="rgba(255,255,255,0.3)" opacity="0.5"/>
+                <rect x="36" y="38" width="28" height="36" rx="6" fill="rgba(163,217,165,0.6)" opacity="0.5"/>
+                <rect x="58" y="48" width="28" height="34" rx="7" fill="rgba(163,217,165,0.6)" opacity="0.35"/>
+              </svg>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} ── TRUST ROW ── {%- endcomment -%}
+  {%- if trust_cells.size > 0 -%}
+    <div class="pb-trust-row pb-reveal">
+      {%- for block in trust_cells -%}
+        <div class="pb-trust-cell" {{ block.shopify_attributes }}>
+          <div class="pb-trust-icon" aria-hidden="true">{{ block.settings.emoji }}</div>
+          <div>
+            <div class="pb-trust-label">{{ block.settings.label }}</div>
+            {%- if block.settings.sub != blank -%}
+              <div class="pb-trust-sub">{{ block.settings.sub }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── GALLERY STRIP ── {%- endcomment -%}
+  {%- if product.images.size > 0 -%}
+    <div class="pb-gallery-strip">
+      {%- if section.settings.gallery_label != blank -%}
+        <div class="pb-gallery-strip-title">{{ section.settings.gallery_label }}</div>
+      {%- endif -%}
+      <div class="pb-gallery-strip-row">
+        {%- for image in product.images limit: 4 -%}
+          <div
+            class="pb-gallery-card pb-reveal{% if forloop.first %} pb-gallery-main pb-active{% endif %}"
+            style="transition-delay: {{ forloop.index0 | times: 0.07 }}s"
+            role="button"
+            tabindex="0"
+            aria-label="{{ image.alt | default: product.title | escape }}"
+          >
+            {{
+              image
+              | image_url: width: 800
+              | image_tag:
+                alt: image.alt | default: product.title | escape,
+                loading: 'lazy',
+                widths: '400, 600, 800',
+                sizes: '(max-width: 768px) 50vw, 25vw'
+            }}
+            {%- if image.alt != blank -%}
+              <div class="pb-gallery-card-label">{{ image.alt }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── FEATURE STRIP ── {%- endcomment -%}
+  {%- if feature_chips.size > 0 -%}
+    <div class="pb-feature-strip">
+      <div class="pb-feature-strip-inner">
+        {%- for block in feature_chips -%}
+          <div class="pb-feature-chip pb-reveal"
+            style="transition-delay: {{ forloop.index0 | times: 0.07 }}s"
+            {{ block.shopify_attributes }}
+          >
+            <div class="pb-chip-num">{{ block.settings.num }}</div>
+            <div class="pb-chip-label">{{ block.settings.label }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── BENEFITS ── {%- endcomment -%}
+  {%- if benefit_cards.size > 0 -%}
+    <div class="pb-benefits" id="pb-benefits">
+      {%- if section.settings.benefits_label != blank -%}
+        <p class="pb-section-label pb-reveal">{{ section.settings.benefits_label }}</p>
+      {%- endif -%}
+      {%- if section.settings.benefits_title != blank -%}
+        <h2 class="pb-section-title pb-reveal">{{ section.settings.benefits_title | newline_to_br }}</h2>
+      {%- endif -%}
+      <div class="pb-benefits-grid">
+        {%- for block in benefit_cards -%}
+          <div class="pb-benefit-card pb-reveal"
+            style="transition-delay: {{ forloop.index0 | times: 0.06 }}s"
+            {{ block.shopify_attributes }}
+          >
+            <div class="pb-benefit-num">
+              {%- if forloop.index < 10 -%}0{{ forloop.index }}{%- else -%}{{ forloop.index }}{%- endif -%}
+            </div>
+            <h3 class="pb-benefit-title">{{ block.settings.title }}</h3>
+            <p class="pb-benefit-body">{{ block.settings.body }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── HOW IT WORKS ── {%- endcomment -%}
+  {%- if how_steps.size > 0 -%}
+    <div class="pb-how" id="pb-how-it-works">
+      <div class="pb-how-inner">
+        {%- if section.settings.how_label != blank -%}
+          <p class="pb-section-label pb-reveal">{{ section.settings.how_label }}</p>
+        {%- endif -%}
+        {%- if section.settings.how_title != blank -%}
+          <h2 class="pb-section-title pb-reveal">{{ section.settings.how_title | newline_to_br }}</h2>
+        {%- endif -%}
+        <div class="pb-how-steps">
+          {%- for block in how_steps -%}
+            <div class="pb-how-step pb-reveal"
+              style="transition-delay: {{ forloop.index0 | times: 0.09 }}s"
+              {{ block.shopify_attributes }}
+            >
+              <div class="pb-how-step-circle" aria-hidden="true">{{ forloop.index }}</div>
+              <div>
+                <div class="pb-how-step-title">{{ block.settings.title }}</div>
+                <div class="pb-how-step-body">{{ block.settings.body }}</div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── PURCHASE SECTION ── {%- endcomment -%}
+  <div class="pb-purchase" id="pb-purchase">
+
+    {%- comment -%} Visual {%- endcomment -%}
+    <div class="pb-purchase-visual pb-reveal">
+      {%- if product.featured_image -%}
+        {{
+          product.featured_image
+          | image_url: width: 800
+          | image_tag:
+            alt: product.featured_image.alt | default: product.title | escape,
+            loading: 'lazy',
+            widths: '400, 800',
+            sizes: '(max-width: 768px) 100vw, 50vw'
+        }}
+      {%- else -%}
+        <div class="pb-purchase-placeholder">{{ product.title }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Form {%- endcomment -%}
+    <div class="pb-reveal" style="transition-delay: 0.1s">
+      <h2 class="pb-purchase-title">{{ section.settings.purchase_title | default: product.title | newline_to_br }}</h2>
+      {%- if section.settings.purchase_subtitle != blank -%}
+        <p class="pb-purchase-subtitle">{{ section.settings.purchase_subtitle }}</p>
+      {%- endif -%}
+
+      <div class="pb-purchase-price-row">
+        <span class="pb-purchase-price" id="pb-purchase-price">{{ current_variant.price | money }}</span>
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          {%- assign purchase_discount = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price -%}
+          <span class="pb-purchase-orig" id="pb-purchase-orig">{{ current_variant.compare_at_price | money }}</span>
+          <span class="pb-purchase-badge" id="pb-purchase-badge">{{ purchase_discount }}% off</span>
+        {%- else -%}
+          <span class="pb-purchase-orig" id="pb-purchase-orig" style="display:none"></span>
+          <span class="pb-purchase-badge" id="pb-purchase-badge" style="display:none"></span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.purchase_shipping != blank -%}
+        <p class="pb-purchase-shipping">{{ section.settings.purchase_shipping }}</p>
+      {%- endif -%}
+
+      {% form 'product', product, id: 'pb-product-form', novalidate: true %}
+        <input type="hidden" name="id"       value="{{ current_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+
+        {%- unless product.has_only_default_variant -%}
+          <div
+            id="pb-variant-picker"
+            data-variants="{{ product.variants | json | escape }}"
+            data-current-variant="{{ current_variant | json | escape }}"
+          >
+            {%- for option in product.options_with_values -%}
+              <div class="pb-variant-group pb-option-group" data-option-index="{{ forloop.index0 }}">
+                <div class="pb-variant-label">
+                  {{ option.name }}: <span class="pb-option-selected">{{ option.selected_value }}</span>
+                </div>
+                <div class="pb-variant-row">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="pb-variant-btn{% if option.selected_value == value %} pb-selected{% endif %}"
+                      data-value="{{ value | escape }}"
+                    >{{ value }}</button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        <div class="pb-qty-row">
+          <div class="pb-qty-label">Qty</div>
+          <div class="pb-qty-control" role="group" aria-label="Quantity">
+            <button type="button" class="pb-qty-btn pb-qty-minus" aria-label="Decrease quantity">−</button>
+            <span class="pb-qty-val" aria-live="polite">1</span>
+            <button type="button" class="pb-qty-btn pb-qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <div class="pb-purchase-ctas">
+          <button
+            type="submit"
+            id="pb-add-to-cart-btn"
+            class="pb-btn-primary"
+            {%- unless current_variant.available %} disabled{%- endunless -%}
+          >
+            {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+          </button>
+          <button type="button" class="pb-btn-secondary" aria-label="Save for later">♡</button>
+        </div>
+      {% endform %}
+
+      {%- if purchase_trust.size > 0 -%}
+        <div class="pb-purchase-trust">
+          {%- for item in purchase_trust -%}
+            <div class="pb-p-trust-item">
+              <div class="pb-p-trust-dot" aria-hidden="true"></div>
+              {{ item | strip }}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+
+  {%- comment -%} ── SPECS ── {%- endcomment -%}
+  {%- if spec_rows.size > 0 -%}
+    <div class="pb-specs" id="pb-specs">
+      {%- if section.settings.specs_label != blank -%}
+        <p class="pb-section-label pb-reveal">{{ section.settings.specs_label }}</p>
+      {%- endif -%}
+      {%- if section.settings.specs_title != blank -%}
+        <h2 class="pb-section-title pb-reveal">{{ section.settings.specs_title }}</h2>
+      {%- endif -%}
+      <div class="pb-specs-grid pb-reveal">
+        {%- for block in spec_rows -%}
+          <div class="pb-spec-row" {{ block.shopify_attributes }}>
+            <div class="pb-spec-key">{{ block.settings.key }}</div>
+            <div class="pb-spec-val">{{ block.settings.value }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── IN THE BOX ── {%- endcomment -%}
+  {%- if box_items.size > 0 -%}
+    <div class="pb-in-box">
+      <div class="pb-in-box-inner">
+        {%- if section.settings.box_label != blank -%}
+          <p class="pb-section-label">{{ section.settings.box_label }}</p>
+        {%- endif -%}
+        {%- if section.settings.box_title != blank -%}
+          <h2 class="pb-section-title">{{ section.settings.box_title | newline_to_br }}</h2>
+        {%- endif -%}
+        <div class="pb-box-items">
+          {%- for block in box_items -%}
+            <div class="pb-box-item" {{ block.shopify_attributes }}>
+              <div class="pb-box-icon" aria-hidden="true">{{ block.settings.emoji }}</div>
+              <div class="pb-box-name">{{ block.settings.name }}</div>
+              <div class="pb-box-qty">{{ block.settings.qty }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+</div>
+
+<script>window.pbMoneyFormat = {{ shop.money_format | json }};</script>
+{{ 'product-brusher.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Product – LintAway",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero banner"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "Pet Hair Removal"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_title",
+      "label": "Hero title",
+      "info": "Use a newline for a line break. Wrap text in <em></em> for sage green colour.",
+      "default": "LintAway Pro\n2-Pack Kit"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "info": "Leave blank to use product description excerpt."
+    },
+    {
+      "type": "text",
+      "id": "hero_shipping",
+      "label": "Shipping line (hero)",
+      "default": "Free shipping · Estimated delivery 10–16 days"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "text",
+      "id": "gallery_label",
+      "label": "Gallery label",
+      "default": "Product Gallery"
+    },
+    {
+      "type": "header",
+      "content": "Benefits section"
+    },
+    {
+      "type": "text",
+      "id": "benefits_label",
+      "label": "Section label",
+      "default": "Why LintAway Pro"
+    },
+    {
+      "type": "textarea",
+      "id": "benefits_title",
+      "label": "Section title",
+      "default": "Clean any fabric.\nIn seconds."
+    },
+    {
+      "type": "header",
+      "content": "How it works section"
+    },
+    {
+      "type": "text",
+      "id": "how_label",
+      "label": "Section label",
+      "default": "How it Works"
+    },
+    {
+      "type": "textarea",
+      "id": "how_title",
+      "label": "Section title",
+      "default": "Four moves.\nPerfectly clean."
+    },
+    {
+      "type": "header",
+      "content": "Purchase section"
+    },
+    {
+      "type": "textarea",
+      "id": "purchase_title",
+      "label": "Purchase title",
+      "info": "Leave blank to use product title.",
+      "default": "LintAway Pro\n2-Pack Cleaning Kit"
+    },
+    {
+      "type": "textarea",
+      "id": "purchase_subtitle",
+      "label": "Purchase subtitle"
+    },
+    {
+      "type": "text",
+      "id": "purchase_shipping",
+      "label": "Shipping line (purchase)",
+      "default": "Free shipping · Ships in 1–2 business days"
+    },
+    {
+      "type": "text",
+      "id": "purchase_trust",
+      "label": "Trust badges (comma-separated)",
+      "default": "Free Returns,2-Year Guarantee,Secure Checkout,Eco Friendly"
+    },
+    {
+      "type": "header",
+      "content": "Specs section"
+    },
+    {
+      "type": "text",
+      "id": "specs_label",
+      "label": "Section label",
+      "default": "Specifications"
+    },
+    {
+      "type": "text",
+      "id": "specs_title",
+      "label": "Section title",
+      "default": "What's inside the kit."
+    },
+    {
+      "type": "header",
+      "content": "In the Box section"
+    },
+    {
+      "type": "text",
+      "id": "box_label",
+      "label": "Section label",
+      "default": "In the Box"
+    },
+    {
+      "type": "textarea",
+      "id": "box_title",
+      "label": "Section title",
+      "default": "Everything to get\npet hair-free."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_cell",
+      "name": "Trust cell",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji icon",  "default": "♻️" },
+        { "type": "text", "id": "label", "label": "Label",       "default": "100% Reusable" },
+        { "type": "text", "id": "sub",   "label": "Sub-label",   "default": "No disposable sheets needed" }
+      ]
+    },
+    {
+      "type": "feature_chip",
+      "name": "Feature stat",
+      "settings": [
+        { "type": "text", "id": "num",   "label": "Stat value",  "default": "2-Pack" },
+        { "type": "text", "id": "label", "label": "Stat label",  "default": "Brush + anti-static glove included" }
+      ]
+    },
+    {
+      "type": "benefit_card",
+      "name": "Benefit card",
+      "settings": [
+        { "type": "text",     "id": "title", "label": "Title", "default": "No More Sticky Rollers" },
+        { "type": "textarea", "id": "body",  "label": "Body",  "default": "Traditional tape rollers run out fast. LintAway is fully reusable — just rinse and air dry." }
+      ]
+    },
+    {
+      "type": "how_step",
+      "name": "How-it-works step",
+      "settings": [
+        { "type": "text",     "id": "title", "label": "Step title", "default": "Slip on the Glove" },
+        { "type": "textarea", "id": "body",  "label": "Step body",  "default": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing." }
+      ]
+    },
+    {
+      "type": "spec_row",
+      "name": "Specification",
+      "settings": [
+        { "type": "text", "id": "key",   "label": "Spec name",  "default": "Contents" },
+        { "type": "text", "id": "value", "label": "Spec value", "default": "1× Lint Brush + 1× Anti-Static Glove" }
+      ]
+    },
+    {
+      "type": "box_item",
+      "name": "Box item",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji icon", "default": "🪥" },
+        { "type": "text", "id": "name",  "label": "Item name",  "default": "Reusable Lint Brush" },
+        { "type": "text", "id": "qty",   "label": "Quantity",   "default": "× 1" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product – LintAway",
+      "blocks": [
+        { "type": "trust_cell",   "settings": { "emoji": "♻️", "label": "100% Reusable",      "sub": "No disposable sheets needed" } },
+        { "type": "trust_cell",   "settings": { "emoji": "🐾", "label": "Works on Pet Hair",  "sub": "Cat, dog & more" } },
+        { "type": "trust_cell",   "settings": { "emoji": "⚡", "label": "Anti-Static Glove",  "sub": "Neutralises static cling" } },
+        { "type": "trust_cell",   "settings": { "emoji": "🛋️","label": "All Fabric Types",   "sub": "Sofa, clothing, carpet" } },
+        { "type": "feature_chip", "settings": { "num": "2-Pack", "label": "Brush + anti-static glove included" } },
+        { "type": "feature_chip", "settings": { "num": "∞",      "label": "Fully reusable, rinse & reuse" } },
+        { "type": "feature_chip", "settings": { "num": "2,432",  "label": "Orders placed & counting" } },
+        { "type": "feature_chip", "settings": { "num": "87%",    "label": "Savings vs. original price" } },
+        { "type": "benefit_card", "settings": { "title": "No More Sticky Rollers",  "body": "Traditional tape rollers run out fast and create plastic waste. LintAway is fully reusable — just rinse and air dry." } },
+        { "type": "benefit_card", "settings": { "title": "Anti-Static Glove",       "body": "The included glove neutralises static electricity that attracts pet hair to fabric, making removal effortless." } },
+        { "type": "benefit_card", "settings": { "title": "Works Everywhere",        "body": "Sofas, car seats, curtains, clothing, bedding — the dual-direction brush lifts lint from any woven or knitted surface." } },
+        { "type": "benefit_card", "settings": { "title": "Pet-Owner Approved",      "body": "Specifically designed for cat and dog hair, which is finer and clingier than lint. Works even on thick fur." } },
+        { "type": "benefit_card", "settings": { "title": "Rinse Clean, Use Again",  "body": "Both the brush and glove clean in 10 seconds under running water. Fully dry in minutes. Ready to go again." } },
+        { "type": "benefit_card", "settings": { "title": "Compact & Travel-Ready",  "body": "Lightweight enough to toss in a bag. Perfect for the office, car, or anywhere your pet's hair follows you." } },
+        { "type": "how_step",     "settings": { "title": "Slip on the Glove",   "body": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing." } },
+        { "type": "how_step",     "settings": { "title": "Glide Over Fabric",   "body": "Run the gloved hand over the surface in long strokes. Hair and lint clump together immediately." } },
+        { "type": "how_step",     "settings": { "title": "Brush It Away",        "body": "Use the reusable lint brush to sweep up the clumped hair. Press and lift for full coverage." } },
+        { "type": "how_step",     "settings": { "title": "Rinse & Store",        "body": "Rinse both tools under water, shake dry, and store. Ready for the next round." } },
+        { "type": "spec_row", "settings": { "key": "Contents",             "value": "1× Lint Brush + 1× Anti-Static Glove" } },
+        { "type": "spec_row", "settings": { "key": "Material",             "value": "PP Bristles + TPE Glove" } },
+        { "type": "spec_row", "settings": { "key": "Brush Size",           "value": "18 × 7 cm" } },
+        { "type": "spec_row", "settings": { "key": "Glove Size",           "value": "One size fits most" } },
+        { "type": "spec_row", "settings": { "key": "Reusability",          "value": "Fully washable, unlimited reuse" } },
+        { "type": "spec_row", "settings": { "key": "Compatible Surfaces",  "value": "Fabric, velvet, wool, cotton, carpet" } },
+        { "type": "spec_row", "settings": { "key": "Pack Options",         "value": "1-Pack, 2-Pack, 4-Pack" } },
+        { "type": "spec_row", "settings": { "key": "Colors",               "value": "Blue, Green, Pink, Black" } },
+        { "type": "box_item", "settings": { "emoji": "🪥", "name": "Reusable Lint Brush",  "qty": "× 1" } },
+        { "type": "box_item", "settings": { "emoji": "🧤", "name": "Anti-Static Glove",    "qty": "× 1" } },
+        { "type": "box_item", "settings": { "emoji": "📖", "name": "Care Instructions",    "qty": "× 1" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

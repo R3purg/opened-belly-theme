@@ -1,414 +1,66 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
-      "type": "product-information",
+      "type": "product-brusher",
       "blocks": {
-        "media-gallery": {
-          "type": "_product-media-gallery",
-          "static": true,
-          "settings": {
-            "media_presentation": "grid",
-            "media_columns": "two",
-            "image_gap": 4,
-            "large_first_image": false,
-            "icons_style": "none",
-            "slideshow_controls_style": "counter",
-            "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "aspect_ratio": "adapt",
-            "constrain_to_viewport": true,
-            "media_fit": "contain",
-            "media_radius": 0,
-            "extend_media": false,
-            "zoom": true,
-            "video_loop": false,
-            "hide_variants": true,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "product-details": {
-          "type": "_product-details",
-          "static": true,
-          "settings": {
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "details_position": "flex-start",
-            "gap": 28,
-            "sticky_details_desktop": true,
-            "inherit_color_scheme": true,
-            "color_scheme": "scheme-1",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 24,
-            "padding-block-end": 24,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "group_icgrde": {
-              "type": "group",
-              "name": "Header",
-              "settings": {
-                "open_in_new_tab": false,
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "text_xrnftG": {
-                  "type": "text",
-                  "name": "Product title",
-                  "settings": {
-                    "text": "<h1>{{ closest.product.title }}</h1>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-primary--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "price_tVjtKg": {
-                  "type": "price",
-                  "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "paragraph",
-                    "width": "100%",
-                    "alignment": "left",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "color": "var(--color-foreground)",
-                    "padding-block-start": 4,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_xrnftG",
-                "price_tVjtKg"
-              ]
-            },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
-            "variant_picker_R3rGDr": {
-              "type": "variant-picker",
-              "settings": {
-                "variant_style": "buttons",
-                "show_swatches": false,
-                "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "buy_buttons_eYQEYi": {
-              "type": "buy-buttons",
-              "settings": {
-                "stacking": true,
-                "show_pickup_availability": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
-              },
-              "block_order": []
-            },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "Product description",
-              "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "group_icgrde",
-            "divider_VJhene",
-            "variant_picker_R3rGDr",
-            "buy_buttons_eYQEYi",
-            "text_aEtTtq"
-          ]
-        }
-      },
-      "settings": {
-        "content_width": "content-center-aligned",
-        "desktop_media_position": "left",
-        "equal_columns": false,
-        "limit_details_width": false,
-        "gap": 48,
-        "color_scheme": "",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "product_recommendations_qggXJq": {
-      "type": "product-recommendations",
-      "blocks": {
-        "text_cbcgyb": {
-          "type": "text",
-          "name": "t:names.header",
-          "settings": {
-            "text": "<h3>You may also like </h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h4",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_DNizbJ": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_M7MJkb": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_gLWgA6": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_DNizbJ",
-            "product_title_M7MJkb",
-            "price_gLWgA6"
-          ]
-        }
+        "trust_1": { "type": "trust_cell",   "settings": { "emoji": "♻️", "label": "100% Reusable",     "sub": "No disposable sheets needed" } },
+        "trust_2": { "type": "trust_cell",   "settings": { "emoji": "🐾", "label": "Works on Pet Hair", "sub": "Cat, dog & more" } },
+        "trust_3": { "type": "trust_cell",   "settings": { "emoji": "⚡", "label": "Anti-Static Glove", "sub": "Neutralises static cling" } },
+        "trust_4": { "type": "trust_cell",   "settings": { "emoji": "🛋️","label": "All Fabric Types",  "sub": "Sofa, clothing, carpet" } },
+        "chip_1":  { "type": "feature_chip", "settings": { "num": "2-Pack", "label": "Brush + anti-static glove included" } },
+        "chip_2":  { "type": "feature_chip", "settings": { "num": "∞",      "label": "Fully reusable, rinse & reuse" } },
+        "chip_3":  { "type": "feature_chip", "settings": { "num": "2,432",  "label": "Orders placed & counting" } },
+        "chip_4":  { "type": "feature_chip", "settings": { "num": "87%",    "label": "Savings vs. original price" } },
+        "ben_1": { "type": "benefit_card", "settings": { "title": "No More Sticky Rollers",  "body": "Traditional tape rollers run out fast and create plastic waste. LintAway is fully reusable — just rinse and air dry." } },
+        "ben_2": { "type": "benefit_card", "settings": { "title": "Anti-Static Glove",       "body": "The included glove neutralises static electricity that attracts pet hair to fabric, making removal effortless." } },
+        "ben_3": { "type": "benefit_card", "settings": { "title": "Works Everywhere",        "body": "Sofas, car seats, curtains, clothing, bedding — the dual-direction brush lifts lint from any woven or knitted surface." } },
+        "ben_4": { "type": "benefit_card", "settings": { "title": "Pet-Owner Approved",      "body": "Specifically designed for cat and dog hair, which is finer and clingier than lint. Works even on thick fur." } },
+        "ben_5": { "type": "benefit_card", "settings": { "title": "Rinse Clean, Use Again",  "body": "Both the brush and glove clean in 10 seconds under running water. Fully dry in minutes. Ready to go again." } },
+        "ben_6": { "type": "benefit_card", "settings": { "title": "Compact & Travel-Ready",  "body": "Lightweight enough to toss in a bag. Perfect for the office, car, or anywhere your pet's hair follows you." } },
+        "how_1": { "type": "how_step", "settings": { "title": "Slip on the Glove",  "body": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing." } },
+        "how_2": { "type": "how_step", "settings": { "title": "Glide Over Fabric",  "body": "Run the gloved hand over the surface in long strokes. Hair and lint clump together immediately." } },
+        "how_3": { "type": "how_step", "settings": { "title": "Brush It Away",       "body": "Use the reusable lint brush to sweep up the clumped hair. Press and lift for full coverage." } },
+        "how_4": { "type": "how_step", "settings": { "title": "Rinse & Store",       "body": "Rinse both tools under water, shake dry, and store. Ready for the next round." } },
+        "spec_1": { "type": "spec_row", "settings": { "key": "Contents",            "value": "1× Lint Brush + 1× Anti-Static Glove" } },
+        "spec_2": { "type": "spec_row", "settings": { "key": "Material",            "value": "PP Bristles + TPE Glove" } },
+        "spec_3": { "type": "spec_row", "settings": { "key": "Brush Size",          "value": "18 × 7 cm" } },
+        "spec_4": { "type": "spec_row", "settings": { "key": "Glove Size",          "value": "One size fits most" } },
+        "spec_5": { "type": "spec_row", "settings": { "key": "Reusability",         "value": "Fully washable, unlimited reuse" } },
+        "spec_6": { "type": "spec_row", "settings": { "key": "Compatible Surfaces", "value": "Fabric, velvet, wool, cotton, carpet" } },
+        "spec_7": { "type": "spec_row", "settings": { "key": "Pack Options",        "value": "1-Pack, 2-Pack, 4-Pack" } },
+        "spec_8": { "type": "spec_row", "settings": { "key": "Colors",              "value": "Blue, Green, Pink, Black" } },
+        "box_1": { "type": "box_item", "settings": { "emoji": "🪥", "name": "Reusable Lint Brush", "qty": "× 1" } },
+        "box_2": { "type": "box_item", "settings": { "emoji": "🧤", "name": "Anti-Static Glove",   "qty": "× 1" } },
+        "box_3": { "type": "box_item", "settings": { "emoji": "📖", "name": "Care Instructions",   "qty": "× 1" } }
       },
       "block_order": [
-        "text_cbcgyb"
+        "trust_1", "trust_2", "trust_3", "trust_4",
+        "chip_1", "chip_2", "chip_3", "chip_4",
+        "ben_1", "ben_2", "ben_3", "ben_4", "ben_5", "ben_6",
+        "how_1", "how_2", "how_3", "how_4",
+        "spec_1", "spec_2", "spec_3", "spec_4", "spec_5", "spec_6", "spec_7", "spec_8",
+        "box_1", "box_2", "box_3"
       ],
-      "name": "t:names.product_recommendations",
       "settings": {
-        "product": "{{ closest.product }}",
-        "recommendation_type": "related",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "columns_gap": 12,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 28,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "eyebrow_text":      "Pet Hair Removal",
+        "hero_title":        "LintAway Pro\n2-Pack Kit",
+        "hero_subtitle":     "Reusable lint brushes + anti-static glove — remove pet hair, lint, and dust from any fabric surface in seconds. No refills. No waste.",
+        "hero_shipping":     "Free shipping · Estimated delivery 10–16 days",
+        "gallery_label":     "Product Gallery",
+        "benefits_label":    "Why LintAway Pro",
+        "benefits_title":    "Clean any fabric.\nIn seconds.",
+        "how_label":         "How it Works",
+        "how_title":         "Four moves.\nPerfectly clean.",
+        "purchase_title":    "LintAway Pro\n2-Pack Cleaning Kit",
+        "purchase_subtitle": "Reusable lint brush set with anti-static glove. Designed for everyday pet hair and lint removal on any fabric.",
+        "purchase_shipping": "Free shipping · Ships in 1–2 business days",
+        "purchase_trust":    "Free Returns,2-Year Guarantee,Secure Checkout,Eco Friendly",
+        "specs_label":       "Specifications",
+        "specs_title":       "What's inside the kit.",
+        "box_label":         "In the Box",
+        "box_title":         "Everything to get\npet hair-free."
       }
     }
   },
-  "order": [
-    "main",
-    "product_recommendations_qggXJq"
-  ]
+  "order": ["main"]
 }
