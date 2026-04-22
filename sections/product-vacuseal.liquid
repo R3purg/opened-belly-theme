@@ -1,0 +1,511 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+{{ 'product-vacuseal.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign feature_chips   = section.blocks | where: 'type', 'feature_chip'
+  assign steps           = section.blocks | where: 'type', 'step'
+  assign spec_rows       = section.blocks | where: 'type', 'spec_row'
+  assign box_items       = section.blocks | where: 'type', 'box_item'
+  assign trust_items     = section.settings.trust_items | split: ','
+  assign rating_floor    = section.settings.rating | floor
+-%}
+
+<div class="vs-product">
+
+  {%- comment -%} ── STICKY BUY BAR ── {%- endcomment -%}
+  <div class="vs-sticky-bar" id="vs-sticky-bar" aria-hidden="true">
+    <div class="vs-sticky-bar-left">
+      <div class="vs-sticky-bar-name">{{ product.title }}</div>
+      <div class="vs-sticky-bar-price" id="vs-sticky-price">{{ current_variant.price | money }}</div>
+    </div>
+    <div class="vs-sticky-bar-actions">
+      <button type="button" class="vs-btn-secondary" tabindex="-1">Save for Later</button>
+      <button type="button" class="vs-btn-primary" id="vs-sticky-add-btn" tabindex="-1"
+        {%- unless current_variant.available %} disabled{%- endunless -%}>
+        {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+      </button>
+    </div>
+  </div>
+
+  {%- comment -%} ── HERO ── {%- endcomment -%}
+  <div class="vs-hero">
+
+    {%- comment -%} Gallery {%- endcomment -%}
+    <div class="vs-gallery">
+      <div class="vs-gallery-main">
+        {%- if product.featured_image -%}
+          {{
+            product.featured_image
+            | image_url: width: 800
+            | image_tag:
+              id: 'vs-main-img',
+              alt: product.featured_image.alt | default: product.title | escape,
+              loading: 'eager',
+              widths: '400, 600, 800',
+              sizes: '(max-width: 768px) 100vw, 50vw'
+          }}
+        {%- else -%}
+          <div class="vs-gallery-placeholder">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+              <rect x="10" y="28" width="60" height="24" rx="6" fill="#a3d9a5" opacity="0.5"/>
+              <rect x="14" y="32" width="52" height="16" rx="4" fill="#a3d9a5" opacity="0.7"/>
+              <rect x="22" y="24" width="36" height="8"  rx="3" fill="#a3d9a5" opacity="0.4"/>
+              <circle cx="55" cy="40" r="5" fill="#174f19" opacity="0.5"/>
+              <rect x="8"  y="52" width="64" height="6"  rx="3" fill="#a3d9a5" opacity="0.3"/>
+            </svg>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if product.images.size > 1 -%}
+        <div class="vs-gallery-thumbs" role="list">
+          {%- for image in product.images limit: 5 -%}
+            <button
+              type="button"
+              class="vs-thumb{% if forloop.first %} vs-active{% endif %}"
+              role="listitem"
+              data-index="{{ forloop.index0 }}"
+              data-src="{{ image | image_url: width: 800 }}"
+              data-srcset="{{ image | image_url: width: 400 }} 400w, {{ image | image_url: width: 800 }} 800w"
+              aria-label="{{ 'products.product.media.load_image' | t | default: 'View image' }} {{ forloop.index }}"
+            >
+              {{
+                image
+                | image_url: width: 120
+                | image_tag:
+                  alt: image.alt | default: product.title | escape,
+                  loading: 'lazy',
+                  widths: '60, 120',
+                  sizes: '10vw'
+              }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Product info {%- endcomment -%}
+    <div class="vs-hero-info">
+
+      <div class="vs-hero-top">
+        {%- if section.settings.badge_text != blank -%}
+          <span class="vs-hero-badge">{{ section.settings.badge_text }}</span>
+        {%- endif -%}
+        {%- if section.settings.show_rating -%}
+          <div class="vs-rating">
+            <div class="vs-stars" aria-label="{{ section.settings.rating }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                <svg class="vs-star-icon" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+                  <path class="{% if i <= rating_floor %}vs-star-full{% else %}vs-star-empty{% endif %}"
+                    d="M7 1.5l1.5 4.5H14L9.5 9l1.5 4.5L7 11 2.5 13.5 4 9 0 6h5.5z"/>
+                </svg>
+              {%- endfor -%}
+            </div>
+            <span class="vs-rating-text">{{ section.settings.rating }} · {{ section.settings.review_count }} orders</span>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <h1 class="vs-hero-title">{{ product.title }}</h1>
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="vs-hero-subtitle">{{ section.settings.subtitle }}</p>
+      {%- elsif product.description != blank -%}
+        <p class="vs-hero-subtitle">{{ product.description | strip_html | truncate: 220 }}</p>
+      {%- endif -%}
+
+      <div class="vs-pricing">
+        <span class="vs-price" id="vs-price">{{ current_variant.price | money }}</span>
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          {%- assign discount = current_variant.compare_at_price | minus: current_variant.price
+              | times: 100 | divided_by: current_variant.compare_at_price -%}
+          <span class="vs-price-orig" id="vs-price-orig">{{ current_variant.compare_at_price | money }}</span>
+          <span class="vs-price-badge" id="vs-price-badge">{{ discount }}% off</span>
+        {%- else -%}
+          <span class="vs-price-orig" id="vs-price-orig" style="display:none"></span>
+          <span class="vs-price-badge" id="vs-price-badge" style="display:none"></span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.shipping_text != blank -%}
+        <p class="vs-shipping">{{ section.settings.shipping_text }}</p>
+      {%- endif -%}
+
+      {%- comment -%} ── PRODUCT FORM ── {%- endcomment -%}
+      {% form 'product', product, id: 'vs-product-form', novalidate: true %}
+
+        <input type="hidden" name="id"       value="{{ current_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+
+        {%- unless product.has_only_default_variant -%}
+          <div
+            id="vs-variant-picker"
+            data-variants="{{ product.variants | json | escape }}"
+            data-current-variant="{{ current_variant | json | escape }}"
+          >
+            {%- for option in product.options_with_values -%}
+              <div class="vs-variants-section vs-option-group" data-option-index="{{ forloop.index0 }}">
+                <div class="vs-variants-label">
+                  {{ option.name }}: <span class="vs-option-selected">{{ option.selected_value }}</span>
+                </div>
+                <div class="vs-variants-row">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="vs-variant-btn{% if option.selected_value == value %} vs-selected{% endif %}"
+                      data-value="{{ value | escape }}"
+                    >{{ value }}</button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        <div class="vs-qty-row">
+          <span class="vs-qty-label">Qty</span>
+          <div class="vs-qty-control" role="group" aria-label="Quantity">
+            <button type="button" class="vs-qty-btn vs-qty-minus" aria-label="Decrease quantity">−</button>
+            <span class="vs-qty-val" aria-live="polite">1</span>
+            <button type="button" class="vs-qty-btn vs-qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <div class="vs-hero-actions">
+          <button
+            type="submit"
+            id="vs-add-to-cart-btn"
+            class="vs-btn-primary"
+            {%- unless current_variant.available %} disabled{%- endunless -%}
+          >
+            {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+          </button>
+          <button type="button" class="vs-btn-secondary">Save for Later</button>
+        </div>
+
+      {% endform %}
+
+      {%- if trust_items.size > 0 -%}
+        <div class="vs-trust" aria-label="Trust signals">
+          {%- for item in trust_items -%}
+            <div class="vs-trust-item">
+              <div class="vs-trust-dot" aria-hidden="true"></div>
+              {{ item | strip }}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+  {%- comment -%} ── FEATURE STRIP ── {%- endcomment -%}
+  {%- if feature_chips.size > 0 -%}
+    <div class="vs-feature-strip">
+      <div class="vs-feature-strip-inner">
+        {%- for block in feature_chips -%}
+          <div class="vs-feature-chip vs-reveal"
+            style="transition-delay: {{ forloop.index0 | times: 0.08 }}s"
+            {{ block.shopify_attributes }}
+          >
+            <div class="vs-chip-num">{{ block.settings.num }}</div>
+            <div class="vs-chip-label">{{ block.settings.label }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── HOW IT WORKS ── {%- endcomment -%}
+  {%- if steps.size > 0 -%}
+    <div class="vs-section">
+      {%- if section.settings.steps_label != blank -%}
+        <p class="vs-section-label vs-reveal">{{ section.settings.steps_label }}</p>
+      {%- endif -%}
+      {%- if section.settings.steps_title != blank -%}
+        <h2 class="vs-section-title vs-reveal">{{ section.settings.steps_title | newline_to_br }}</h2>
+      {%- endif -%}
+      <div class="vs-steps">
+        {%- for block in steps -%}
+          {%- if forloop.index < 10 -%}
+            {%- assign step_num = '0' | append: forloop.index -%}
+          {%- else -%}
+            {%- assign step_num = forloop.index | append: '' -%}
+          {%- endif -%}
+          <div class="vs-step vs-reveal"
+            data-num="{{ step_num }}"
+            style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"
+            {{ block.shopify_attributes }}
+          >
+            <h3 class="vs-step-title">{{ block.settings.title }}</h3>
+            <p class="vs-step-body">{{ block.settings.body }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── SPECS ── {%- endcomment -%}
+  {%- if spec_rows.size > 0 -%}
+    <div class="vs-section" style="padding-top: 0">
+      {%- if section.settings.specs_label != blank -%}
+        <p class="vs-section-label vs-reveal">{{ section.settings.specs_label }}</p>
+      {%- endif -%}
+      {%- if section.settings.specs_title != blank -%}
+        <h2 class="vs-section-title vs-reveal">{{ section.settings.specs_title }}</h2>
+      {%- endif -%}
+      <div class="vs-specs-grid vs-reveal">
+        {%- for block in spec_rows -%}
+          <div class="vs-spec-row" {{ block.shopify_attributes }}>
+            <div class="vs-spec-key">{{ block.settings.key }}</div>
+            <div class="vs-spec-val">{{ block.settings.value }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── IN THE BOX ── {%- endcomment -%}
+  {%- if box_items.size > 0 -%}
+    <div class="vs-box-section">
+      <div class="vs-box-inner">
+        {%- if section.settings.box_label != blank -%}
+          <p class="vs-section-label">{{ section.settings.box_label }}</p>
+        {%- endif -%}
+        {%- if section.settings.box_title != blank -%}
+          <h2 class="vs-section-title">{{ section.settings.box_title | newline_to_br }}</h2>
+        {%- endif -%}
+        <div class="vs-box-items">
+          {%- for block in box_items -%}
+            <div class="vs-box-item" {{ block.shopify_attributes }}>
+              <div class="vs-box-item-icon" aria-hidden="true">{{ block.settings.emoji }}</div>
+              <div class="vs-box-item-name">{{ block.settings.name }}</div>
+              <div class="vs-box-item-qty">{{ block.settings.qty }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+</div>
+
+<script>window.vsMoneyFormat = {{ shop.money_format | json }};</script>
+{{ 'product-vacuseal.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Product – VacuSeal",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Kitchen Essential"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Product subtitle",
+      "info": "Leave blank to use an excerpt from the product description."
+    },
+    {
+      "type": "header",
+      "content": "Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Rating (0–5)",
+      "default": "4.8"
+    },
+    {
+      "type": "number",
+      "id": "review_count",
+      "label": "Order / review count",
+      "default": 1007
+    },
+    {
+      "type": "header",
+      "content": "Shipping & trust"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping line",
+      "default": "Free shipping · Estimated delivery 12–18 days"
+    },
+    {
+      "type": "text",
+      "id": "trust_items",
+      "label": "Trust badges (comma-separated)",
+      "default": "Free Returns,2-Year Warranty,Secure Checkout,Ships Worldwide"
+    },
+    {
+      "type": "header",
+      "content": "How it works section"
+    },
+    {
+      "type": "text",
+      "id": "steps_label",
+      "label": "Section label",
+      "default": "How it works"
+    },
+    {
+      "type": "textarea",
+      "id": "steps_title",
+      "label": "Section title",
+      "default": "Three steps.\nPerfect seal, every time."
+    },
+    {
+      "type": "header",
+      "content": "Specs section"
+    },
+    {
+      "type": "text",
+      "id": "specs_label",
+      "label": "Section label",
+      "default": "Technical Specifications"
+    },
+    {
+      "type": "text",
+      "id": "specs_title",
+      "label": "Section title",
+      "default": "Built to perform."
+    },
+    {
+      "type": "header",
+      "content": "In the Box section"
+    },
+    {
+      "type": "text",
+      "id": "box_label",
+      "label": "Section label",
+      "default": "In the Box"
+    },
+    {
+      "type": "textarea",
+      "id": "box_title",
+      "label": "Section title",
+      "default": "Everything you need\nto get started."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_chip",
+      "name": "Feature stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "num",
+          "label": "Stat value",
+          "default": "5×"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat label",
+          "default": "Longer freshness vs. standard storage"
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "How-it-works step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step title",
+          "default": "Place Your Food"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Step description",
+          "default": "Load your ingredients into a compatible vacuum bag."
+        }
+      ]
+    },
+    {
+      "type": "spec_row",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "key",
+          "label": "Spec name",
+          "default": "Power"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Spec value",
+          "default": "≤ 110W"
+        }
+      ]
+    },
+    {
+      "type": "box_item",
+      "name": "Box item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji icon",
+          "default": "🔧"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Item name",
+          "default": "VacuSeal Pro Machine"
+        },
+        {
+          "type": "text",
+          "id": "qty",
+          "label": "Quantity label",
+          "default": "× 1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product – VacuSeal",
+      "blocks": [
+        { "type": "feature_chip", "settings": { "num": "5×",    "label": "Longer freshness vs. standard storage" } },
+        { "type": "feature_chip", "settings": { "num": "60s",   "label": "Full vacuum seal cycle time" } },
+        { "type": "feature_chip", "settings": { "num": "0.8kPa","label": "Maximum vacuum pressure" } },
+        { "type": "feature_chip", "settings": { "num": "60dB",  "label": "Ultra-quiet motor technology" } },
+        { "type": "step", "settings": { "title": "Place Your Food",  "body": "Load your ingredients into a compatible vacuum bag or use the included resealable pouches. Works with liquids, solids, and dry goods." } },
+        { "type": "step", "settings": { "title": "Insert & Lock",    "body": "Slide the open end of the bag into the sealing channel. The auto-lock mechanism secures the bag for an airtight chamber." } },
+        { "type": "step", "settings": { "title": "Press & Seal",     "body": "Press the vacuum button. The machine extracts all air in under 60 seconds, then heat-seals the bag. Done — no mess, no fuss." } },
+        { "type": "spec_row", "settings": { "key": "Power",            "value": "≤ 110W" } },
+        { "type": "spec_row", "settings": { "key": "Voltage",          "value": "220V / 50Hz" } },
+        { "type": "spec_row", "settings": { "key": "Vacuum Pressure",  "value": "0.8 kPa" } },
+        { "type": "spec_row", "settings": { "key": "Seal Time",        "value": "≤ 10 sec" } },
+        { "type": "spec_row", "settings": { "key": "Bag Width",        "value": "28 cm max" } },
+        { "type": "spec_row", "settings": { "key": "Noise Level",      "value": "< 60 dB" } },
+        { "type": "spec_row", "settings": { "key": "Dimensions",       "value": "37 × 14 × 8 cm" } },
+        { "type": "spec_row", "settings": { "key": "Weight",           "value": "1.2 kg" } },
+        { "type": "spec_row", "settings": { "key": "Material",         "value": "ABS + Stainless" } },
+        { "type": "spec_row", "settings": { "key": "Certification",    "value": "CE / RoHS" } },
+        { "type": "box_item", "settings": { "emoji": "🔧", "name": "VacuSeal Pro Machine",      "qty": "× 1" } },
+        { "type": "box_item", "settings": { "emoji": "🛍️","name": "Vacuum Bags (assorted)",     "qty": "× 5" } },
+        { "type": "box_item", "settings": { "emoji": "🔌", "name": "Power Adapter",             "qty": "× 1" } },
+        { "type": "box_item", "settings": { "emoji": "📖", "name": "User Manual",               "qty": "× 1" } },
+        { "type": "box_item", "settings": { "emoji": "🎁", "name": "Bag Roll (3 m)",            "qty": "× 1" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,505 @@
+/* ── VacuSeal Pro product page ── */
+
+.vs-product {
+  --vs-green-deep: #174f19;
+  --vs-green-mid: #2d7a30;
+  --vs-green-sage: #a3d9a5;
+  --vs-green-light: #cfe2d0;
+  --vs-green-pale: #eff5ef;
+  --vs-cream: #f7e5d7;
+  --vs-brown: #95511d;
+  --vs-fg: #061406;
+  --vs-fg-muted: #5a6e5b;
+  --vs-border: #e8f0e8;
+  --vs-radius: 16px;
+  --vs-transition: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  --vs-font-head: 'Instrument Sans', var(--font-heading--family, system-ui), sans-serif;
+  --vs-font-body: var(--font-body--family, 'Work Sans', system-ui), sans-serif;
+}
+
+/* ── STICKY BUY BAR ── */
+.vs-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--layer-sticky, 8);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--vs-border);
+  padding: 12px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.vs-sticky-bar.vs-visible { transform: translateY(0); }
+.vs-sticky-bar-left { display: flex; flex-direction: column; gap: 2px; }
+.vs-sticky-bar-name { font-family: var(--vs-font-head); font-weight: 600; font-size: 14px; color: var(--vs-fg); }
+.vs-sticky-bar-price { font-size: 13px; color: var(--vs-fg-muted); }
+.vs-sticky-bar-actions { display: flex; gap: 10px; }
+
+/* ── BUTTONS ── */
+.vs-btn-primary {
+  background: var(--vs-green-deep);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 32px;
+  font-family: var(--vs-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1;
+}
+.vs-btn-primary:hover { background: var(--vs-green-mid); color: #fff; }
+.vs-btn-primary.vs-added { background: var(--vs-green-mid); }
+.vs-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.vs-btn-secondary {
+  background: transparent;
+  color: var(--vs-green-deep);
+  border: 1.5px solid var(--vs-green-deep);
+  border-radius: 50px;
+  padding: 11px 24px;
+  font-family: var(--vs-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+}
+.vs-btn-secondary:hover { background: var(--vs-green-pale); }
+
+/* ── HERO ── */
+.vs-hero {
+  padding: 80px var(--page-margin, 40px) 60px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+@keyframes vs-fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.vs-hero-info { animation: vs-fadeUp 0.7s ease both; }
+
+.vs-hero-top { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+
+.vs-hero-badge {
+  display: inline-block;
+  background: var(--vs-green-pale);
+  color: var(--vs-green-deep);
+  border-radius: 50px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.vs-rating { display: flex; align-items: center; gap: 6px; }
+.vs-rating-text { font-size: 13px; color: var(--vs-fg-muted); }
+.vs-stars { display: flex; gap: 2px; line-height: 0; }
+.vs-star-icon { display: block; }
+.vs-star-full  { fill: #f5a623; }
+.vs-star-empty { fill: #d1d5db; }
+
+.vs-hero-title {
+  font-family: var(--vs-font-head);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--vs-fg);
+  margin: 0 0 16px;
+}
+.vs-hero-subtitle {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--vs-fg-muted);
+  margin: 0 0 32px;
+  max-width: 440px;
+}
+
+/* Pricing */
+.vs-pricing { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.vs-price {
+  font-family: var(--vs-font-head);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--vs-fg);
+  line-height: 1;
+}
+.vs-price-orig { font-size: 18px; color: var(--vs-fg-muted); text-decoration: line-through; }
+.vs-price-badge {
+  background: var(--vs-cream);
+  color: var(--vs-brown);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.vs-shipping { font-size: 13px; color: var(--vs-fg-muted); margin: 0 0 28px; }
+.vs-shipping em { font-style: normal; color: var(--vs-green-mid); font-weight: 600; }
+
+/* ── GALLERY ── */
+.vs-gallery {
+  animation: vs-fadeUp 0.7s 0.15s ease both;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vs-gallery-main {
+  border-radius: var(--vs-radius);
+  overflow: hidden;
+  background: var(--vs-green-pale);
+  aspect-ratio: 1;
+  position: relative;
+  cursor: zoom-in;
+}
+.vs-gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 30px;
+  transition: transform 0.4s ease;
+  display: block;
+}
+.vs-gallery-main:hover img { transform: scale(1.04); }
+
+.vs-gallery-thumbs { display: flex; gap: 8px; }
+.vs-thumb {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--vs-green-pale);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.vs-thumb.vs-active { border-color: var(--vs-green-deep); }
+.vs-thumb:hover:not(.vs-active) { border-color: var(--vs-green-sage); }
+.vs-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 8px; display: block; }
+
+/* Gallery placeholder (no images) */
+.vs-gallery-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--vs-fg-muted);
+  font-size: 12px;
+  font-family: monospace;
+  text-align: center;
+}
+
+/* ── VARIANTS ── */
+.vs-variants-section { padding: 20px 0 24px; }
+.vs-variants-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vs-fg-muted);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.vs-variants-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.vs-variant-btn {
+  padding: 9px 18px;
+  border-radius: 50px;
+  border: 1.5px solid var(--vs-border);
+  font-family: var(--vs-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: var(--vs-fg);
+  transition: all 0.18s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.vs-variant-btn:hover:not(.vs-selected):not(:disabled) { border-color: var(--vs-green-deep); }
+.vs-variant-btn.vs-selected { border-color: var(--vs-green-deep); background: var(--vs-green-deep); color: #fff; }
+.vs-variant-btn:disabled { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; }
+
+/* ── QUANTITY ── */
+.vs-qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.vs-qty-label { font-size: 13px; font-weight: 600; color: var(--vs-fg-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.vs-qty-control {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--vs-border);
+  border-radius: 50px;
+  overflow: hidden;
+}
+.vs-qty-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--vs-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+  line-height: 1;
+}
+.vs-qty-btn:hover { background: var(--vs-green-pale); }
+.vs-qty-val { width: 32px; text-align: center; font-size: 14px; font-weight: 600; color: var(--vs-fg); }
+
+/* ── ACTIONS ── */
+.vs-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+.vs-hero-actions .vs-btn-primary { padding: 15px 40px; font-size: 15px; min-width: 200px; }
+.vs-hero-actions .vs-btn-secondary { padding: 14px 28px; font-size: 15px; }
+
+/* ── TRUST BADGES ── */
+.vs-trust { display: flex; gap: 24px; flex-wrap: wrap; }
+.vs-trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--vs-fg-muted); }
+.vs-trust-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--vs-green-sage); flex-shrink: 0; }
+
+/* ── SECTION WRAPPER ── */
+.vs-section {
+  padding: 80px var(--page-margin, 40px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.vs-section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vs-green-mid);
+  margin-bottom: 12px;
+}
+.vs-section-title {
+  font-family: var(--vs-font-head);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  color: var(--vs-fg);
+}
+
+/* ── FEATURE STRIP ── */
+.vs-feature-strip { background: var(--vs-green-pale); padding: 60px 0; }
+.vs-feature-strip-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--page-margin, 40px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.vs-feature-chip { background: #fff; padding: 36px 28px; text-align: center; }
+.vs-feature-chip:first-child { border-radius: var(--vs-radius) 0 0 var(--vs-radius); }
+.vs-feature-chip:last-child  { border-radius: 0 var(--vs-radius) var(--vs-radius) 0; }
+.vs-chip-num {
+  font-family: var(--vs-font-head);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--vs-green-deep);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.vs-chip-label { font-size: 13px; font-weight: 500; color: var(--vs-fg-muted); line-height: 1.4; }
+
+/* ── HOW IT WORKS ── */
+.vs-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+.vs-step {
+  padding: 36px;
+  background: var(--vs-green-pale);
+  border-radius: var(--vs-radius);
+  position: relative;
+  overflow: hidden;
+}
+.vs-step::before {
+  content: attr(data-num);
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  font-family: var(--vs-font-head);
+  font-size: 96px;
+  font-weight: 800;
+  color: var(--vs-green-sage);
+  opacity: 0.4;
+  line-height: 1;
+  pointer-events: none;
+}
+.vs-step-title { font-family: var(--vs-font-head); font-size: 18px; font-weight: 700; margin: 0 0 10px; color: var(--vs-fg); position: relative; }
+.vs-step-body  { font-size: 14px; line-height: 1.65; color: var(--vs-fg-muted); position: relative; margin: 0; }
+
+/* ── SPECS ── */
+.vs-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 40px;
+  border-radius: var(--vs-radius);
+  overflow: hidden;
+  border: 1px solid var(--vs-border);
+}
+.vs-spec-row {
+  display: flex;
+  padding: 18px 24px;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--vs-border);
+}
+.vs-spec-row:last-child,
+.vs-spec-row:nth-last-child(2) { border-bottom: none; }
+.vs-spec-key {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vs-fg-muted);
+  width: 140px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.vs-spec-val { font-size: 14px; font-weight: 500; color: var(--vs-fg); }
+
+/* ── IN THE BOX ── */
+.vs-box-section {
+  background: var(--vs-fg);
+  padding: 80px var(--page-margin, 40px);
+}
+.vs-box-inner { max-width: 1200px; margin: 0 auto; }
+.vs-box-section .vs-section-label { color: var(--vs-green-sage); }
+.vs-box-section .vs-section-title { color: #fff; }
+
+.vs-box-items { display: flex; gap: 16px; margin-top: 48px; flex-wrap: wrap; }
+.vs-box-item {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--vs-radius);
+  padding: 24px 20px;
+  text-align: center;
+}
+.vs-box-item-icon { font-size: 28px; margin-bottom: 12px; line-height: 1; }
+.vs-box-item-name { font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.9); line-height: 1.4; }
+.vs-box-item-qty  { font-size: 11px; color: rgba(255, 255, 255, 0.4); margin-top: 4px; }
+
+/* ── SCROLL REVEALS ── */
+.vs-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.vs-reveal.vs-in { opacity: 1; transform: translateY(0); }
+
+/* ── FORM RESET ── */
+.vs-product form { margin: 0; }
+
+/* ── TABLET (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .vs-hero { gap: 48px; padding: 60px 32px 48px; }
+  .vs-feature-strip-inner { gap: 1px; }
+  .vs-feature-chip { padding: 28px 20px; }
+  .vs-section { padding: 64px 32px; }
+  .vs-box-section { padding: 64px 32px; }
+}
+
+/* ── MOBILE (≤ 768px) ── */
+@media (max-width: 768px) {
+  .vs-product { --vs-radius: 12px; }
+
+  .vs-hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 16px 40px;
+  }
+  .vs-hero-info { order: 2; }
+  .vs-gallery   { order: 1; animation-delay: 0s; }
+
+  .vs-hero-title   { font-size: clamp(26px, 7vw, 38px); margin-bottom: 12px; }
+  .vs-hero-subtitle { font-size: 15px; margin-bottom: 20px; max-width: 100%; }
+  .vs-price         { font-size: 28px; }
+  .vs-price-orig    { font-size: 15px; }
+  .vs-pricing       { gap: 8px; margin-bottom: 6px; }
+  .vs-shipping      { margin-bottom: 20px; }
+
+  .vs-hero-actions { flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .vs-hero-actions .vs-btn-primary,
+  .vs-hero-actions .vs-btn-secondary { width: 100%; text-align: center; padding: 15px 20px; min-width: 0; }
+
+  .vs-trust { gap: 12px; }
+  .vs-trust-item { font-size: 12px; }
+
+  .vs-gallery-thumbs { gap: 6px; }
+  .vs-thumb { border-radius: 8px; }
+
+  .vs-variants-section { padding: 16px 0 20px; }
+  .vs-variant-btn { padding: 8px 14px; font-size: 12px; }
+
+  .vs-feature-strip { padding: 40px 0; }
+  .vs-feature-strip-inner {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 16px;
+  }
+  .vs-feature-chip { padding: 24px 16px; }
+  .vs-feature-chip:first-child    { border-radius: var(--vs-radius) 0 0 0; }
+  .vs-feature-chip:nth-child(2)   { border-radius: 0 var(--vs-radius) 0 0; }
+  .vs-feature-chip:nth-child(3)   { border-radius: 0 0 0 var(--vs-radius); }
+  .vs-feature-chip:last-child     { border-radius: 0 0 var(--vs-radius) 0; }
+  .vs-chip-num  { font-size: 28px; }
+  .vs-chip-label { font-size: 12px; }
+
+  .vs-section       { padding: 48px 16px; }
+  .vs-section-title { font-size: clamp(24px, 6vw, 36px); }
+
+  .vs-steps { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+  .vs-step  { padding: 28px 24px; }
+  .vs-step::before { font-size: 64px; top: -4px; right: 12px; }
+  .vs-step-title { font-size: 16px; }
+
+  .vs-specs-grid { grid-template-columns: 1fr; margin-top: 28px; }
+  .vs-spec-row { padding: 14px 16px; }
+  .vs-spec-row:nth-last-child(2) { border-bottom: 1px solid var(--vs-border); }
+
+  .vs-box-section { padding: 48px 16px; }
+  .vs-box-items   { gap: 10px; margin-top: 32px; }
+  .vs-box-item    { min-width: calc(50% - 5px); padding: 20px 14px; }
+  .vs-box-item-icon { font-size: 22px; margin-bottom: 8px; }
+  .vs-box-item-name { font-size: 12px; }
+
+  .vs-sticky-bar { padding: 10px 16px; gap: 12px; }
+  .vs-sticky-bar-actions .vs-btn-secondary { display: none; }
+  .vs-sticky-bar-actions .vs-btn-primary   { padding: 11px 20px; font-size: 13px; }
+  .vs-sticky-bar-name  { font-size: 13px; }
+  .vs-sticky-bar-price { font-size: 12px; }
+}
+
+/* ── SMALL MOBILE (≤ 400px) ── */
+@media (max-width: 400px) {
+  .vs-hero-title { font-size: 24px; }
+  .vs-price      { font-size: 24px; }
+  .vs-box-item   { min-width: 100%; }
+}
