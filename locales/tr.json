@@ -70,7 +70,10 @@
     "active_filters": "Etkin filtreler:",
     "featured_product": "Öne çıkan ürün",
     "product_details": "Ürün ayrıntıları",
-    "show_product_details": "{{ product_name }} için ürün ayrıntılarını göster"
+    "show_product_details": "{{ product_name }} için ürün ayrıntılarını göster",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Sepete ekle",
@@ -110,7 +113,9 @@
     "sign_up": "Kaydol",
     "sort": "Sırala",
     "show_all_options": "Tüm seçenekleri göster",
-    "open": "Açık"
+    "open": "Açık",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "değerlendirme",
@@ -266,7 +271,8 @@
       "one": "1 ürün sepete eklendi",
       "other": "{{ count }} ürün sepete eklendi"
     },
-    "item_count_cutoff": "{{ count }} adetten fazla ürün"
+    "item_count_cutoff": "{{ count }} adetten fazla ürün",
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -331,7 +337,10 @@
       "quantity_maximum": "Maksimum: {{ maximum }}",
       "in_cart": "sepette",
       "default_title": "Varsayılan Başlık",
-      "sticky_add_to_cart": "Sepete hızlı ekle çubuğu"
+      "sticky_add_to_cart": "Sepete hızlı ekle çubuğu",
+      "media": {
+        "load_image": "View image"
+      }
     }
   }
 }

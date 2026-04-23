@@ -70,7 +70,10 @@
     "active_filters": "Aktive filtre:",
     "product_details": "Produktoplysninger",
     "show_product_details": "Vis produktoplysninger for {{ product_name }}",
-    "featured_product": "Udvalgt produkt"
+    "featured_product": "Udvalgt produkt",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Læg i indkøbskurven",
@@ -110,7 +113,9 @@
     "sign_in_options": "Andre muligheder for at logge ind",
     "sort": "Sortér",
     "show_all_options": "Vis alle muligheder",
-    "open": "Åbn"
+    "open": "Åbn",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "anmeldelser",
@@ -266,7 +271,8 @@
       "one": "1 vare er lagt i indkøbskurven",
       "other": "{{ count }} varer lagt i indkøbskurven"
     },
-    "item_count_cutoff": "Mere end {{ count }} varer"
+    "item_count_cutoff": "Mere end {{ count }} varer",
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -308,7 +314,10 @@
       "quantity_maximum": "Maksimum på {{ maximum }}",
       "in_cart": "i indkøbskurv",
       "default_title": "Standardtitel",
-      "sticky_add_to_cart": "Bjælken “Læg hurtigt i indkøbskurv”"
+      "sticky_add_to_cart": "Bjælken “Læg hurtigt i indkøbskurv”",
+      "media": {
+        "load_image": "View image"
+      }
     }
   },
   "fields": {

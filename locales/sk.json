@@ -72,7 +72,10 @@
     "active_filters": "Aktívne filtre:",
     "product_details": "Detaily produktu",
     "show_product_details": "Zobraziť detaily produktu {{ product_name }}",
-    "featured_product": "Odporúčaný produkt"
+    "featured_product": "Odporúčaný produkt",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Pridať do košíka",
@@ -114,7 +117,9 @@
     "open_image_in_full_screen": "Otvoriť obrázok na celú obrazovku",
     "sort": "Zoradiť",
     "show_all_options": "Zobraziť všetky možnosti",
-    "open": "Otvoriť"
+    "open": "Otvoriť",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "recenz.",
@@ -278,7 +283,8 @@
       "few": "Počet položiek pridaných do košíka: {{ count }}",
       "many": "Počet položiek pridaných do košíka: {{ count }}"
     },
-    "item_count_cutoff": "Viac ako {{ count }} položky/položiek"
+    "item_count_cutoff": "Viac ako {{ count }} položky/položiek",
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -345,7 +351,10 @@
       "quantity_maximum": "Maximálne {{ maximum }} ks",
       "in_cart": "v košíku",
       "default_title": "Predvolený názov",
-      "sticky_add_to_cart": "Panel rýchleho pridania do košíka"
+      "sticky_add_to_cart": "Panel rýchleho pridania do košíka",
+      "media": {
+        "load_image": "View image"
+      }
     }
   }
 }

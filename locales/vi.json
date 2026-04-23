@@ -70,7 +70,10 @@
     "active_filters": "Bộ lọc đang hoạt động:",
     "product_details": "Chi tiết sản phẩm",
     "show_product_details": "Hiển thị chi tiết sản phẩm {{ product_name }}",
-    "featured_product": "Sản phẩm nổi bật"
+    "featured_product": "Sản phẩm nổi bật",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Thêm vào giỏ hàng",
@@ -110,7 +113,9 @@
     "open_image_in_full_screen": "Mở hình ảnh ở chế độ toàn màn hình",
     "sort": "Sắp xếp",
     "show_all_options": "Hiển thị tất cả tùy chọn",
-    "open": "Mở"
+    "open": "Mở",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "đánh giá",
@@ -266,7 +271,8 @@
       "one": "Đã thêm 1 mặt hàng vào giỏ hàng",
       "other": "Đã thêm {{ count }} mặt hàng vào giỏ hàng"
     },
-    "item_count_cutoff": "Hơn {{ count }} mặt hàng"
+    "item_count_cutoff": "Hơn {{ count }} mặt hàng",
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -331,7 +337,10 @@
       "quantity_maximum": "Tối đa {{ maximum }}",
       "in_cart": "trong giỏ hàng",
       "default_title": "Tiêu đề mặc định",
-      "sticky_add_to_cart": "Thanh thêm nhanh vào giỏ hàng"
+      "sticky_add_to_cart": "Thanh thêm nhanh vào giỏ hàng",
+      "media": {
+        "load_image": "View image"
+      }
     }
   }
 }

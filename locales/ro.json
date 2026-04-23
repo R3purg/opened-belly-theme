@@ -71,7 +71,10 @@
     "active_filters": "Filtre active:",
     "product_details": "Detalii produs",
     "show_product_details": "Afișează detaliile produsului pentru {{ product_name }}",
-    "featured_product": "Produs recomandat"
+    "featured_product": "Produs recomandat",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Adaugă în coș",
@@ -112,7 +115,9 @@
     "sign_up": "Înscrie-te",
     "sort": "Sortează",
     "show_all_options": "Afișează toate opțiunile",
-    "open": "Deschidere"
+    "open": "Deschidere",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "recenzii",
@@ -272,7 +277,8 @@
       "other": "{{ count }} articole au fost adăugate în coș",
       "few": "{{ count }} articole au fost adăugate în coș"
     },
-    "item_count_cutoff": "Peste {{ count }} articole"
+    "item_count_cutoff": "Peste {{ count }} articole",
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -338,7 +344,10 @@
       "quantity_maximum": "Maxim {{ maximum }}",
       "in_cart": "în coș",
       "default_title": "Titlu implicit",
-      "sticky_add_to_cart": "Bara de adăugare rapidă în coș"
+      "sticky_add_to_cart": "Bara de adăugare rapidă în coș",
+      "media": {
+        "load_image": "View image"
+      }
     }
   }
 }

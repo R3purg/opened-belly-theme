@@ -71,7 +71,10 @@
     "active_filters": "Filtros ativos:",
     "featured_product": "Produto em destaque",
     "product_details": "Detalhes do produto",
-    "show_product_details": "Mostrar detalhes do produto para {{ product_name }}"
+    "show_product_details": "Mostrar detalhes do produto para {{ product_name }}",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Adicionar ao carrinho",
@@ -112,7 +115,9 @@
     "sign_up": "Registar-se",
     "sort": "Ordenar",
     "show_all_options": "Mostrar todas as opções",
-    "open": "Abrir"
+    "open": "Abrir",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "avaliações",
@@ -272,7 +277,8 @@
       "one": "1 item adicionado ao carrinho",
       "other": "{{ count }} itens adicionados ao carrinho",
       "many": "{{ count }} itens adicionados ao carrinho"
-    }
+    },
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -314,7 +320,10 @@
       "quantity_maximum": "Máximo de {{ maximum }}",
       "in_cart": "no carrinho",
       "default_title": "Título predefinido",
-      "sticky_add_to_cart": "Barra de adição rápida ao carrinho"
+      "sticky_add_to_cart": "Barra de adição rápida ao carrinho",
+      "media": {
+        "load_image": "View image"
+      }
     }
   },
   "fields": {

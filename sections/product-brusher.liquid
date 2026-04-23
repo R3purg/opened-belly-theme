@@ -1,20 +1,17 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 {{ 'product-brusher.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign current_variant  = product.selected_or_first_available_variant
-  assign trust_cells      = section.blocks | where: 'type', 'trust_cell'
-  assign feature_chips    = section.blocks | where: 'type', 'feature_chip'
-  assign benefit_cards    = section.blocks | where: 'type', 'benefit_card'
-  assign how_steps        = section.blocks | where: 'type', 'how_step'
-  assign spec_rows        = section.blocks | where: 'type', 'spec_row'
-  assign box_items        = section.blocks | where: 'type', 'box_item'
-  assign purchase_trust   = section.settings.purchase_trust | split: ','
+  assign current_variant = product.selected_or_first_available_variant
+  assign trust_cells = section.blocks | where: 'type', 'trust_cell'
+  assign feature_chips = section.blocks | where: 'type', 'feature_chip'
+  assign benefit_cards = section.blocks | where: 'type', 'benefit_card'
+  assign how_steps = section.blocks | where: 'type', 'how_step'
+  assign spec_rows = section.blocks | where: 'type', 'spec_row'
+  assign box_items = section.blocks | where: 'type', 'box_item'
+  assign purchase_trust = section.settings.purchase_trust | split: ','
 -%}
 
 <div class="pb-product">
-
   {%- comment -%} ── STICKY BAR ── {%- endcomment -%}
   <div class="pb-sticky-bar" id="pb-sticky-bar" aria-hidden="true">
     <div class="pb-sticky-bar-left">
@@ -23,8 +20,15 @@
     </div>
     <div class="pb-sticky-bar-actions">
       <button type="button" class="pb-btn-secondary" tabindex="-1">Save</button>
-      <button type="button" class="pb-btn-primary" id="pb-sticky-add-btn" tabindex="-1"
-        {%- unless current_variant.available %} disabled{%- endunless -%}>
+      <button
+        type="button"
+        class="pb-btn-primary"
+        id="pb-sticky-add-btn"
+        tabindex="-1"
+        {%- unless current_variant.available %}
+          disabled
+        {%- endunless -%}
+      >
         {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
       </button>
     </div>
@@ -33,7 +37,6 @@
   {%- comment -%} ── HERO BANNER ── {%- endcomment -%}
   <div class="pb-hero-banner">
     <div class="pb-hero-banner-inner">
-
       {%- comment -%} Left: info {%- endcomment -%}
       <div class="pb-hero-info">
         <div class="pb-hero-eyebrow">
@@ -50,8 +53,14 @@
         <div class="pb-hero-price-row">
           <span class="pb-hero-price" id="pb-hero-price">{{ current_variant.price | money }}</span>
           {%- if current_variant.compare_at_price > current_variant.price -%}
-            {%- assign discount = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price -%}
-            <span class="pb-hero-price-orig" id="pb-hero-price-orig">{{ current_variant.compare_at_price | money }}</span>
+            {%- assign discount = current_variant.compare_at_price
+              | minus: current_variant.price
+              | times: 100
+              | divided_by: current_variant.compare_at_price
+            -%}
+            <span class="pb-hero-price-orig" id="pb-hero-price-orig">
+              {{- current_variant.compare_at_price | money -}}
+            </span>
             <span class="pb-hero-price-badge" id="pb-hero-price-badge">{{ discount }}% off</span>
           {%- else -%}
             <span class="pb-hero-price-orig" id="pb-hero-price-orig" style="display:none"></span>
@@ -73,11 +82,12 @@
       <div class="pb-hero-visual">
         <div class="pb-hero-img-card">
           {%- if product.featured_image -%}
+            {%- assign hero_image_alt = product.featured_image.alt | default: product.title | escape -%}
             {{
               product.featured_image
               | image_url: width: 920
               | image_tag:
-                alt: product.featured_image.alt | default: product.title | escape,
+                alt: hero_image_alt,
                 loading: 'eager',
                 widths: '460, 920',
                 sizes: '(max-width: 768px) 80vw, 40vw'
@@ -94,7 +104,6 @@
           {%- endif -%}
         </div>
       </div>
-
     </div>
   </div>
 
@@ -130,11 +139,12 @@
             tabindex="0"
             aria-label="{{ image.alt | default: product.title | escape }}"
           >
+            {%- assign gallery_image_alt = image.alt | default: product.title | escape -%}
             {{
               image
               | image_url: width: 800
               | image_tag:
-                alt: image.alt | default: product.title | escape,
+                alt: gallery_image_alt,
                 loading: 'lazy',
                 widths: '400, 600, 800',
                 sizes: '(max-width: 768px) 50vw, 25vw'
@@ -153,7 +163,8 @@
     <div class="pb-feature-strip">
       <div class="pb-feature-strip-inner">
         {%- for block in feature_chips -%}
-          <div class="pb-feature-chip pb-reveal"
+          <div
+            class="pb-feature-chip pb-reveal"
             style="transition-delay: {{ forloop.index0 | times: 0.07 }}s"
             {{ block.shopify_attributes }}
           >
@@ -176,7 +187,8 @@
       {%- endif -%}
       <div class="pb-benefits-grid">
         {%- for block in benefit_cards -%}
-          <div class="pb-benefit-card pb-reveal"
+          <div
+            class="pb-benefit-card pb-reveal"
             style="transition-delay: {{ forloop.index0 | times: 0.06 }}s"
             {{ block.shopify_attributes }}
           >
@@ -203,7 +215,8 @@
         {%- endif -%}
         <div class="pb-how-steps">
           {%- for block in how_steps -%}
-            <div class="pb-how-step pb-reveal"
+            <div
+              class="pb-how-step pb-reveal"
               style="transition-delay: {{ forloop.index0 | times: 0.09 }}s"
               {{ block.shopify_attributes }}
             >
@@ -221,15 +234,15 @@
 
   {%- comment -%} ── PURCHASE SECTION ── {%- endcomment -%}
   <div class="pb-purchase" id="pb-purchase">
-
     {%- comment -%} Visual {%- endcomment -%}
     <div class="pb-purchase-visual pb-reveal">
       {%- if product.featured_image -%}
+        {%- assign purchase_image_alt = product.featured_image.alt | default: product.title | escape -%}
         {{
           product.featured_image
           | image_url: width: 800
           | image_tag:
-            alt: product.featured_image.alt | default: product.title | escape,
+            alt: purchase_image_alt,
             loading: 'lazy',
             widths: '400, 800',
             sizes: '(max-width: 768px) 100vw, 50vw'
@@ -249,7 +262,11 @@
       <div class="pb-purchase-price-row">
         <span class="pb-purchase-price" id="pb-purchase-price">{{ current_variant.price | money }}</span>
         {%- if current_variant.compare_at_price > current_variant.price -%}
-          {%- assign purchase_discount = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price -%}
+          {%- assign purchase_discount = current_variant.compare_at_price
+            | minus: current_variant.price
+            | times: 100
+            | divided_by: current_variant.compare_at_price
+          -%}
           <span class="pb-purchase-orig" id="pb-purchase-orig">{{ current_variant.compare_at_price | money }}</span>
           <span class="pb-purchase-badge" id="pb-purchase-badge">{{ purchase_discount }}% off</span>
         {%- else -%}
@@ -263,7 +280,7 @@
       {%- endif -%}
 
       {% form 'product', product, id: 'pb-product-form', novalidate: true %}
-        <input type="hidden" name="id"       value="{{ current_variant.id }}">
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
         <input type="hidden" name="quantity" value="1">
 
         {%- unless product.has_only_default_variant -%}
@@ -283,7 +300,9 @@
                       type="button"
                       class="pb-variant-btn{% if option.selected_value == value %} pb-selected{% endif %}"
                       data-value="{{ value | escape }}"
-                    >{{ value }}</button>
+                    >
+                      {{ value }}
+                    </button>
                   {%- endfor -%}
                 </div>
               </div>
@@ -305,7 +324,9 @@
             type="submit"
             id="pb-add-to-cart-btn"
             class="pb-btn-primary"
-            {%- unless current_variant.available %} disabled{%- endunless -%}
+            {%- unless current_variant.available %}
+              disabled
+            {%- endunless -%}
           >
             {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
           </button>
@@ -324,7 +345,6 @@
         </div>
       {%- endif -%}
     </div>
-
   </div>
 
   {%- comment -%} ── SPECS ── {%- endcomment -%}
@@ -369,11 +389,12 @@
       </div>
     </div>
   {%- endif -%}
-
 </div>
 
-<script>window.pbMoneyFormat = {{ shop.money_format | json }};</script>
-{{ 'product-brusher.js' | asset_url | script_tag }}
+<script>
+  window.pbMoneyFormat = {{ shop.money_format | json }};
+</script>
+<script src="{{ 'product-brusher.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
@@ -516,40 +537,50 @@
       "type": "trust_cell",
       "name": "Trust cell",
       "settings": [
-        { "type": "text", "id": "emoji", "label": "Emoji icon",  "default": "♻️" },
-        { "type": "text", "id": "label", "label": "Label",       "default": "100% Reusable" },
-        { "type": "text", "id": "sub",   "label": "Sub-label",   "default": "No disposable sheets needed" }
+        { "type": "text", "id": "emoji", "label": "Emoji icon", "default": "♻️" },
+        { "type": "text", "id": "label", "label": "Label", "default": "100% Reusable" },
+        { "type": "text", "id": "sub", "label": "Sub-label", "default": "No disposable sheets needed" }
       ]
     },
     {
       "type": "feature_chip",
       "name": "Feature stat",
       "settings": [
-        { "type": "text", "id": "num",   "label": "Stat value",  "default": "2-Pack" },
-        { "type": "text", "id": "label", "label": "Stat label",  "default": "Brush + anti-static glove included" }
+        { "type": "text", "id": "num", "label": "Stat value", "default": "2-Pack" },
+        { "type": "text", "id": "label", "label": "Stat label", "default": "Brush + anti-static glove included" }
       ]
     },
     {
       "type": "benefit_card",
       "name": "Benefit card",
       "settings": [
-        { "type": "text",     "id": "title", "label": "Title", "default": "No More Sticky Rollers" },
-        { "type": "textarea", "id": "body",  "label": "Body",  "default": "Traditional tape rollers run out fast. LintAway is fully reusable — just rinse and air dry." }
+        { "type": "text", "id": "title", "label": "Title", "default": "No More Sticky Rollers" },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Traditional tape rollers run out fast. LintAway is fully reusable — just rinse and air dry."
+        }
       ]
     },
     {
       "type": "how_step",
       "name": "How-it-works step",
       "settings": [
-        { "type": "text",     "id": "title", "label": "Step title", "default": "Slip on the Glove" },
-        { "type": "textarea", "id": "body",  "label": "Step body",  "default": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing." }
+        { "type": "text", "id": "title", "label": "Step title", "default": "Slip on the Glove" },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Step body",
+          "default": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing."
+        }
       ]
     },
     {
       "type": "spec_row",
       "name": "Specification",
       "settings": [
-        { "type": "text", "id": "key",   "label": "Spec name",  "default": "Contents" },
+        { "type": "text", "id": "key", "label": "Spec name", "default": "Contents" },
         { "type": "text", "id": "value", "label": "Spec value", "default": "1× Lint Brush + 1× Anti-Static Glove" }
       ]
     },
@@ -558,8 +589,8 @@
       "name": "Box item",
       "settings": [
         { "type": "text", "id": "emoji", "label": "Emoji icon", "default": "🪥" },
-        { "type": "text", "id": "name",  "label": "Item name",  "default": "Reusable Lint Brush" },
-        { "type": "text", "id": "qty",   "label": "Quantity",   "default": "× 1" }
+        { "type": "text", "id": "name", "label": "Item name", "default": "Reusable Lint Brush" },
+        { "type": "text", "id": "qty", "label": "Quantity", "default": "× 1" }
       ]
     }
   ],
@@ -567,35 +598,107 @@
     {
       "name": "Product – LintAway",
       "blocks": [
-        { "type": "trust_cell",   "settings": { "emoji": "♻️", "label": "100% Reusable",      "sub": "No disposable sheets needed" } },
-        { "type": "trust_cell",   "settings": { "emoji": "🐾", "label": "Works on Pet Hair",  "sub": "Cat, dog & more" } },
-        { "type": "trust_cell",   "settings": { "emoji": "⚡", "label": "Anti-Static Glove",  "sub": "Neutralises static cling" } },
-        { "type": "trust_cell",   "settings": { "emoji": "🛋️","label": "All Fabric Types",   "sub": "Sofa, clothing, carpet" } },
+        {
+          "type": "trust_cell",
+          "settings": { "emoji": "♻️", "label": "100% Reusable", "sub": "No disposable sheets needed" }
+        },
+        { "type": "trust_cell", "settings": { "emoji": "🐾", "label": "Works on Pet Hair", "sub": "Cat, dog & more" } },
+        {
+          "type": "trust_cell",
+          "settings": { "emoji": "⚡", "label": "Anti-Static Glove", "sub": "Neutralises static cling" }
+        },
+        {
+          "type": "trust_cell",
+          "settings": { "emoji": "🛋️", "label": "All Fabric Types", "sub": "Sofa, clothing, carpet" }
+        },
         { "type": "feature_chip", "settings": { "num": "2-Pack", "label": "Brush + anti-static glove included" } },
-        { "type": "feature_chip", "settings": { "num": "∞",      "label": "Fully reusable, rinse & reuse" } },
-        { "type": "feature_chip", "settings": { "num": "2,432",  "label": "Orders placed & counting" } },
-        { "type": "feature_chip", "settings": { "num": "87%",    "label": "Savings vs. original price" } },
-        { "type": "benefit_card", "settings": { "title": "No More Sticky Rollers",  "body": "Traditional tape rollers run out fast and create plastic waste. LintAway is fully reusable — just rinse and air dry." } },
-        { "type": "benefit_card", "settings": { "title": "Anti-Static Glove",       "body": "The included glove neutralises static electricity that attracts pet hair to fabric, making removal effortless." } },
-        { "type": "benefit_card", "settings": { "title": "Works Everywhere",        "body": "Sofas, car seats, curtains, clothing, bedding — the dual-direction brush lifts lint from any woven or knitted surface." } },
-        { "type": "benefit_card", "settings": { "title": "Pet-Owner Approved",      "body": "Specifically designed for cat and dog hair, which is finer and clingier than lint. Works even on thick fur." } },
-        { "type": "benefit_card", "settings": { "title": "Rinse Clean, Use Again",  "body": "Both the brush and glove clean in 10 seconds under running water. Fully dry in minutes. Ready to go again." } },
-        { "type": "benefit_card", "settings": { "title": "Compact & Travel-Ready",  "body": "Lightweight enough to toss in a bag. Perfect for the office, car, or anywhere your pet's hair follows you." } },
-        { "type": "how_step",     "settings": { "title": "Slip on the Glove",   "body": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing." } },
-        { "type": "how_step",     "settings": { "title": "Glide Over Fabric",   "body": "Run the gloved hand over the surface in long strokes. Hair and lint clump together immediately." } },
-        { "type": "how_step",     "settings": { "title": "Brush It Away",        "body": "Use the reusable lint brush to sweep up the clumped hair. Press and lift for full coverage." } },
-        { "type": "how_step",     "settings": { "title": "Rinse & Store",        "body": "Rinse both tools under water, shake dry, and store. Ready for the next round." } },
-        { "type": "spec_row", "settings": { "key": "Contents",             "value": "1× Lint Brush + 1× Anti-Static Glove" } },
-        { "type": "spec_row", "settings": { "key": "Material",             "value": "PP Bristles + TPE Glove" } },
-        { "type": "spec_row", "settings": { "key": "Brush Size",           "value": "18 × 7 cm" } },
-        { "type": "spec_row", "settings": { "key": "Glove Size",           "value": "One size fits most" } },
-        { "type": "spec_row", "settings": { "key": "Reusability",          "value": "Fully washable, unlimited reuse" } },
-        { "type": "spec_row", "settings": { "key": "Compatible Surfaces",  "value": "Fabric, velvet, wool, cotton, carpet" } },
-        { "type": "spec_row", "settings": { "key": "Pack Options",         "value": "1-Pack, 2-Pack, 4-Pack" } },
-        { "type": "spec_row", "settings": { "key": "Colors",               "value": "Blue, Green, Pink, Black" } },
-        { "type": "box_item", "settings": { "emoji": "🪥", "name": "Reusable Lint Brush",  "qty": "× 1" } },
-        { "type": "box_item", "settings": { "emoji": "🧤", "name": "Anti-Static Glove",    "qty": "× 1" } },
-        { "type": "box_item", "settings": { "emoji": "📖", "name": "Care Instructions",    "qty": "× 1" } }
+        { "type": "feature_chip", "settings": { "num": "∞", "label": "Fully reusable, rinse & reuse" } },
+        { "type": "feature_chip", "settings": { "num": "2,432", "label": "Orders placed & counting" } },
+        { "type": "feature_chip", "settings": { "num": "87%", "label": "Savings vs. original price" } },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "No More Sticky Rollers",
+            "body": "Traditional tape rollers run out fast and create plastic waste. LintAway is fully reusable — just rinse and air dry."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Anti-Static Glove",
+            "body": "The included glove neutralises static electricity that attracts pet hair to fabric, making removal effortless."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Works Everywhere",
+            "body": "Sofas, car seats, curtains, clothing, bedding — the dual-direction brush lifts lint from any woven or knitted surface."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Pet-Owner Approved",
+            "body": "Specifically designed for cat and dog hair, which is finer and clingier than lint. Works even on thick fur."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Rinse Clean, Use Again",
+            "body": "Both the brush and glove clean in 10 seconds under running water. Fully dry in minutes. Ready to go again."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Compact & Travel-Ready",
+            "body": "Lightweight enough to toss in a bag. Perfect for the office, car, or anywhere your pet's hair follows you."
+          }
+        },
+        {
+          "type": "how_step",
+          "settings": {
+            "title": "Slip on the Glove",
+            "body": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing."
+          }
+        },
+        {
+          "type": "how_step",
+          "settings": {
+            "title": "Glide Over Fabric",
+            "body": "Run the gloved hand over the surface in long strokes. Hair and lint clump together immediately."
+          }
+        },
+        {
+          "type": "how_step",
+          "settings": {
+            "title": "Brush It Away",
+            "body": "Use the reusable lint brush to sweep up the clumped hair. Press and lift for full coverage."
+          }
+        },
+        {
+          "type": "how_step",
+          "settings": {
+            "title": "Rinse & Store",
+            "body": "Rinse both tools under water, shake dry, and store. Ready for the next round."
+          }
+        },
+        { "type": "spec_row", "settings": { "key": "Contents", "value": "1× Lint Brush + 1× Anti-Static Glove" } },
+        { "type": "spec_row", "settings": { "key": "Material", "value": "PP Bristles + TPE Glove" } },
+        { "type": "spec_row", "settings": { "key": "Brush Size", "value": "18 × 7 cm" } },
+        { "type": "spec_row", "settings": { "key": "Glove Size", "value": "One size fits most" } },
+        { "type": "spec_row", "settings": { "key": "Reusability", "value": "Fully washable, unlimited reuse" } },
+        {
+          "type": "spec_row",
+          "settings": { "key": "Compatible Surfaces", "value": "Fabric, velvet, wool, cotton, carpet" }
+        },
+        { "type": "spec_row", "settings": { "key": "Pack Options", "value": "1-Pack, 2-Pack, 4-Pack" } },
+        { "type": "spec_row", "settings": { "key": "Colors", "value": "Blue, Green, Pink, Black" } },
+        { "type": "box_item", "settings": { "emoji": "🪥", "name": "Reusable Lint Brush", "qty": "× 1" } },
+        { "type": "box_item", "settings": { "emoji": "🧤", "name": "Anti-Static Glove", "qty": "× 1" } },
+        { "type": "box_item", "settings": { "emoji": "📖", "name": "Care Instructions", "qty": "× 1" } }
       ]
     }
   ]

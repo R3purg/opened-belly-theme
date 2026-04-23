@@ -70,7 +70,10 @@
     "active_filters": "有效筛选条件：",
     "product_details": "产品详细信息",
     "show_product_details": "显示 {{ product_name }} 的产品详细信息",
-    "featured_product": "特色产品"
+    "featured_product": "特色产品",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "添加到购物车",
@@ -110,7 +113,9 @@
     "open_image_in_full_screen": "全屏打开图片",
     "sort": "排序",
     "show_all_options": "显示所有选项",
-    "open": "打开"
+    "open": "打开",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "评价",
@@ -266,7 +271,8 @@
     "items_added_to_cart": {
       "one": "1 件商品已加入购物车",
       "other": "{{ count }} 件商品已加入购物车"
-    }
+    },
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -308,7 +314,10 @@
       "quantity_maximum": "最多 {{ maximum }} 个",
       "in_cart": "在购物车中",
       "default_title": "默认标题",
-      "sticky_add_to_cart": "快速添加到购物车栏"
+      "sticky_add_to_cart": "快速添加到购物车栏",
+      "media": {
+        "load_image": "View image"
+      }
     }
   },
   "fields": {

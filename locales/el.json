@@ -70,7 +70,10 @@
     "active_filters": "Ενεργά φίλτρα:",
     "product_details": "Λεπτομέρειες προϊόντος",
     "show_product_details": "Εμφάνιση λεπτομερειών προϊόντος για {{ product_name }}",
-    "featured_product": "Προτεινόμενο προϊόν"
+    "featured_product": "Προτεινόμενο προϊόν",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Προσθήκη στο καλάθι",
@@ -110,7 +113,9 @@
     "open_image_in_full_screen": "Άνοιγμα εικόνας σε πλήρη οθόνη",
     "sort": "Ταξινόμηση",
     "show_all_options": "Εμφάνιση όλων των επιλογών",
-    "open": "Σε εξέλιξη"
+    "open": "Σε εξέλιξη",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "κριτικές",
@@ -266,7 +271,8 @@
     "items_added_to_cart": {
       "one": "1 προϊόν προστέθηκε στο καλάθι σας",
       "other": "{{ count }} προϊόντα προστέθηκαν στο καλάθι"
-    }
+    },
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -308,7 +314,10 @@
       "quantity_maximum": "Μέγιστο όριο {{ maximum }}",
       "in_cart": "στο καλάθι",
       "default_title": "Προεπιλεγμένος τίτλος",
-      "sticky_add_to_cart": "Γρήγορη προσθήκη στο καλάθι"
+      "sticky_add_to_cart": "Γρήγορη προσθήκη στο καλάθι",
+      "media": {
+        "load_image": "View image"
+      }
     }
   },
   "fields": {

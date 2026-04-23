@@ -70,7 +70,10 @@
     "active_filters": "Actieve filters:",
     "product_details": "Productgegevens",
     "show_product_details": "Productgegevens voor {{ product_name }} weergeven",
-    "featured_product": "Uitgelicht product"
+    "featured_product": "Uitgelicht product",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Aan winkelwagen toevoegen",
@@ -110,7 +113,9 @@
     "open_image_in_full_screen": "Afbeelding openen in volledig scherm",
     "sort": "Sorteren",
     "show_all_options": "Alle opties tonen",
-    "open": "Openen"
+    "open": "Openen",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "recensies",
@@ -266,7 +271,8 @@
       "one": "1 artikel verwijderd uit winkelwagen",
       "other": "{{ count }} artikelen toegevoegd aan winkelwagen"
     },
-    "item_count_cutoff": "Meer dan {{ count }} artikelen"
+    "item_count_cutoff": "Meer dan {{ count }} artikelen",
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -331,7 +337,10 @@
       "quantity_maximum": "Maximum van {{ maximum }}",
       "in_cart": "in winkelwagen",
       "default_title": "Standaardtitel",
-      "sticky_add_to_cart": "Balk voor snel toevoegen aan winkelwagen"
+      "sticky_add_to_cart": "Balk voor snel toevoegen aan winkelwagen",
+      "media": {
+        "load_image": "View image"
+      }
     }
   }
 }

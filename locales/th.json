@@ -70,7 +70,10 @@
     "active_filters": "ตัวกรองที่ใช้งานอยู่:",
     "product_details": "รายละเอียดสินค้า",
     "show_product_details": "แสดงรายละเอียดสินค้าสำหรับ {{ product_name }}",
-    "featured_product": "สินค้าแนะนำ"
+    "featured_product": "สินค้าแนะนำ",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "เพิ่มลงในตะกร้าสินค้า",
@@ -110,7 +113,9 @@
     "open_image_in_full_screen": "เปิดรูปภาพแบบเต็มหน้าจอ",
     "sort": "จัดเรียง",
     "show_all_options": "แสดงตัวเลือกทั้งหมด",
-    "open": "เปิด"
+    "open": "เปิด",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "รีวิว",
@@ -266,7 +271,8 @@
     "items_added_to_cart": {
       "one": "เพิ่มสินค้า 1 รายการลงในตะกร้าแล้ว",
       "other": "เพิ่มสินค้า {{ count }} รายการลงในตะกร้า"
-    }
+    },
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -308,7 +314,10 @@
       "quantity_maximum": "จำนวนสูงสุดคือ {{ maximum }}",
       "in_cart": "ในตะกร้าสินค้า",
       "default_title": "ชื่อเริ่มต้น",
-      "sticky_add_to_cart": "แถบเพิ่มลงในตะกร้าสินค้าแบบด่วน"
+      "sticky_add_to_cart": "แถบเพิ่มลงในตะกร้าสินค้าแบบด่วน",
+      "media": {
+        "load_image": "View image"
+      }
     }
   },
   "fields": {

@@ -70,7 +70,10 @@
     "active_filters": "AKtiiviset suodattimet:",
     "product_details": "Tuotetiedot",
     "show_product_details": "Näytä tuotteen {{ product_name }} tuotetiedot",
-    "featured_product": "Esittelyssä oleva tuote"
+    "featured_product": "Esittelyssä oleva tuote",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Lisää ostoskoriin",
@@ -110,7 +113,9 @@
     "open_image_in_full_screen": "Avaa kuva koko näytön tilassa",
     "sort": "Lajittele",
     "show_all_options": "Näytä kaikki vaihtoehdot",
-    "open": "Avaa"
+    "open": "Avaa",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "arvostelua",
@@ -266,7 +271,8 @@
     "items_added_to_cart": {
       "one": "Yksi tuote lisätty ostoskoriin",
       "other": "{{ count }} tuotetta lisätty ostoskoriin"
-    }
+    },
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -308,7 +314,10 @@
       "quantity_maximum": "Enimmäismäärä {{ maximum }}",
       "in_cart": "ostoskorissa",
       "default_title": "Oletusotsikko",
-      "sticky_add_to_cart": "Pikalisäys ostoskoririville"
+      "sticky_add_to_cart": "Pikalisäys ostoskoririville",
+      "media": {
+        "load_image": "View image"
+      }
     }
   },
   "fields": {

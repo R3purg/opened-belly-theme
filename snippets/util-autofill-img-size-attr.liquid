@@ -1,15 +1,11 @@
 {%- doc -%}
-  Echo a sizes attribute for an <img> tag based on a minimum image size.
+  Echo a sizes attribute for an image tag based on a minimum image size.
 
   @param {number} card_size - The minimum pixel-width of the product card.
   @param {number} [card_gap] - The pixel-width of the gap between product cards.
 
   @example
-  {% capture size_attribute %}
-    {% render 'util-autofill-img-size-attr' card_size: 400 %}
-  {% endcapture %}
-  {% assign size_attribute = size_attribute | strip %}
-  {{ image_url | image_tag: sizes: size_attribute }}
+  Capture this snippet output and pass it as the sizes attribute for an image.
 {%- enddoc -%}
 
 {% liquid

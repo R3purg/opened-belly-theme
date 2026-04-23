@@ -70,7 +70,10 @@
     "active_filters": "Filter aktif:",
     "featured_product": "Produk unggulan",
     "product_details": "Detail produk",
-    "show_product_details": "Tampilkan detail produk untuk {{ product_name }}"
+    "show_product_details": "Tampilkan detail produk untuk {{ product_name }}",
+    "price_filter_low": "Low price",
+    "search_suggestions_available": "Search suggestions available for \"{{ query }}\"",
+    "price_filter_high": "High price"
   },
   "actions": {
     "add_to_cart": "Tambahkan ke keranjang",
@@ -110,7 +113,9 @@
     "sign_up": "Daftar",
     "sort": "Urutkan",
     "show_all_options": "Tampilkan semua opsi",
-    "open": "Buka"
+    "open": "Buka",
+    "back_to": "Back to {{ title }}",
+    "zoom_media": "Zoom media {{ index }}"
   },
   "content": {
     "reviews": "ulasan",
@@ -266,7 +271,8 @@
     "items_added_to_cart": {
       "one": "1 item ditambahkan ke keranjang",
       "other": "{{ count }} item ditambahkan ke keranjang"
-    }
+    },
+    "quick_order_list": "Quick order list"
   },
   "gift_cards": {
     "issued": {
@@ -308,7 +314,10 @@
       "quantity_maximum": "Maksimum {{ maximum }}",
       "in_cart": "di keranjang",
       "default_title": "Judul Bawaan",
-      "sticky_add_to_cart": "Bilah penambahan cepat ke keranjang"
+      "sticky_add_to_cart": "Bilah penambahan cepat ke keranjang",
+      "media": {
+        "load_image": "View image"
+      }
     }
   },
   "fields": {

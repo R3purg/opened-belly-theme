@@ -5,22 +5,9 @@
   @param {object} settings - Theme settings object containing page width configuration
   @param {number} [grid_columns] - Number of grid columns for the mega menu
   @param {number} [grid_columns_tablet] - Number of grid columns for tablet view
-  @param {number} [grid_columns_collection_images] - Grid columns when menu_content_type is 'collection_images' with < 5 items
+  @param {number} [grid_columns_collection_images] - Grid columns when menu_content_type is 'collection_images' with fewer than 5 items
   @param {number} [parent_links_size] - Number of parent links (for collection images special case)
   @param {number} [columns_per_item] - Columns each item occupies (2 for collection images, 1 for products)
-
-  @example
-  {% capture image_sizes %}
-    {% render 'util-mega-menu-img-sizes-attr',
-      menu_content_type: 'collection_images',
-      settings: settings,
-      grid_columns: 8,
-      grid_columns_tablet: 4,
-      columns_per_item: 2
-    %}
-  {% endcapture %}
-
-  {{ image | image_url: width: 1024 | image_tag: sizes: image_sizes }}
 {%- enddoc -%}
 
 {% liquid
