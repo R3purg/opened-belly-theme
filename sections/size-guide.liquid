@@ -1,0 +1,240 @@
+{% stylesheet %}
+  .size-guide {
+    background: var(--green-pale);
+    padding: 80px 0;
+  }
+
+  .size-guide-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .size-table th {
+    background: var(--green-deep);
+    color: #fff;
+    padding: 14px 20px;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+  }
+
+  .size-table td {
+    padding: 14px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .size-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .size-table tr:nth-child(even) td {
+    background: var(--green-pale);
+  }
+
+  .size-badge {
+    display: inline-block;
+    background: var(--green-deep);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .size-guide {
+      padding: 52px 0;
+    }
+
+    .size-guide-inner {
+      padding: 0 16px;
+    }
+
+    .size-table th,
+    .size-table td {
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+  }
+{% endstylesheet %}
+
+<div class="size-guide" id="size-guide">
+  <div class="size-guide-inner">
+    {% if section.settings.section_kicker %}
+      <p class="reveal" style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-mid);margin-bottom:10px">
+        {{ section.settings.section_kicker }}
+      </p>
+    {% endif %}
+
+    {% if section.settings.section_heading %}
+      <h2 class="reveal" style="font-family:var(--font-head);font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin-bottom:8px">
+        {{ section.settings.section_heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.section_description %}
+      <p class="reveal" style="font-size:14px;color:var(--fg-muted);margin-bottom:0">
+        {{ section.settings.section_description }}
+      </p>
+    {% endif %}
+
+    <table class="size-table reveal">
+      <thead>
+        <tr>
+          {% for column in section.settings.table_headers %}
+            <th>{{ column }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for block in section.blocks %}
+          <tr>
+            <td><span class="size-badge">{{ block.settings.size_label }}</span></td>
+            <td>{{ block.settings.size_value_1 }}</td>
+            <td>{{ block.settings.size_value_2 }}</td>
+            <td>{{ block.settings.size_value_3 }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Size Guide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_kicker",
+      "label": "Kicker Text",
+      "default": "Size Guide"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Find your perfect fit."
+    },
+    {
+      "type": "text",
+      "id": "section_description",
+      "label": "Description",
+      "default": "Measure your waist at the navel. When between sizes, size up for more comfort."
+    },
+    {
+      "type": "text",
+      "id": "table_headers",
+      "label": "Table Headers (comma-separated)",
+      "default": "Size,Waist,Hip,Body Weight"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "size_row",
+      "name": "Size Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "size_label",
+          "label": "Size",
+          "default": "M"
+        },
+        {
+          "type": "text",
+          "id": "size_value_1",
+          "label": "Column 1 Value",
+          "default": "80–90 cm"
+        },
+        {
+          "type": "text",
+          "id": "size_value_2",
+          "label": "Column 2 Value",
+          "default": "96–104 cm"
+        },
+        {
+          "type": "text",
+          "id": "size_value_3",
+          "label": "Column 3 Value",
+          "default": "60–75 kg"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size Guide",
+      "blocks": [
+        {
+          "type": "size_row",
+          "settings": {
+            "size_label": "XS",
+            "size_value_1": "60–70 cm",
+            "size_value_2": "80–88 cm",
+            "size_value_3": "40–50 kg"
+          }
+        },
+        {
+          "type": "size_row",
+          "settings": {
+            "size_label": "S",
+            "size_value_1": "70–80 cm",
+            "size_value_2": "88–96 cm",
+            "size_value_3": "50–60 kg"
+          }
+        },
+        {
+          "type": "size_row",
+          "settings": {
+            "size_label": "M",
+            "size_value_1": "80–90 cm",
+            "size_value_2": "96–104 cm",
+            "size_value_3": "60–75 kg"
+          }
+        },
+        {
+          "type": "size_row",
+          "settings": {
+            "size_label": "L",
+            "size_value_1": "90–100 cm",
+            "size_value_2": "104–112 cm",
+            "size_value_3": "75–90 kg"
+          }
+        },
+        {
+          "type": "size_row",
+          "settings": {
+            "size_label": "XL",
+            "size_value_1": "100–115 cm",
+            "size_value_2": "112–124 cm",
+            "size_value_3": "90–110 kg"
+          }
+        },
+        {
+          "type": "size_row",
+          "settings": {
+            "size_label": "XXL",
+            "size_value_1": "115–130 cm",
+            "size_value_2": "124–140 cm",
+            "size_value_3": "110–130 kg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

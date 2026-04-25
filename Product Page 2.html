@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LintAway Pro — Opened Belly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --green-deep: #174f19;
+  --green-mid: #2d7a30;
+  --green-sage: #a3d9a5;
+  --green-light: #cfe2d0;
+  --green-pale: #eff5ef;
+  --cream: #f7e5d7;
+  --brown: #95511d;
+  --fg: #061406;
+  --fg-muted: #5a6e5b;
+  --bg: #ffffff;
+  --border: #e8f0e8;
+  --font-head: 'Instrument Sans', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.25,0.1,0.25,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--fg); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 52px;
+  background: rgba(255,255,255,0.88); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.nav-logo { font-family: var(--font-head); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; color: var(--green-deep); text-transform: uppercase; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--fg-muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--fg); }
+.nav-cart { display: flex; align-items: center; gap: 8px; background: var(--green-deep); color: #fff; border: none; border-radius: 50px; padding: 8px 18px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.nav-cart:hover { background: var(--green-mid); }
+
+/* ── STICKY BAR ── */
+.sticky-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 12px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25,0.1,0.25,1);
+}
+.sticky-bar.visible { transform: translateY(0); }
+.sticky-bar-left { display: flex; flex-direction: column; gap: 2px; }
+.sticky-bar-name { font-family: var(--font-head); font-weight: 600; font-size: 14px; }
+.sticky-bar-price { font-size: 13px; color: var(--fg-muted); }
+.sticky-bar-actions { display: flex; gap: 10px; }
+
+/* ── BUTTONS ── */
+.btn-primary { background: var(--green-deep); color: #fff; border: none; border-radius: 50px; padding: 12px 32px; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.btn-primary:hover { background: var(--green-mid); }
+.btn-secondary { background: transparent; color: var(--green-deep); border: 1.5px solid var(--green-deep); border-radius: 50px; padding: 11px 24px; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.btn-secondary:hover { background: var(--green-pale); }
+
+/* ── HERO BANNER ── */
+.hero-banner {
+  margin-top: 52px;
+  background: linear-gradient(135deg, var(--green-deep) 0%, #2a6b2d 60%, #3d8f40 100%);
+  padding: 72px 40px 0;
+  overflow: hidden;
+  position: relative;
+}
+.hero-banner-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-end;
+}
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border-radius: 50px; padding: 5px 14px 5px 8px; margin-bottom: 22px; }
+.hero-eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-sage); }
+.hero-eyebrow-text { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); }
+.hero-title { font-family: var(--font-head); font-size: clamp(34px,4.5vw,58px); font-weight: 700; line-height: 1.06; letter-spacing: -0.025em; color: #fff; margin-bottom: 18px; }
+.hero-title em { font-style: normal; color: var(--green-sage); }
+.hero-subtitle { font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.72); margin-bottom: 32px; max-width: 420px; }
+.hero-price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.hero-price { font-family: var(--font-head); font-size: 40px; font-weight: 700; color: #fff; }
+.hero-price-orig { font-size: 18px; color: rgba(255,255,255,0.45); text-decoration: line-through; }
+.hero-price-badge { background: var(--cream); color: var(--brown); border-radius: 6px; padding: 3px 10px; font-size: 13px; font-weight: 700; }
+.hero-shipping { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 28px; }
+.hero-shipping span { color: var(--green-sage); font-weight: 600; }
+.hero-ctas { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.hero-ctas .btn-primary { background: #fff; color: var(--green-deep); padding: 15px 40px; font-size: 15px; }
+.hero-ctas .btn-primary:hover { background: var(--green-pale); }
+.hero-ctas .btn-secondary { border-color: rgba(255,255,255,0.5); color: #fff; padding: 14px 28px; font-size: 15px; }
+.hero-ctas .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+/* ── HERO IMAGE SIDE ── */
+.hero-visual { position: relative; display: flex; align-items: flex-end; justify-content: center; }
+.hero-img-card {
+  width: 100%; max-width: 460px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden; padding: 40px 40px 0;
+  display: flex; align-items: flex-end; justify-content: center;
+  min-height: 380px;
+}
+
+/* ── PRODUCT PLACEHOLDER ── */
+.prod-placeholder {
+  width: 100%; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px; padding: 20px 10px 0; color: rgba(255,255,255,0.5);
+  font-family: monospace; font-size: 11px; text-align: center; line-height: 1.5;
+}
+
+/* ── TRUST ROW ── */
+.trust-row { display: flex; gap: 0; border-top: 1px solid var(--border); }
+.trust-cell { flex: 1; display: flex; align-items: center; gap: 12px; padding: 20px 24px; border-right: 1px solid var(--border); }
+.trust-cell:last-child { border-right: none; }
+.trust-icon { width: 36px; height: 36px; background: var(--green-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+.trust-label { font-size: 13px; font-weight: 600; color: var(--fg); line-height: 1.3; }
+.trust-sub { font-size: 12px; color: var(--fg-muted); margin-top: 1px; }
+
+/* ── GALLERY STRIP ── */
+.gallery-strip { max-width: 1200px; margin: 0 auto; padding: 48px 40px; }
+.gallery-strip-title { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+.gallery-strip-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 12px; }
+.gallery-card {
+  border-radius: var(--radius); overflow: hidden; background: var(--green-pale);
+  aspect-ratio: 1; cursor: pointer; position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.gallery-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(23,79,25,0.15); }
+.gallery-card.main { aspect-ratio: unset; grid-row: span 1; aspect-ratio: 4/3; }
+.gallery-card-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(6,20,6,0.7), transparent);
+  color: #fff; font-size: 11px; font-family: monospace; padding: 16px 12px 10px;
+  opacity: 0; transition: opacity 0.2s;
+}
+.gallery-card:hover .gallery-card-label { opacity: 1; }
+.gallery-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+
+/* ── FEATURE STRIP ── */
+.feature-strip { background: var(--fg); }
+.feature-strip-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: repeat(4, 1fr); }
+.feature-chip { padding: 40px 28px; text-align: center; border-right: 1px solid rgba(255,255,255,0.07); }
+.feature-chip:last-child { border-right: none; }
+.feature-chip-num { font-family: var(--font-head); font-size: 38px; font-weight: 700; color: var(--green-sage); line-height: 1; margin-bottom: 8px; }
+.feature-chip-label { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+/* ── BENEFITS ── */
+.benefits { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
+.benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+.benefit-card {
+  padding: 36px 32px; border-radius: var(--radius);
+  border: 1px solid var(--border); position: relative; overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.benefit-card:hover { border-color: var(--green-sage); box-shadow: 0 8px 32px rgba(23,79,25,0.08); }
+.benefit-card:nth-child(1) { background: var(--green-pale); }
+.benefit-card:nth-child(2) { background: var(--cream); }
+.benefit-card:nth-child(3) { background: #fff; }
+.benefit-card:nth-child(4) { background: #fff; }
+.benefit-card:nth-child(5) { background: var(--green-pale); }
+.benefit-card:nth-child(6) { background: var(--cream); }
+.benefit-num { font-family: var(--font-head); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 16px; opacity: 0.7; }
+.benefit-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
+.benefit-body { font-size: 14px; line-height: 1.65; color: var(--fg-muted); }
+
+/* ── HOW IT WORKS ── */
+.how { background: var(--green-pale); padding: 80px 0; }
+.how-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 52px; position: relative; }
+.how-steps::before {
+  content: ''; position: absolute; top: 28px; left: calc(12.5% + 8px); right: calc(12.5% + 8px);
+  height: 1px; background: var(--green-sage); z-index: 0;
+}
+.how-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+.how-step-circle { width: 56px; height: 56px; border-radius: 50%; background: var(--green-deep); color: #fff; font-family: var(--font-head); font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 0 0 6px var(--green-pale); }
+.how-step-title { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.how-step-body { font-size: 13px; line-height: 1.6; color: var(--fg-muted); }
+
+/* ── VARIANTS / PURCHASE ── */
+.purchase { max-width: 1200px; margin: 0 auto; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.purchase-visual { background: var(--green-pale); border-radius: var(--radius); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.purchase-info {}
+.purchase-title { font-family: var(--font-head); font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; }
+.purchase-subtitle { font-size: 14px; color: var(--fg-muted); line-height: 1.6; margin-bottom: 28px; }
+.purchase-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.purchase-price { font-family: var(--font-head); font-size: 32px; font-weight: 700; }
+.purchase-orig { font-size: 16px; color: var(--fg-muted); text-decoration: line-through; }
+.purchase-badge { background: var(--cream); color: var(--brown); border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
+.purchase-shipping { font-size: 13px; color: var(--fg-muted); margin-bottom: 28px; }
+.purchase-shipping span { color: var(--green-mid); font-weight: 600; }
+.variant-group { margin-bottom: 20px; }
+.variant-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--fg-muted); margin-bottom: 10px; }
+.variant-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.variant-btn { padding: 9px 18px; border-radius: 50px; border: 1.5px solid var(--border); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; background: var(--bg); color: var(--fg); transition: all 0.18s; }
+.variant-btn:hover { border-color: var(--green-deep); }
+.variant-btn.sel { border-color: var(--green-deep); background: var(--green-deep); color: #fff; }
+.qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.qty-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--fg-muted); }
+.qty-ctrl { display: flex; align-items: center; border: 1.5px solid var(--border); border-radius: 50px; overflow: hidden; }
+.qty-btn { width: 36px; height: 36px; border: none; background: none; cursor: pointer; font-size: 18px; color: var(--fg); display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+.qty-btn:hover { background: var(--green-pale); }
+.qty-num { width: 32px; text-align: center; font-size: 14px; font-weight: 600; }
+.purchase-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.purchase-ctas .btn-primary { flex: 1; padding: 15px 20px; font-size: 15px; text-align: center; }
+.purchase-ctas .btn-secondary { padding: 14px 20px; font-size: 15px; }
+.purchase-trust { display: flex; flex-wrap: wrap; gap: 16px; }
+.p-trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--fg-muted); }
+.p-trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-sage); flex-shrink: 0; }
+
+/* ── SPECS ── */
+.specs { max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; }
+.specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 36px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.spec-row { display: flex; padding: 16px 22px; align-items: center; gap: 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
+.spec-row:last-child, .spec-row:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+.spec-key { font-size: 11px; font-weight: 700; color: var(--fg-muted); width: 130px; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+.spec-val { font-size: 14px; font-weight: 500; color: var(--fg); }
+
+/* ── IN THE BOX ── */
+.in-box { background: var(--fg); padding: 80px 40px; }
+.in-box-inner { max-width: 1200px; margin: 0 auto; }
+.in-box .section-label { color: var(--green-sage); margin-bottom: 8px; }
+.in-box .section-title { color: #fff; margin-bottom: 0; }
+.box-items { display: flex; gap: 14px; margin-top: 44px; flex-wrap: wrap; }
+.box-item { flex: 1; min-width: 130px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 24px 16px; text-align: center; transition: background 0.2s; }
+.box-item:hover { background: rgba(255,255,255,0.1); }
+.box-icon { font-size: 26px; margin-bottom: 10px; }
+.box-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.88); line-height: 1.4; }
+.box-qty { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+
+/* ── FOOTER ── */
+.footer { background: var(--green-pale); padding: 48px 40px; text-align: center; }
+.footer-logo { font-family: var(--font-head); font-weight: 700; font-size: 18px; letter-spacing: 0.08em; color: var(--green-deep); text-transform: uppercase; margin-bottom: 10px; }
+.footer-text { font-size: 13px; color: var(--fg-muted); }
+
+/* ── HELPERS ── */
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 10px; }
+.section-title { font-family: var(--font-head); font-size: clamp(28px,3.5vw,44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.section-body { font-size: 16px; line-height: 1.7; color: var(--fg-muted); max-width: 520px; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+.reveal { opacity:0; transform:translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.in { opacity:1; transform:translateY(0); }
+
+/* ── TWEAKS PANEL ── */
+.tweaks-panel {
+  position: fixed; bottom: 80px; right: 20px; z-index: 9999;
+  width: 260px; background: #fff; border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  display: none;
+}
+.tweaks-panel.open { display: block; }
+.tweaks-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+.tweak-row { margin-bottom: 14px; }
+.tweak-row label { display: block; font-size: 11px; font-weight: 700; color: var(--fg-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.tweak-row select, .tweak-row input[type=range] { width: 100%; }
+.tweak-row select { padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: 13px; background: var(--bg); color: var(--fg); }
+.tweak-row input[type=range] { accent-color: var(--green-deep); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero-banner-inner { gap: 40px; }
+  .gallery-strip-row { grid-template-columns: 2fr 1fr 1fr; }
+  .gallery-strip-row .gallery-card:last-child { display: none; }
+  .benefits-grid { grid-template-columns: repeat(2,1fr); }
+  .how-steps { grid-template-columns: repeat(2,1fr); gap: 32px; }
+  .how-steps::before { display: none; }
+  .purchase { gap: 48px; }
+  .specs-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root { --radius: 12px; }
+  .nav { padding: 0 16px; height: 56px; }
+  .nav-links { display: none; }
+  .nav-cart { padding: 7px 14px; font-size: 12px; }
+
+  .hero-banner { padding: 40px 16px 0; }
+  .hero-banner-inner { grid-template-columns: 1fr; gap: 32px; }
+  .hero-title { font-size: clamp(28px, 7vw, 40px); }
+  .hero-subtitle { font-size: 15px; margin-bottom: 24px; }
+  .hero-price { font-size: 32px; }
+  .hero-ctas { flex-direction: column; gap: 10px; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-secondary { width: 100%; text-align: center; }
+  .hero-img-card { min-height: 220px; border-radius: var(--radius) var(--radius) 0 0; padding: 24px 24px 0; }
+
+  .trust-row { flex-direction: column; }
+  .trust-cell { border-right: none; border-bottom: 1px solid var(--border); }
+  .trust-cell:last-child { border-bottom: none; }
+
+  .gallery-strip { padding: 32px 16px; }
+  .gallery-strip-row { grid-template-columns: 1fr 1fr; }
+  .gallery-strip-row .gallery-card:nth-child(3),
+  .gallery-strip-row .gallery-card:nth-child(4) { display: none; }
+  .gallery-card.main { aspect-ratio: 1; }
+
+  .feature-strip-inner { grid-template-columns: repeat(2,1fr); }
+  .feature-chip { padding: 28px 16px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .feature-chip:nth-child(even) { }
+  .feature-chip:last-child, .feature-chip:nth-last-child(2) { border-bottom: none; }
+  .feature-chip-num { font-size: 28px; }
+
+  .benefits { padding: 52px 16px; }
+  .benefits-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+  .benefit-card { padding: 28px 24px; }
+
+  .how { padding: 52px 0; }
+  .how-inner { padding: 0 16px; }
+  .how-steps { grid-template-columns: 1fr; gap: 20px; margin-top: 36px; }
+  .how-step { flex-direction: row; text-align: left; align-items: flex-start; gap: 16px; }
+  .how-step-circle { flex-shrink: 0; margin-bottom: 0; }
+
+  .purchase { grid-template-columns: 1fr; gap: 32px; padding: 52px 16px; }
+  .purchase-visual { aspect-ratio: 4/3; }
+  .purchase-title { font-size: 24px; }
+  .purchase-price { font-size: 28px; }
+  .purchase-ctas { flex-direction: column; }
+  .purchase-ctas .btn-primary, .purchase-ctas .btn-secondary { width: 100%; text-align: center; }
+
+  .specs { padding: 0 16px 52px; }
+  .specs-grid { grid-template-columns: 1fr; }
+
+  .in-box { padding: 52px 16px; }
+  .box-items { gap: 10px; margin-top: 32px; }
+  .box-item { min-width: calc(50% - 5px); }
+
+  .footer { padding: 36px 16px; }
+
+  .sticky-bar { padding: 10px 16px; }
+  .sticky-bar-actions .btn-secondary { display: none; }
+  .sticky-bar-actions .btn-primary { padding: 11px 20px; font-size: 13px; }
+
+  .tweaks-panel { width: calc(100vw - 32px); right: 16px; bottom: 70px; }
+
+  .section-title { font-size: clamp(24px,6vw,34px); }
+}
+
+@media (max-width: 400px) {
+  .box-item { min-width: 100%; }
+  .hero-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Opened Belly</div>
+  <div class="nav-links">
+    <a href="#benefits">Benefits</a>
+    <a href="#how-it-works">How it Works</a>
+    <a href="#specs">Specs</a>
+    <a href="#purchase">Buy</a>
+  </div>
+  <button class="nav-cart" onclick="document.getElementById('purchase').scrollIntoView({behavior:'smooth'})">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Add to Cart
+  </button>
+</nav>
+
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-bar-left">
+    <div class="sticky-bar-name">LintAway Pro 2-Pack</div>
+    <div class="sticky-bar-price">€6.87 <span style="color:#95511d;font-weight:700;font-size:12px;margin-left:4px">▼ 87% off</span></div>
+  </div>
+  <div class="sticky-bar-actions">
+    <button class="btn-secondary">Save</button>
+    <button class="btn-primary">Add to Cart — €6.87</button>
+  </div>
+</div>
+
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const PlaceholderSVG = ({ color1 = "#a3d9a5", color2 = "#174f19", label = "product shot", dark = false }) => (
+  <div style={{
+    width:'100%', height:'100%', minHeight:240,
+    display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
+    gap:12, padding:24, color: dark ? 'rgba(255,255,255,0.4)' : '#5a6e5b',
+    fontFamily:'monospace', fontSize:11, textAlign:'center', lineHeight:1.5
+  }}>
+    <svg width="100" height="90" viewBox="0 0 100 90" fill="none">
+      {/* Lint brush silhouette */}
+      <rect x="18" y="12" width="64" height="26" rx="8" fill={color1} opacity="0.7"/>
+      <rect x="22" y="16" width="56" height="18" rx="5" fill={color2} opacity="0.5"/>
+      <rect x="36" y="38" width="28" height="36" rx="6" fill={color1} opacity="0.5"/>
+      <rect x="40" y="42" width="20" height="28" rx="4" fill={color2} opacity="0.35"/>
+      {/* glove outline */}
+      <rect x="58" y="48" width="28" height="34" rx="7" fill={color1} opacity="0.35"/>
+      <rect x="62" y="30" width="8" height="20" rx="4" fill={color1} opacity="0.25"/>
+      <rect x="72" y="34" width="8" height="16" rx="4" fill={color1} opacity="0.2"/>
+      {/* bristles */}
+      {[0,1,2,3,4,5,6].map(i=>(
+        <line key={i} x1={24+i*8} y1="16" x2={24+i*8} y2="8" stroke={color2} strokeWidth="2" opacity="0.3"/>
+      ))}
+    </svg>
+    <span>{label}</span>
+  </div>
+);
+
+const variants = {
+  pack: ["1-Pack", "2-Pack", "4-Pack"],
+  color: ["Blue", "Green", "Pink", "Black"],
+};
+
+function App() {
+  const [selPack, setSelPack] = useState("2-Pack");
+  const [selColor, setSelColor] = useState("Green");
+  const [qty, setQty] = useState(1);
+  const [added, setAdded] = useState(false);
+  const [activeGallery, setActiveGallery] = useState(0);
+
+  const priceMap = { "1-Pack": 3.99, "2-Pack": 6.87, "4-Pack": 11.99 };
+  const origMap  = { "1-Pack": 27.00, "2-Pack": 53.76, "4-Pack": 89.00 };
+  const price = priceMap[selPack];
+  const orig  = origMap[selPack];
+  const discount = Math.round((1 - price/orig)*100);
+
+  useEffect(() => {
+    const bar = document.getElementById('sticky-bar');
+    const onScroll = () => {
+      window.scrollY > 480 ? bar.classList.add('visible') : bar.classList.remove('visible');
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries =>
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), {threshold:0.1});
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  const handleAdd = () => {
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2200);
+  };
+
+  const galleryLabels = [
+    "LintAway brush & glove set — product flat lay on white",
+    "In use on sofa fabric removing pet hair",
+    "Close-up of brush bristles and glove texture",
+    "All color variants laid out neatly",
+  ];
+
+  return (
+    <>
+      {/* ── HERO BANNER ── */}
+      <div style={{marginTop:52}}>
+        <div className="hero-banner">
+          <div className="hero-banner-inner">
+            <div style={{paddingBottom:60, animation:'fadeUp 0.65s ease both'}}>
+              <div className="hero-eyebrow">
+                <div className="hero-eyebrow-dot"/>
+                <div className="hero-eyebrow-text">Pet Hair Removal</div>
+              </div>
+              <h1 className="hero-title">LintAway Pro<br/><em>2-Pack Kit</em></h1>
+              <p className="hero-subtitle">Reusable lint brushes + anti-static glove — remove pet hair, lint, and dust from any fabric surface in seconds. No refills. No waste.</p>
+              <div className="hero-price-row">
+                <div className="hero-price">€{price.toFixed(2)}</div>
+                <div className="hero-price-orig">€{orig.toFixed(2)}</div>
+                <div className="hero-price-badge">{discount}% off</div>
+              </div>
+              <div className="hero-shipping">Free shipping · <span>Estimated delivery 10–16 days</span></div>
+              <div className="hero-ctas">
+                <button className="btn-primary" onClick={handleAdd} style={{background: added ? '#a3d9a5' : '#fff', color: added ? '#174f19' : '#174f19', transition:'all 0.2s'}}>
+                  {added ? '✓ Added!' : 'Add to Cart'}
+                </button>
+                <button className="btn-secondary">Save for Later</button>
+              </div>
+            </div>
+            <div className="hero-visual" style={{animation:'fadeUp 0.65s 0.12s ease both'}}>
+              <div className="hero-img-card">
+                <PlaceholderSVG dark label="LintAway Pro kit — hero product shot" color1="rgba(163,217,165,0.6)" color2="rgba(255,255,255,0.3)"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* TRUST ROW */}
+        <div className="trust-row reveal">
+          {[
+            {icon:'♻️', label:'100% Reusable', sub:'No disposable sheets needed'},
+            {icon:'🐾', label:'Works on Pet Hair', sub:'Cat, dog & more'},
+            {icon:'⚡', label:'Anti-Static Glove', sub:'Neutralises static cling'},
+            {icon:'🛋️', label:'All Fabric Types', sub:'Sofa, clothing, carpet'},
+          ].map((t,i)=>(
+            <div key={i} className="trust-cell">
+              <div className="trust-icon">{t.icon}</div>
+              <div>
+                <div className="trust-label">{t.label}</div>
+                <div className="trust-sub">{t.sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── GALLERY STRIP ── */}
+      <div className="gallery-strip">
+        <div className="gallery-strip-title">Product Gallery</div>
+        <div className="gallery-strip-row">
+          {galleryLabels.map((label, i) => (
+            <div key={i} className={`gallery-card ${i===0?'main':''} reveal`} style={{transitionDelay:`${i*0.07}s`}} onClick={()=>setActiveGallery(i)}>
+              <div className="gallery-inner">
+                <PlaceholderSVG label={label} color1={i===activeGallery?"#2d7a30":"#a3d9a5"} color2="#174f19"/>
+              </div>
+              <div className="gallery-card-label">{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── FEATURE STRIP ── */}
+      <div className="feature-strip">
+        <div className="feature-strip-inner">
+          {[
+            {num:'2-Pack', label:'Brush + anti-static glove included'},
+            {num:'∞', label:'Fully reusable, rinse & reuse'},
+            {num:'2,432', label:'Orders placed & counting'},
+            {num:'87%', label:'Savings vs. original price'},
+          ].map((f,i)=>(
+            <div key={i} className="feature-chip reveal" style={{transitionDelay:`${i*0.07}s`}}>
+              <div className="feature-chip-num">{f.num}</div>
+              <div className="feature-chip-label">{f.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── BENEFITS ── */}
+      <div className="benefits" id="benefits">
+        <p className="section-label reveal">Why LintAway Pro</p>
+        <h2 className="section-title reveal">Clean any fabric.<br/>In seconds.</h2>
+        <div className="benefits-grid">
+          {[
+            {title:'No More Sticky Rollers', body:'Traditional tape rollers run out fast and create plastic waste. LintAway is fully reusable — just rinse and air dry.'},
+            {title:'Anti-Static Glove', body:'The included glove neutralises static electricity that attracts pet hair to fabric, making removal effortless.'},
+            {title:'Works Everywhere', body:'Sofas, car seats, curtains, clothing, bedding — the dual-direction brush lifts lint from any woven or knitted surface.'},
+            {title:'Pet-Owner Approved', body:'Specifically designed for cat and dog hair, which is finer and clingier than lint. Works even on thick fur.'},
+            {title:'Rinse Clean, Use Again', body:'Both the brush and glove clean in 10 seconds under running water. Fully dry in minutes. Ready to go again.'},
+            {title:'Compact & Travel-Ready', body:'Lightweight enough to toss in a bag. Perfect for the office, car, or anywhere your pet\'s hair follows you.'},
+          ].map((b,i)=>(
+            <div key={i} className="benefit-card reveal" style={{transitionDelay:`${i*0.06}s`}}>
+              <div className="benefit-num">0{i+1}</div>
+              <h3 className="benefit-title">{b.title}</h3>
+              <p className="benefit-body">{b.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── HOW IT WORKS ── */}
+      <div className="how" id="how-it-works">
+        <div className="how-inner">
+          <p className="section-label reveal">How it Works</p>
+          <h2 className="section-title reveal">Four moves.<br/>Perfectly clean.</h2>
+          <div className="how-steps">
+            {[
+              {n:'1', title:'Slip on the Glove', body:'Wear the anti-static glove on one hand to neutralise cling before you even start brushing.'},
+              {n:'2', title:'Glide Over Fabric', body:'Run the gloved hand over the surface in long strokes. Hair and lint clump together immediately.'},
+              {n:'3', title:'Brush It Away', body:'Use the reusable lint brush to sweep up the clumped hair. Press and lift for full coverage.'},
+              {n:'4', title:'Rinse & Store', body:'Rinse both tools under water, shake dry, and store. Ready for the next round.'},
+            ].map((s,i)=>(
+              <div key={i} className="how-step reveal" style={{transitionDelay:`${i*0.09}s`}}>
+                <div className="how-step-circle">{s.n}</div>
+                <div>
+                  <div className="how-step-title">{s.title}</div>
+                  <div className="how-step-body">{s.body}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── PURCHASE ── */}
+      <div className="purchase" id="purchase">
+        <div className="purchase-visual reveal">
+          <PlaceholderSVG label="LintAway Pro — clean product shot on neutral background" color1="#cfe2d0" color2="#174f19"/>
+        </div>
+        <div className="purchase-info reveal" style={{transitionDelay:'0.1s'}}>
+          <h2 className="purchase-title">LintAway Pro<br/>2-Pack Cleaning Kit</h2>
+          <p className="purchase-subtitle">Reusable lint brush set with anti-static glove. Designed for everyday pet hair and lint removal on any fabric.</p>
+          <div className="purchase-price-row">
+            <div className="purchase-price">€{price.toFixed(2)}</div>
+            <div className="purchase-orig">€{orig.toFixed(2)}</div>
+            <div className="purchase-badge">{discount}% off</div>
+          </div>
+          <div className="purchase-shipping">Free shipping · <span>Ships in 1–2 business days</span></div>
+
+          <div className="variant-group">
+            <div className="variant-label">Pack Size: {selPack}</div>
+            <div className="variant-row">
+              {variants.pack.map(p=>(
+                <button key={p} className={`variant-btn ${selPack===p?'sel':''}`} onClick={()=>setSelPack(p)}>{p}</button>
+              ))}
+            </div>
+          </div>
+
+          <div className="variant-group">
+            <div className="variant-label">Color: {selColor}</div>
+            <div className="variant-row">
+              {variants.color.map(c=>(
+                <button key={c} className={`variant-btn ${selColor===c?'sel':''}`} onClick={()=>setSelColor(c)}>{c}</button>
+              ))}
+            </div>
+          </div>
+
+          <div className="qty-row">
+            <div className="qty-label">Qty</div>
+            <div className="qty-ctrl">
+              <button className="qty-btn" onClick={()=>setQty(q=>Math.max(1,q-1))}>−</button>
+              <div className="qty-num">{qty}</div>
+              <button className="qty-btn" onClick={()=>setQty(q=>q+1)}>+</button>
+            </div>
+          </div>
+
+          <div className="purchase-ctas">
+            <button className="btn-primary" onClick={handleAdd} style={{background: added?'#2d7a30':undefined, transition:'background 0.2s'}}>
+              {added ? `✓ Added to Cart` : `Add to Cart — €${(price*qty).toFixed(2)}`}
+            </button>
+            <button className="btn-secondary">♡</button>
+          </div>
+
+          <div className="purchase-trust">
+            {['Free Returns','2-Year Guarantee','Secure Checkout','Eco Friendly'].map(t=>(
+              <div key={t} className="p-trust-item"><div className="p-trust-dot"/>{t}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── SPECS ── */}
+      <div className="specs" id="specs">
+        <p className="section-label reveal">Specifications</p>
+        <h2 className="section-title reveal">What's inside the kit.</h2>
+        <div className="specs-grid reveal">
+          {[
+            ['Contents','1× Lint Brush + 1× Anti-Static Glove'],
+            ['Material','PP Bristles + TPE Glove'],
+            ['Brush Size','18 × 7 cm'],
+            ['Glove Size','One size fits most'],
+            ['Reusability','Fully washable, unlimited reuse'],
+            ['Compatible Surfaces','Fabric, velvet, wool, cotton, carpet'],
+            ['Pack Options','1-Pack, 2-Pack, 4-Pack'],
+            ['Colors','Blue, Green, Pink, Black'],
+          ].map(([k,v],i)=>(
+            <div key={i} className="spec-row">
+              <div className="spec-key">{k}</div>
+              <div className="spec-val">{v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── IN THE BOX ── */}
+      <div className="in-box">
+        <div className="in-box-inner">
+          <p className="section-label">In the Box</p>
+          <h2 className="section-title">Everything to get<br/>pet hair-free.</h2>
+          <div className="box-items">
+            {[
+              {icon:'🪥', name:'Reusable Lint Brush', qty:'× 1'},
+              {icon:'🧤', name:'Anti-Static Glove', qty:'× 1'},
+              {icon:'📖', name:'Care Instructions', qty:'× 1'},
+            ].map((item,i)=>(
+              <div key={i} className="box-item">
+                <div className="box-icon">{item.icon}</div>
+                <div className="box-name">{item.name}</div>
+                <div className="box-qty">{item.qty}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── FOOTER ── */}
+      <div className="footer">
+        <div className="footer-logo">Opened Belly</div>
+        <div className="footer-text">© 2026 Opened Belly. All rights reserved.</div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<!-- TWEAKS -->
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#174f19",
+  "heroBg": "linear-gradient(135deg,#174f19 0%,#2a6b2d 60%,#3d8f40 100%)",
+  "cardRadius": "16"
+}/*EDITMODE-END*/;
+
+let tweakState = {...TWEAK_DEFAULTS};
+
+function applyTweaks(t) {
+  document.documentElement.style.setProperty('--green-deep', t.accentColor);
+  document.documentElement.style.setProperty('--radius', t.cardRadius + 'px');
+}
+applyTweaks(tweakState);
+
+window.addEventListener('message', e => {
+  if (e.data.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+  if (e.data.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+function updateTweak(key, val) {
+  tweakState[key] = val;
+  applyTweaks(tweakState);
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]:val}}, '*');
+}
+</script>
+
+<div id="tweaks-panel" class="tweaks-panel">
+  <div class="tweaks-title">Tweaks</div>
+  <div class="tweak-row">
+    <label>Accent Color</label>
+    <select onchange="updateTweak('accentColor', this.value)">
+      <option value="#174f19">Forest Green</option>
+      <option value="#1a3d6e">Navy Blue</option>
+      <option value="#5f2d07">Warm Brown</option>
+      <option value="#2d2d2d">Charcoal</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Card Radius</label>
+    <input type="range" min="0" max="24" step="4" value="16"
+      oninput="updateTweak('cardRadius', this.value)"/>
+  </div>
+</div>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="80" fill="#174f19"/>
+  <rect x="10" y="14" width="60" height="20" rx="6" fill="#a3d9a5" opacity="0.6"/>
+  <rect x="14" y="18" width="52" height="12" rx="4" fill="#fff" opacity="0.2"/>
+  <rect x="26" y="34" width="20" height="28" rx="5" fill="#a3d9a5" opacity="0.5"/>
+  <rect x="55" y="38" width="22" height="26" rx="6" fill="#a3d9a5" opacity="0.35"/>
+  <rect x="80" y="20" width="30" height="40" rx="8" fill="#cfe2d0" opacity="0.15"/>
+</svg>
+</template>
+</body>
+</html>

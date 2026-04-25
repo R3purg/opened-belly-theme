@@ -1,0 +1,307 @@
+{% stylesheet %}
+  .body-benefits {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 88px 40px;
+  }
+
+  .bb-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+
+  .bb-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .bb-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--fg-muted);
+  }
+
+  .bb-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-sage);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .bb-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .bb-card {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bb-card:first-child {
+    background: var(--green-deep);
+    color: #fff;
+  }
+
+  .bb-card:first-child .bb-card-title {
+    color: #fff;
+  }
+
+  .bb-card:first-child .bb-card-body {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .bb-card-num {
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    opacity: 0.5;
+  }
+
+  .bb-card-title {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    color: var(--fg);
+  }
+
+  .bb-card-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--fg-muted);
+  }
+
+  .bb-card-bg {
+    position: absolute;
+    bottom: -16px;
+    right: -10px;
+    font-size: 80px;
+    opacity: 0.06;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  @media (max-width: 1024px) {
+    .bb-header {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .bb-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .body-benefits {
+      padding: 52px 16px;
+    }
+
+    .bb-header {
+      grid-template-columns: 1fr;
+      margin-bottom: 32px;
+    }
+
+    .bb-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+<div class="body-benefits" id="benefits">
+  <div class="bb-header">
+    <div>
+      {% if section.settings.section_kicker %}
+        <p class="reveal" style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-mid);margin-bottom:10px">
+          {{ section.settings.section_kicker }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.section_heading %}
+        <h2 class="reveal" style="font-family:var(--font-head);font-size:clamp(26px,3.2vw,42px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin-bottom:16px">
+          {{ section.settings.section_heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.section_description %}
+        <p class="reveal" style="font-size:15px;line-height:1.7;color:var(--fg-muted);max-width:420px">
+          {{ section.settings.section_description }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.show_benefits_list %}
+        <ul class="bb-list reveal">
+          {% if section.settings.benefit_1 %}
+            <li>{{ section.settings.benefit_1 }}</li>
+          {% endif %}
+          {% if section.settings.benefit_2 %}
+            <li>{{ section.settings.benefit_2 }}</li>
+          {% endif %}
+          {% if section.settings.benefit_3 %}
+            <li>{{ section.settings.benefit_3 }}</li>
+          {% endif %}
+          {% if section.settings.benefit_4 %}
+            <li>{{ section.settings.benefit_4 }}</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="bb-cards reveal">
+      {% for block in section.blocks %}
+        <div class="bb-card" {% if forloop.first %}style="background: var(--green-deep); color: #fff;"{% endif %}>
+          <div class="bb-card-num">0{{ forloop.index }}</div>
+          <div class="bb-card-title" {% if forloop.first %}style="color: #fff;"{% endif %}>
+            {{ block.settings.card_title }}
+          </div>
+          <div class="bb-card-body" {% if forloop.first %}style="color: rgba(255, 255, 255, 0.65);"{% endif %}>
+            {{ block.settings.card_description }}
+          </div>
+          <div class="bb-card-bg">{{ block.settings.card_emoji }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Body Benefits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_kicker",
+      "label": "Kicker Text",
+      "default": "Why it works"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Your spine deserves real support."
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Description",
+      "default": "<p>Poor posture contributes to chronic back pain, fatigue, and reduced confidence. The PosturePro belt gently guides your spine back into alignment — without restricting movement.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits_list",
+      "label": "Show Benefits List",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Reduces strain on lumbar and thoracic vertebrae"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Supports abdominal muscles during recovery or heavy lifting"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Encourages muscle memory for upright posture over time"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefit 4",
+      "default": "Adjustable compression via dual velcro straps"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit_card",
+      "name": "Benefit Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Title",
+          "default": "Benefit Title"
+        },
+        {
+          "type": "richtext",
+          "id": "card_description",
+          "label": "Description",
+          "default": "<p>Benefit description goes here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "card_emoji",
+          "label": "Emoji/Icon",
+          "default": "🎯"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Body Benefits",
+      "blocks": [
+        {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Spine Alignment",
+            "card_description": "Rigid stay rods on either side of the spine prevent lateral slouching and keep your vertebrae in a neutral position.",
+            "card_emoji": "🦴"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Waist Correction",
+            "card_description": "The abdominal panel applies gentle inward pressure, training your core to hold proper posture naturally.",
+            "card_emoji": "🎯"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Adjustable Compression",
+            "card_description": "Dual velcro straps let you dial in exactly the right level of support.",
+            "card_emoji": "🔧"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Breathable Build",
+            "card_description": "Perforated neoprene fabric prevents heat buildup so you can wear it for 8+ hours without discomfort.",
+            "card_emoji": "💨"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

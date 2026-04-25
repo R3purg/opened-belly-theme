@@ -1,0 +1,188 @@
+{% stylesheet %}
+  .box-section {
+    background: var(--fg);
+    padding: 80px 40px;
+  }
+
+  .box-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .box-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-sage);
+    margin-bottom: 10px;
+  }
+
+  .box-title {
+    font-family: var(--font-head);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 44px;
+  }
+
+  .box-items {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .box-item {
+    flex: 1;
+    min-width: 130px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    padding: 24px 16px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .box-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .box-icon {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+
+  .box-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.4;
+  }
+
+  .box-qty {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .box-section {
+      padding: 52px 16px;
+    }
+
+    .box-items {
+      gap: 10px;
+    }
+
+    .box-item {
+      min-width: calc(50% - 5px);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .box-item {
+      min-width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+<div class="box-section">
+  <div class="box-inner">
+    {% if section.settings.section_label %}
+      <p class="box-label">{{ section.settings.section_label }}</p>
+    {% endif %}
+
+    {% if section.settings.section_title %}
+      <h2 class="box-title">{{ section.settings.section_title }}</h2>
+    {% endif %}
+
+    <div class="box-items">
+      {% for block in section.blocks %}
+        <div class="box-item">
+          <div class="box-icon">{{ block.settings.item_icon }}</div>
+          <div class="box-name">{{ block.settings.item_name }}</div>
+          <div class="box-qty">{{ block.settings.item_quantity }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "In The Box",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "In the Box"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Ready to wear straight away."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "box_item",
+      "name": "Box Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item_icon",
+          "label": "Icon/Emoji",
+          "default": "📦"
+        },
+        {
+          "type": "text",
+          "id": "item_name",
+          "label": "Item Name",
+          "default": "Product Name"
+        },
+        {
+          "type": "text",
+          "id": "item_quantity",
+          "label": "Quantity",
+          "default": "× 1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "In The Box",
+      "blocks": [
+        {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "🩹",
+            "item_name": "PosturePro Support Belt",
+            "item_quantity": "× 1"
+          }
+        },
+        {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "📏",
+            "item_name": "Measuring Tape",
+            "item_quantity": "× 1"
+          }
+        },
+        {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "📖",
+            "item_name": "Wear Guide & Care Card",
+            "item_quantity": "× 1"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

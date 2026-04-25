@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PosturePro Belt — Opened Belly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --green-deep: #174f19;
+  --green-mid: #2d7a30;
+  --green-sage: #a3d9a5;
+  --green-light: #cfe2d0;
+  --green-pale: #eff5ef;
+  --cream: #f7e5d7;
+  --cream-dark: #efd4be;
+  --brown: #95511d;
+  --fg: #061406;
+  --fg-muted: #5a6e5b;
+  --bg: #ffffff;
+  --border: #e8f0e8;
+  --font-head: 'Instrument Sans', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+  --radius: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--fg); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+.reveal { opacity:0; transform:translateY(26px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.in { opacity:1; transform:none; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 52px;
+  background: rgba(247,229,215,0.9); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(149,81,29,0.12);
+}
+.nav-logo { font-family: var(--font-head); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; color: var(--green-deep); text-transform: uppercase; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--fg-muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--fg); }
+.nav-cta { display: flex; align-items: center; gap: 8px; background: var(--green-deep); color: #fff; border: none; border-radius: 50px; padding: 8px 18px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.nav-cta:hover { background: var(--green-mid); }
+
+/* ── STICKY BAR ── */
+.sticky-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+  background: rgba(247,229,215,0.97); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--cream-dark);
+  padding: 12px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25,0.1,0.25,1);
+}
+.sticky-bar.visible { transform: translateY(0); }
+.sticky-bar-left { display: flex; flex-direction: column; gap: 2px; }
+.sticky-bar-name { font-family: var(--font-head); font-weight: 600; font-size: 14px; }
+.sticky-bar-price { font-size: 13px; color: var(--fg-muted); }
+.sticky-bar-actions { display: flex; gap: 10px; }
+
+/* ── BUTTONS ── */
+.btn-primary { background: var(--green-deep); color: #fff; border: none; border-radius: 50px; padding: 12px 32px; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.btn-primary:hover { background: var(--green-mid); }
+.btn-outline { background: transparent; color: var(--green-deep); border: 1.5px solid var(--green-deep); border-radius: 50px; padding: 11px 24px; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.btn-outline:hover { background: var(--green-pale); }
+
+/* ── HERO ── */
+.hero-wrap { margin-top: 52px; background: var(--cream); }
+.hero-top {
+  max-width: 1200px; margin: 0 auto;
+  padding: 80px 40px 0;
+  display: grid; grid-template-columns: 5fr 4fr; gap: 64px; align-items: center;
+}
+.hero-kicker { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.hero-kicker-line { height: 2px; width: 32px; background: var(--brown); border-radius: 2px; }
+.hero-kicker-text { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown); }
+.hero-h1 { font-family: var(--font-head); font-size: clamp(36px, 4.5vw, 62px); font-weight: 700; line-height: 1.04; letter-spacing: -0.025em; color: var(--fg); margin-bottom: 20px; }
+.hero-h1 em { font-style: normal; color: var(--green-deep); }
+.hero-desc { font-size: 16px; line-height: 1.7; color: var(--fg-muted); margin-bottom: 32px; max-width: 460px; }
+.hero-price-block { margin-bottom: 28px; }
+.hero-price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+.hero-price { font-family: var(--font-head); font-size: 42px; font-weight: 700; color: var(--fg); }
+.hero-orig { font-size: 18px; color: var(--fg-muted); text-decoration: line-through; }
+.hero-save { background: var(--green-deep); color: #fff; border-radius: 6px; padding: 3px 10px; font-size: 13px; font-weight: 700; }
+.hero-sub { font-size: 13px; color: var(--fg-muted); }
+.hero-sub span { color: var(--green-mid); font-weight: 600; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+.hero-btns .btn-primary { padding: 16px 44px; font-size: 15px; }
+.hero-btns .btn-outline { padding: 15px 28px; font-size: 15px; }
+.hero-micro { display: flex; flex-wrap: wrap; gap: 20px; }
+.micro-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--fg-muted); }
+.micro-check { width: 18px; height: 18px; border-radius: 50%; background: var(--green-pale); border: 1.5px solid var(--green-sage); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.micro-check svg { width: 9px; height: 9px; }
+
+/* ── HERO IMAGE ── */
+.hero-img-wrap { display: flex; flex-direction: column; gap: 10px; padding-bottom: 0; }
+.hero-img-main { background: var(--cream-dark); border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; }
+.hero-img-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.hero-thumb { background: rgba(149,81,29,0.1); border-radius: 10px; aspect-ratio: 1; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+.hero-thumb.active { border-color: var(--brown); }
+.hero-thumb:hover { border-color: var(--cream-dark); }
+
+/* ── PLACEHOLDER ── */
+.ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:20px; color:#a07050; font-family:monospace; font-size:11px; text-align:center; line-height:1.5; }
+
+/* ── PROOF BAR ── */
+.proof-bar { background: var(--fg); }
+.proof-bar-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: flex; align-items: stretch; }
+.proof-cell { flex: 1; padding: 26px 0; text-align: center; border-right: 1px solid rgba(255,255,255,0.07); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.proof-cell:last-child { border-right: none; }
+.proof-num { font-family: var(--font-head); font-size: 26px; font-weight: 700; color: var(--green-sage); line-height: 1; }
+.proof-label { font-size: 12px; color: rgba(255,255,255,0.45); }
+
+/* ── BODY BENEFITS ── */
+.body-benefits { max-width: 1200px; margin: 0 auto; padding: 88px 40px; }
+.bb-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 60px; }
+.bb-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
+.bb-list li { display: flex; align-items: flex-start; gap: 14px; font-size: 15px; line-height: 1.55; color: var(--fg-muted); }
+.bb-list li::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green-sage); flex-shrink:0; margin-top:7px; }
+.bb-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.bb-card { background: var(--cream); border-radius: var(--radius); padding: 32px 28px; position: relative; overflow: hidden; }
+.bb-card:first-child { background: var(--green-deep); color: #fff; }
+.bb-card:first-child .bb-card-title { color: #fff; }
+.bb-card:first-child .bb-card-body { color: rgba(255,255,255,0.65); }
+.bb-card-num { font-family: var(--font-head); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; opacity: 0.5; }
+.bb-card-title { font-family: var(--font-head); font-size: 20px; font-weight: 700; line-height: 1.15; margin-bottom: 10px; color: var(--fg); }
+.bb-card-body { font-size: 14px; line-height: 1.65; color: var(--fg-muted); }
+.bb-card-bg { position: absolute; bottom: -16px; right: -10px; font-size: 80px; opacity: 0.06; line-height: 1; pointer-events: none; }
+
+/* ── SIZE GUIDE ── */
+.size-guide { background: var(--green-pale); padding: 80px 0; }
+.size-guide-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.size-table { width: 100%; border-collapse: collapse; margin-top: 40px; border-radius: var(--radius); overflow: hidden; }
+.size-table th { background: var(--green-deep); color: #fff; padding: 14px 20px; font-family: var(--font-head); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; text-align: left; }
+.size-table td { padding: 14px 20px; font-size: 14px; border-bottom: 1px solid var(--border); background: var(--bg); }
+.size-table tr:last-child td { border-bottom: none; }
+.size-table tr:nth-child(even) td { background: var(--green-pale); }
+.size-badge { display: inline-block; background: var(--green-deep); color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+
+/* ── HOW TO WEAR ── */
+.how-wear { max-width: 1200px; margin: 0 auto; padding: 88px 40px; }
+.steps-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 52px; }
+.wear-step { display: flex; flex-direction: column; align-items: flex-start; }
+.wear-step-num { font-family: var(--font-head); font-size: 48px; font-weight: 700; color: var(--cream-dark); line-height: 1; margin-bottom: 16px; }
+.wear-step-title { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--fg); }
+.wear-step-body { font-size: 13px; line-height: 1.65; color: var(--fg-muted); }
+.wear-step-img { width: 100%; aspect-ratio: 1; background: var(--cream); border-radius: 12px; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+
+/* ── PURCHASE ── */
+.purchase { background: var(--cream); }
+.purchase-inner { max-width: 1200px; margin: 0 auto; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.purchase-vis { background: var(--cream-dark); border-radius: var(--radius); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.purchase-title { font-family: var(--font-head); font-size: 28px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; }
+.purchase-sub { font-size: 14px; color: var(--fg-muted); line-height: 1.6; margin-bottom: 24px; }
+.p-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.p-price { font-family: var(--font-head); font-size: 34px; font-weight: 700; color: var(--fg); }
+.p-orig { font-size: 16px; color: var(--fg-muted); text-decoration: line-through; }
+.p-save { background: var(--green-deep); color: #fff; border-radius: 6px; padding: 2px 9px; font-size: 12px; font-weight: 700; }
+.p-ship { font-size: 13px; color: var(--fg-muted); margin-bottom: 28px; }
+.p-ship span { color: var(--green-mid); font-weight: 600; }
+.v-group { margin-bottom: 20px; }
+.v-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--fg-muted); margin-bottom: 10px; }
+.v-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.v-btn { padding: 9px 18px; border-radius: 50px; border: 1.5px solid rgba(149,81,29,0.2); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; background: rgba(255,255,255,0.5); color: var(--fg); transition: all 0.18s; }
+.v-btn:hover { border-color: var(--brown); }
+.v-btn.sel { border-color: var(--green-deep); background: var(--green-deep); color: #fff; }
+.v-btn.disabled { opacity: 0.38; cursor: not-allowed; text-decoration: line-through; }
+.qty-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.qty-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--fg-muted); }
+.qty-ctrl { display: flex; align-items: center; border: 1.5px solid rgba(149,81,29,0.2); border-radius: 50px; overflow: hidden; background: rgba(255,255,255,0.6); }
+.qty-btn { width: 36px; height: 36px; border: none; background: none; cursor: pointer; font-size: 18px; color: var(--fg); display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+.qty-btn:hover { background: rgba(255,255,255,0.8); }
+.qty-n { width: 32px; text-align: center; font-size: 14px; font-weight: 600; }
+.p-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.p-ctas .btn-primary { flex: 1; padding: 16px 20px; font-size: 15px; text-align: center; }
+.p-ctas .btn-outline { padding: 15px 20px; font-size: 15px; }
+.p-trust { display: flex; flex-wrap: wrap; gap: 14px; }
+.p-trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--fg-muted); }
+.p-trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-sage); flex-shrink: 0; }
+
+/* ── SPECS ── */
+.specs-section { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
+.specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 36px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.spec-row { display: flex; padding: 16px 22px; align-items: center; gap: 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
+.spec-row:last-child, .spec-row:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+.spec-key { font-size: 11px; font-weight: 700; color: var(--fg-muted); width: 120px; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+.spec-val { font-size: 14px; font-weight: 500; color: var(--fg); }
+
+/* ── IN THE BOX ── */
+.box-section { background: var(--fg); padding: 80px 40px; }
+.box-inner { max-width: 1200px; margin: 0 auto; }
+.box-label { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-sage); margin-bottom: 10px; }
+.box-title { font-family: var(--font-head); font-size: clamp(26px,3vw,40px); font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 44px; }
+.box-items { display: flex; gap: 14px; flex-wrap: wrap; }
+.box-item { flex: 1; min-width: 130px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 24px 16px; text-align: center; transition: background 0.2s; }
+.box-item:hover { background: rgba(255,255,255,0.1); }
+.box-icon { font-size: 26px; margin-bottom: 10px; }
+.box-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.88); line-height: 1.4; }
+.box-qty { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+
+/* ── FOOTER ── */
+.footer { background: var(--green-pale); padding: 48px 40px; text-align: center; }
+.footer-logo { font-family: var(--font-head); font-weight: 700; font-size: 18px; letter-spacing: 0.08em; color: var(--green-deep); text-transform: uppercase; margin-bottom: 10px; }
+.footer-text { font-size: 13px; color: var(--fg-muted); }
+
+/* ── TWEAKS ── */
+.tweaks-panel {
+  position: fixed; bottom: 80px; right: 20px; z-index: 9999;
+  width: 260px; background: #fff; border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  display: none;
+}
+.tweaks-panel.open { display: block; }
+.tweaks-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+.tweak-row { margin-bottom: 14px; }
+.tweak-row label { display: block; font-size: 11px; font-weight: 700; color: var(--fg-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.tweak-row select, .tweak-row input[type=range] { width: 100%; }
+.tweak-row select { padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: 13px; background: #fff; color: var(--fg); }
+.tweak-row input[type=range] { accent-color: var(--green-deep); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero-top { gap: 40px; padding-top: 60px; }
+  .bb-header { grid-template-columns: 1fr; gap: 0; }
+  .bb-cards { grid-template-columns: 1fr 1fr; }
+  .steps-row { grid-template-columns: repeat(2, 1fr); }
+  .purchase-inner { gap: 44px; }
+  .specs-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root { --radius: 12px; }
+
+  .nav { padding: 0 16px; height: 56px; }
+  .nav-links { display: none; }
+  .nav-cta { padding: 7px 14px; font-size: 12px; }
+
+  .hero-top { grid-template-columns: 1fr; gap: 28px; padding: 32px 16px 0; }
+  .hero-h1 { font-size: clamp(28px, 7.5vw, 44px); }
+  .hero-desc { font-size: 15px; margin-bottom: 24px; }
+  .hero-price { font-size: 34px; }
+  .hero-btns { flex-direction: column; gap: 10px; }
+  .hero-btns .btn-primary, .hero-btns .btn-outline { width: 100%; text-align: center; }
+  .hero-img-main { aspect-ratio: 4/3; border-radius: var(--radius) var(--radius) 0 0; }
+
+  .proof-bar-inner { flex-wrap: wrap; }
+  .proof-cell { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .proof-cell:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.07); }
+  .proof-cell:last-child, .proof-cell:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+
+  .body-benefits { padding: 52px 16px; }
+  .bb-header { grid-template-columns: 1fr; margin-bottom: 32px; }
+  .bb-cards { grid-template-columns: 1fr; }
+
+  .size-guide { padding: 52px 0; }
+  .size-guide-inner { padding: 0 16px; }
+  .size-table th, .size-table td { padding: 12px 14px; font-size: 13px; }
+
+  .how-wear { padding: 52px 16px; }
+  .steps-row { grid-template-columns: 1fr; gap: 28px; margin-top: 36px; }
+
+  .purchase { background: var(--cream); }
+  .purchase-inner { grid-template-columns: 1fr; gap: 28px; padding: 52px 16px; }
+  .purchase-vis { aspect-ratio: 4/3; }
+  .purchase-title { font-size: 22px; }
+  .p-price { font-size: 28px; }
+  .p-ctas { flex-direction: column; }
+  .p-ctas .btn-primary, .p-ctas .btn-outline { width: 100%; text-align: center; }
+
+  .specs-section { padding: 52px 16px; }
+  .specs-grid { grid-template-columns: 1fr; }
+  .spec-row:nth-last-child(2) { border-bottom: 1px solid var(--border); }
+
+  .box-section { padding: 52px 16px; }
+  .box-items { gap: 10px; }
+  .box-item { min-width: calc(50% - 5px); }
+
+  .footer { padding: 36px 16px; }
+
+  .sticky-bar { padding: 10px 16px; }
+  .sticky-bar-actions .btn-outline { display: none; }
+  .sticky-bar-actions .btn-primary { padding: 11px 20px; font-size: 13px; }
+
+  .tweaks-panel { width: calc(100vw - 32px); right: 16px; bottom: 70px; }
+}
+
+@media (max-width: 400px) {
+  .box-item { min-width: 100%; }
+  .hero-h1 { font-size: 26px; }
+  .proof-cell { min-width: 100%; border-right: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Opened Belly</div>
+  <div class="nav-links">
+    <a href="#benefits">Benefits</a>
+    <a href="#size-guide">Size Guide</a>
+    <a href="#how-to-wear">How to Wear</a>
+    <a href="#purchase">Buy</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('purchase').scrollIntoView({behavior:'smooth'})">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Add to Cart
+  </button>
+</nav>
+
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-bar-left">
+    <div class="sticky-bar-name">PosturePro Support Belt</div>
+    <div class="sticky-bar-price">From €18.90 · <span style="color:#95511d;font-weight:700">Free Shipping</span></div>
+  </div>
+  <div class="sticky-bar-actions">
+    <button class="btn-outline">Save</button>
+    <button class="btn-primary">Add to Cart</button>
+  </div>
+</div>
+
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const Ph = ({ label = "product shot", light = false, tall = false }) => (
+  <div style={{
+    width:'100%', height:'100%', minHeight: tall ? 320 : 200,
+    display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
+    gap:10, padding:20, color: light ? 'rgba(255,255,255,0.35)' : '#a07050',
+    fontFamily:'monospace', fontSize:11, textAlign:'center', lineHeight:1.5
+  }}>
+    <svg width="88" height="100" viewBox="0 0 88 100" fill="none">
+      {/* Posture belt silhouette */}
+      <rect x="20" y="30" width="48" height="40" rx="8" fill={light?"rgba(255,255,255,0.2)":"#efd4be"} opacity="0.7"/>
+      <rect x="24" y="34" width="40" height="32" rx="5" fill={light?"rgba(255,255,255,0.15)":"#d4b090"} opacity="0.6"/>
+      {/* straps */}
+      <path d="M20 34 C10 20 8 10 14 6" stroke={light?"rgba(255,255,255,0.3)":"#c49070"} strokeWidth="5" strokeLinecap="round" fill="none"/>
+      <path d="M68 34 C78 20 80 10 74 6" stroke={light?"rgba(255,255,255,0.3)":"#c49070"} strokeWidth="5" strokeLinecap="round" fill="none"/>
+      {/* buckle */}
+      <rect x="38" y="46" width="12" height="8" rx="2" fill={light?"rgba(255,255,255,0.4)":"#174f19"} opacity="0.8"/>
+      {/* velcro lines */}
+      {[0,1,2].map(i=>(
+        <line key={i} x1="26" y1={38+i*6} x2="62" y2={38+i*6} stroke={light?"rgba(255,255,255,0.12)":"rgba(149,81,29,0.2)"} strokeWidth="1.5"/>
+      ))}
+      {/* spine indicator */}
+      <line x1="44" y1="30" x2="44" y2="70" stroke={light?"rgba(163,217,165,0.5)":"rgba(23,79,25,0.3)"} strokeWidth="2" strokeDasharray="3 3"/>
+    </svg>
+    <span>{label}</span>
+  </div>
+);
+
+const SIZES = [
+  {size:'XS', waist:'60–70 cm', hip:'80–88 cm', weight:'40–50 kg'},
+  {size:'S',  waist:'70–80 cm', hip:'88–96 cm', weight:'50–60 kg'},
+  {size:'M',  waist:'80–90 cm', hip:'96–104 cm', weight:'60–75 kg'},
+  {size:'L',  waist:'90–100 cm', hip:'104–112 cm', weight:'75–90 kg'},
+  {size:'XL', waist:'100–115 cm', hip:'112–124 cm', weight:'90–110 kg'},
+  {size:'XXL',waist:'115–130 cm', hip:'124–140 cm', weight:'110–130 kg'},
+];
+
+const colors = ['Black', 'Beige', 'Navy'];
+const priceMap = {Black:18.90, Beige:19.90, Navy:20.50};
+
+function App() {
+  const [selSize, setSelSize] = useState('M');
+  const [selColor, setSelColor] = useState('Black');
+  const [qty, setQty] = useState(1);
+  const [added, setAdded] = useState(false);
+  const [activeThumb, setActiveThumb] = useState(0);
+
+  const price = priceMap[selColor];
+
+  useEffect(() => {
+    const bar = document.getElementById('sticky-bar');
+    const onScroll = () => {
+      window.scrollY > 500 ? bar.classList.add('visible') : bar.classList.remove('visible');
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries =>
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), {threshold:0.1});
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  const handleAdd = () => { setAdded(true); setTimeout(()=>setAdded(false), 2200); };
+
+  const thumbLabels = [
+    "PosturePro belt — front view on white",
+    "Belt worn — side profile showing strap fit",
+    "Back view showing spine support structure",
+  ];
+
+  return (
+    <>
+      {/* ── HERO ── */}
+      <div style={{marginTop:52}}>
+        <div className="hero-wrap">
+          <div className="hero-top">
+            <div style={{paddingBottom:72, animation:'fadeUp 0.65s ease both'}}>
+              <div className="hero-kicker">
+                <div className="hero-kicker-line"/>
+                <div className="hero-kicker-text">Posture & Back Support</div>
+              </div>
+              <h1 className="hero-h1">
+                Stand taller.<br/>
+                <em>Feel stronger.</em>
+              </h1>
+              <p className="hero-desc">Adjustable back support belt for abdominal waist correction and spine alignment. Unisex design — wear it under or over clothing, all day long.</p>
+
+              <div className="hero-price-block">
+                <div className="hero-price-row">
+                  <div className="hero-price">€{price.toFixed(2)}</div>
+                  <div className="hero-orig">€38.00</div>
+                  <div className="hero-save">50% off</div>
+                </div>
+                <div className="hero-sub">Free shipping · <span>Arrives in 10–16 days</span></div>
+              </div>
+
+              <div className="hero-btns">
+                <button className="btn-primary" onClick={handleAdd} style={{background: added ? '#2d7a30' : undefined, transition:'background 0.2s'}}>
+                  {added ? '✓ Added to Cart' : 'Add to Cart'}
+                </button>
+                <button className="btn-outline">View Size Guide</button>
+              </div>
+
+              <div className="hero-micro">
+                {['Adjustable fit S–XXL','Unisex design','Breathable fabric','Discreet under clothing'].map(t=>(
+                  <div key={t} className="micro-item">
+                    <div className="micro-check">
+                      <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#174f19" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
+                    {t}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{animation:'fadeUp 0.65s 0.1s ease both'}}>
+              <div className="hero-img-wrap">
+                <div className="hero-img-main">
+                  <Ph label={thumbLabels[activeThumb]} tall/>
+                </div>
+                <div className="hero-img-thumbs">
+                  {thumbLabels.map((l,i)=>(
+                    <div key={i} className={`hero-thumb ${activeThumb===i?'active':''}`} onClick={()=>setActiveThumb(i)}>
+                      <Ph label="" light={false}/>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* PROOF BAR */}
+        <div className="proof-bar reveal">
+          <div className="proof-bar-inner">
+            {[
+              {num:'50%', label:'Average pain reduction reported'},
+              {num:'S–XXL', label:'Full size range, fits all bodies'},
+              {num:'8h+', label:'Comfortable all-day wear'},
+              {num:'Unisex', label:'Designed for men and women'},
+            ].map((p,i)=>(
+              <div key={i} className="proof-cell">
+                <div className="proof-num">{p.num}</div>
+                <div className="proof-label">{p.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── BODY BENEFITS ── */}
+      <div className="body-benefits" id="benefits">
+        <div className="bb-header">
+          <div>
+            <p className="reveal" style={{fontSize:12,fontWeight:700,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--green-mid)',marginBottom:10}}>Why it works</p>
+            <h2 className="reveal" style={{fontFamily:'var(--font-head)',fontSize:'clamp(26px,3.2vw,42px)',fontWeight:700,letterSpacing:'-0.02em',lineHeight:1.1,marginBottom:16}}>
+              Your spine deserves<br/>real support.
+            </h2>
+            <p className="reveal" style={{fontSize:15,lineHeight:1.7,color:'var(--fg-muted)',maxWidth:420}}>
+              Poor posture contributes to chronic back pain, fatigue, and reduced confidence. The PosturePro belt gently guides your spine back into alignment — without restricting movement.
+            </p>
+            <ul className="bb-list reveal">
+              <li>Reduces strain on lumbar and thoracic vertebrae</li>
+              <li>Supports abdominal muscles during recovery or heavy lifting</li>
+              <li>Encourages muscle memory for upright posture over time</li>
+              <li>Adjustable compression via dual velcro straps</li>
+            </ul>
+          </div>
+          <div className="bb-cards reveal">
+            {[
+              {title:'Spine Alignment', body:'Rigid stay rods on either side of the spine prevent lateral slouching and keep your vertebrae in a neutral position.', bg:'deep'},
+              {title:'Waist Correction', body:'The abdominal panel applies gentle inward pressure, training your core to hold proper posture naturally.', bg:'cream'},
+              {title:'Adjustable Compression', body:'Dual velcro straps let you dial in exactly the right level of support — from light daily wear to post-exercise recovery.', bg:'cream'},
+              {title:'Breathable Build', body:'Perforated neoprene fabric prevents heat buildup so you can wear it for 8+ hours without discomfort.', bg:'cream'},
+            ].map((c,i)=>(
+              <div key={i} className={`bb-card ${i===0?'first':''}`} style={i===0?{background:'var(--green-deep)',color:'#fff'}:{}}>
+                <div className="bb-card-num">0{i+1}</div>
+                <div className="bb-card-title" style={i===0?{color:'#fff'}:{}}>{c.title}</div>
+                <div className="bb-card-body" style={i===0?{color:'rgba(255,255,255,0.65)'}:{}}>{c.body}</div>
+                <div className="bb-card-bg">{['🦴','🎯','🔧','💨'][i]}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── SIZE GUIDE ── */}
+      <div className="size-guide" id="size-guide">
+        <div className="size-guide-inner">
+          <p className="reveal" style={{fontSize:12,fontWeight:700,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--green-mid)',marginBottom:10}}>Size Guide</p>
+          <h2 className="reveal" style={{fontFamily:'var(--font-head)',fontSize:'clamp(24px,3vw,40px)',fontWeight:700,letterSpacing:'-0.02em',lineHeight:1.1,marginBottom:8}}>Find your perfect fit.</h2>
+          <p className="reveal" style={{fontSize:14,color:'var(--fg-muted)',marginBottom:0}}>Measure your waist at the navel. When between sizes, size up for more comfort.</p>
+          <table className="size-table reveal">
+            <thead>
+              <tr>
+                <th>Size</th><th>Waist</th><th>Hip</th><th>Body Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              {SIZES.map(r=>(
+                <tr key={r.size}>
+                  <td><span className="size-badge">{r.size}</span></td>
+                  <td>{r.waist}</td>
+                  <td>{r.hip}</td>
+                  <td>{r.weight}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* ── HOW TO WEAR ── */}
+      <div className="how-wear" id="how-to-wear">
+        <p className="reveal" style={{fontSize:12,fontWeight:700,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--green-mid)',marginBottom:10}}>How to Wear</p>
+        <h2 className="reveal" style={{fontFamily:'var(--font-head)',fontSize:'clamp(24px,3vw,40px)',fontWeight:700,letterSpacing:'-0.02em',lineHeight:1.1}}>On in 30 seconds.</h2>
+        <div className="steps-row">
+          {[
+            {n:'01', title:'Wrap Around Waist', body:'Hold the belt behind you and wrap it around your lower back, positioning the top edge at your navel.'},
+            {n:'02', title:'Fasten Primary Velcro', body:'Close the main velcro panel across your abdomen. It should feel snug but allow a full breath.'},
+            {n:'03', title:'Tighten the Straps', body:'Pull the side straps to your desired compression level and secure. Start loose and increase over days.'},
+            {n:'04', title:'Wear & Adjust', body:'Wear for 2–4 hours initially. Build up to full-day use as your muscles adapt to the support.'},
+          ].map((s,i)=>(
+            <div key={i} className="wear-step reveal" style={{transitionDelay:`${i*0.08}s`}}>
+              <div className="wear-step-img"><Ph label={`Step ${s.n} illustration`}/></div>
+              <div className="wear-step-num">{s.n}</div>
+              <div className="wear-step-title">{s.title}</div>
+              <div className="wear-step-body">{s.body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── PURCHASE ── */}
+      <div className="purchase" id="purchase">
+        <div className="purchase-inner">
+          <div className="purchase-vis reveal">
+            <Ph label="PosturePro — lifestyle product shot on neutral background" tall/>
+          </div>
+          <div className="reveal" style={{transitionDelay:'0.1s'}}>
+            <h2 className="purchase-title">PosturePro<br/>Back Support Belt</h2>
+            <p className="purchase-sub">Adjustable posture corrector for abdominal waist correction and spine alignment. Unisex. Wear it all day.</p>
+            <div className="p-price-row">
+              <div className="p-price">€{price.toFixed(2)}</div>
+              <div className="p-orig">€38.00</div>
+              <div className="p-save">50% off</div>
+            </div>
+            <div className="p-ship">Free shipping · <span>Delivered in 10–16 days</span></div>
+
+            <div className="v-group">
+              <div className="v-label">Size: {selSize}</div>
+              <div className="v-row">
+                {['XS','S','M','L','XL','XXL'].map(s=>(
+                  <button key={s} className={`v-btn ${selSize===s?'sel':''}`} onClick={()=>setSelSize(s)}>{s}</button>
+                ))}
+              </div>
+            </div>
+
+            <div className="v-group">
+              <div className="v-label">Color: {selColor}</div>
+              <div className="v-row">
+                {colors.map(c=>(
+                  <button key={c} className={`v-btn ${selColor===c?'sel':''}`} onClick={()=>setSelColor(c)}>{c}</button>
+                ))}
+              </div>
+            </div>
+
+            <div className="qty-wrap">
+              <div className="qty-lbl">Qty</div>
+              <div className="qty-ctrl">
+                <button className="qty-btn" onClick={()=>setQty(q=>Math.max(1,q-1))}>−</button>
+                <div className="qty-n">{qty}</div>
+                <button className="qty-btn" onClick={()=>setQty(q=>q+1)}>+</button>
+              </div>
+            </div>
+
+            <div className="p-ctas">
+              <button className="btn-primary" onClick={handleAdd}
+                style={{background: added?'#2d7a30':undefined, transition:'background 0.2s'}}>
+                {added ? `✓ Added to Cart` : `Add to Cart — €${(price*qty).toFixed(2)}`}
+              </button>
+              <button className="btn-outline">♡</button>
+            </div>
+
+            <div className="p-trust">
+              {['Free Returns','30-Day Trial','Secure Checkout','Medical-Grade Materials'].map(t=>(
+                <div key={t} className="p-trust-item"><div className="p-trust-dot"/>{t}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── SPECS ── */}
+      <div className="specs-section" id="specs">
+        <p className="reveal" style={{fontSize:12,fontWeight:700,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--green-mid)',marginBottom:10}}>Specifications</p>
+        <h2 className="reveal" style={{fontFamily:'var(--font-head)',fontSize:'clamp(24px,3vw,40px)',fontWeight:700,letterSpacing:'-0.02em',lineHeight:1.1,marginBottom:0}}>Built for daily use.</h2>
+        <div className="specs-grid reveal">
+          {[
+            ['Material','Neoprene + Oxford Fabric'],['Closure','Dual Velcro Straps'],
+            ['Sizes Available','XS / S / M / L / XL / XXL'],['Colors','Black, Beige, Navy'],
+            ['Gender','Unisex'],['Support Type','Lumbar + Abdominal'],
+            ['Wear Duration','2–8 hours/day recommended'],['Washable','Hand wash, air dry'],
+          ].map(([k,v],i)=>(
+            <div key={i} className="spec-row">
+              <div className="spec-key">{k}</div>
+              <div className="spec-val">{v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── IN THE BOX ── */}
+      <div className="box-section">
+        <div className="box-inner">
+          <p className="box-label">In the Box</p>
+          <h2 className="box-title">Ready to wear<br/>straight away.</h2>
+          <div className="box-items">
+            {[
+              {icon:'🩹', name:'PosturePro Support Belt', qty:'× 1'},
+              {icon:'📏', name:'Measuring Tape', qty:'× 1'},
+              {icon:'📖', name:'Wear Guide & Care Card', qty:'× 1'},
+            ].map((item,i)=>(
+              <div key={i} className="box-item">
+                <div className="box-icon">{item.icon}</div>
+                <div className="box-name">{item.name}</div>
+                <div className="box-qty">{item.qty}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── FOOTER ── */}
+      <div className="footer">
+        <div className="footer-logo">Opened Belly</div>
+        <div className="footer-text">© 2026 Opened Belly. All rights reserved.</div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<!-- TWEAKS -->
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#174f19",
+  "navBg": "rgba(247,229,215,0.9)",
+  "cardRadius": "16"
+}/*EDITMODE-END*/;
+
+let tweakState = {...TWEAK_DEFAULTS};
+function applyTweaks(t) {
+  document.documentElement.style.setProperty('--green-deep', t.accentColor);
+  document.documentElement.style.setProperty('--radius', t.cardRadius + 'px');
+}
+applyTweaks(tweakState);
+
+window.addEventListener('message', e => {
+  if (e.data.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+  if (e.data.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+function updateTweak(key, val) {
+  tweakState[key] = val;
+  applyTweaks(tweakState);
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]:val}}, '*');
+}
+</script>
+
+<div id="tweaks-panel" class="tweaks-panel">
+  <div class="tweaks-title">Tweaks</div>
+  <div class="tweak-row">
+    <label>Accent Color</label>
+    <select onchange="updateTweak('accentColor', this.value)">
+      <option value="#174f19">Forest Green</option>
+      <option value="#1a3d6e">Navy Blue</option>
+      <option value="#5f2d07">Warm Brown</option>
+      <option value="#2d2d2d">Charcoal</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Card Radius</label>
+    <input type="range" min="0" max="24" step="4" value="16"
+      oninput="updateTweak('cardRadius', this.value)"/>
+  </div>
+</div>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="80" fill="#f7e5d7"/>
+  <rect x="36" y="18" width="48" height="44" rx="8" fill="#efd4be"/>
+  <rect x="40" y="22" width="40" height="36" rx="5" fill="#d4b090" opacity="0.6"/>
+  <path d="M36 26 C26 16 24 8 30 4" stroke="#c49070" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M84 26 C94 16 96 8 90 4" stroke="#c49070" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <rect x="54" y="34" width="12" height="8" rx="2" fill="#174f19" opacity="0.7"/>
+</svg>
+</template>
+</body>
+</html>

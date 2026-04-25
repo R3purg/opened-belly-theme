@@ -1,0 +1,187 @@
+{% stylesheet %}
+  .specs-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 36px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .spec-row {
+    display: flex;
+    padding: 16px 22px;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .spec-row:last-child,
+  .spec-row:nth-last-child(2):nth-child(odd) {
+    border-bottom: none;
+  }
+
+  .spec-key {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fg-muted);
+    width: 120px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .spec-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  @media (max-width: 768px) {
+    .specs-section {
+      padding: 52px 16px;
+    }
+
+    .specs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .spec-row:nth-last-child(2) {
+      border-bottom: 1px solid var(--border);
+    }
+  }
+{% endstylesheet %}
+
+<div class="specs-section" id="specs">
+  {% if section.settings.section_kicker %}
+    <p class="reveal" style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-mid);margin-bottom:10px">
+      {{ section.settings.section_kicker }}
+    </p>
+  {% endif %}
+
+  {% if section.settings.section_heading %}
+    <h2 class="reveal" style="font-family:var(--font-head);font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin-bottom:0">
+      {{ section.settings.section_heading }}
+    </h2>
+  {% endif %}
+
+  <div class="specs-grid reveal">
+    {% for block in section.blocks %}
+      <div class="spec-row">
+        <div class="spec-key">{{ block.settings.spec_key }}</div>
+        <div class="spec-val">{{ block.settings.spec_value }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Specifications",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_kicker",
+      "label": "Kicker Text",
+      "default": "Specifications"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Built for daily use."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "spec_key",
+          "label": "Key",
+          "default": "Material"
+        },
+        {
+          "type": "text",
+          "id": "spec_value",
+          "label": "Value",
+          "default": "Neoprene + Oxford Fabric"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Specifications",
+      "blocks": [
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Material",
+            "spec_value": "Neoprene + Oxford Fabric"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Closure",
+            "spec_value": "Dual Velcro Straps"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Sizes Available",
+            "spec_value": "XS / S / M / L / XL / XXL"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Colors",
+            "spec_value": "Black, Beige, Navy"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Gender",
+            "spec_value": "Unisex"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Support Type",
+            "spec_value": "Lumbar + Abdominal"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Wear Duration",
+            "spec_value": "2–8 hours/day recommended"
+          }
+        },
+        {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Washable",
+            "spec_value": "Hand wash, air dry"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

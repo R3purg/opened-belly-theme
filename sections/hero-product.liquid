@@ -1,0 +1,247 @@
+{% stylesheet %}
+  .hero-gallery-main {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    background: var(--cream-dark);
+    border-radius: var(--radius) var(--radius) 0 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+  }
+
+  .hero-product-info {
+    animation: fadeUp 0.65s ease both;
+  }
+
+  @media (max-width: 768px) {
+    .hero-top {
+      padding: 32px 16px 0;
+    }
+
+    .hero-gallery-main {
+      aspect-ratio: 4/3;
+    }
+  }
+{% endstylesheet %}
+
+<div class="hero-wrap">
+  <div class="hero-top">
+    <div class="hero-product-info" style="padding-bottom: 72px;">
+      {% if section.settings.hero_kicker %}
+        <div class="hero-kicker">
+          <div class="hero-kicker-line"></div>
+          <div class="hero-kicker-text">{{ section.settings.hero_kicker }}</div>
+        </div>
+      {% endif %}
+
+      {% if section.settings.hero_heading %}
+        <h1 class="hero-h1">
+          {{ section.settings.hero_heading }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.hero_description %}
+        <p class="hero-desc">{{ section.settings.hero_description }}</p>
+      {% endif %}
+
+      <div class="hero-price-block">
+        <div class="hero-price-row">
+          <div class="hero-price">
+            {% if product.selected_or_first_available_variant %}
+              {{ product.selected_or_first_available_variant.price | money }}
+            {% endif %}
+          </div>
+          {% if section.settings.show_original_price %}
+            <div class="hero-orig">{{ section.settings.original_price }}</div>
+            <div class="hero-save">{{ section.settings.discount_badge }}</div>
+          {% endif %}
+        </div>
+        {% if section.settings.shipping_text %}
+          <div class="hero-sub">{{ section.settings.shipping_text }}</div>
+        {% endif %}
+      </div>
+
+      <div class="hero-btns">
+        <button class="btn-primary" form="AddToCartForm">
+          {{ section.settings.add_to_cart_label | default: 'Add to Cart' }}
+        </button>
+        {% if section.settings.show_size_guide %}
+          <button class="btn-outline" onclick="alert('Size Guide')">
+            {{ section.settings.size_guide_label | default: 'View Size Guide' }}
+          </button>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_micro_features %}
+        <div class="hero-micro">
+          {% if section.settings.feature_1 %}
+            <div class="micro-item">
+              <div class="micro-check">
+                <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#174f19" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              {{ section.settings.feature_1 }}
+            </div>
+          {% endif %}
+          {% if section.settings.feature_2 %}
+            <div class="micro-item">
+              <div class="micro-check">
+                <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#174f19" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              {{ section.settings.feature_2 }}
+            </div>
+          {% endif %}
+          {% if section.settings.feature_3 %}
+            <div class="micro-item">
+              <div class="micro-check">
+                <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#174f19" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              {{ section.settings.feature_3 }}
+            </div>
+          {% endif %}
+          {% if section.settings.feature_4 %}
+            <div class="micro-item">
+              <div class="micro-check">
+                <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#174f19" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              {{ section.settings.feature_4 }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div style="animation: fadeUp 0.65s 0.1s ease both;">
+      <div class="hero-img-wrap">
+        {% if product.featured_image %}
+          <img
+            src="{{ product.featured_image | image_url: width: 600 }}"
+            alt="{{ product.featured_image.alt }}"
+            class="hero-gallery-main"
+            loading="lazy"
+          >
+        {% else %}
+          <div class="hero-gallery-main" style="background: var(--cream); display: flex; align-items: center; justify-content: center; color: var(--fg-muted); font-family: monospace; font-size: 12px;">
+            Product Image
+          </div>
+        {% endif %}
+
+        {% if section.settings.show_thumbnails and product.images.size > 1 %}
+          <div class="hero-img-thumbs">
+            {% for image in product.images limit: 3 %}
+              <div class="hero-thumb" style="cursor: pointer;" onclick="document.querySelector('.hero-gallery-main').src='{{ image | image_url: width: 600 }}'">
+                <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt }}" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero with Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_kicker",
+      "label": "Kicker Text",
+      "default": "Posture & Back Support"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Stand taller. Feel stronger."
+    },
+    {
+      "type": "richtext",
+      "id": "hero_description",
+      "label": "Description",
+      "default": "<p>Adjustable back support belt for abdominal waist correction and spine alignment.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_original_price",
+      "label": "Show Original Price",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "original_price",
+      "label": "Original Price Display",
+      "default": "€38.00"
+    },
+    {
+      "type": "text",
+      "id": "discount_badge",
+      "label": "Discount Badge",
+      "default": "50% off"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping Text",
+      "default": "Free shipping · Arrives in 10–16 days"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label",
+      "label": "Add to Cart Button Label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_guide",
+      "label": "Show Size Guide Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "size_guide_label",
+      "label": "Size Guide Button Label",
+      "default": "View Size Guide"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_micro_features",
+      "label": "Show Feature List",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "Adjustable fit S–XXL"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "Unisex design"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "Breathable fabric"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Feature 4",
+      "default": "Discreet under clothing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_thumbnails",
+      "label": "Show Image Thumbnails",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

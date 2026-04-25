@@ -1,0 +1,137 @@
+{% stylesheet %}
+  .proof-bar {
+    background: var(--fg);
+  }
+
+  .proof-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .proof-cell {
+    flex: 1;
+    padding: 26px 0;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .proof-cell:last-child {
+    border-right: none;
+  }
+
+  .proof-num {
+    font-family: var(--font-head);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green-sage);
+    line-height: 1;
+  }
+
+  .proof-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  @media (max-width: 768px) {
+    .proof-bar-inner {
+      flex-wrap: wrap;
+      padding: 0 16px;
+    }
+
+    .proof-cell {
+      min-width: 50%;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .proof-cell:nth-child(odd) {
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .proof-cell:last-child,
+    .proof-cell:nth-last-child(2):nth-child(odd) {
+      border-bottom: none;
+    }
+  }
+{% endstylesheet %}
+
+<div class="proof-bar reveal">
+  <div class="proof-bar-inner">
+    {% for block in section.blocks %}
+      <div class="proof-cell">
+        <div class="proof-num">{{ block.settings.stat_number }}</div>
+        <div class="proof-label">{{ block.settings.stat_label }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Proof Bar",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stat_number",
+          "label": "Number/Stat",
+          "default": "50%"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Label",
+          "default": "Average pain reduction reported"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Proof Bar",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "stat_number": "50%",
+            "stat_label": "Average pain reduction reported"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "stat_number": "S–XXL",
+            "stat_label": "Full size range, fits all bodies"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "stat_number": "8h+",
+            "stat_label": "Comfortable all-day wear"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "stat_number": "Unisex",
+            "stat_label": "Designed for men and women"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

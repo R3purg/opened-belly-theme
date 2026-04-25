@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VacuSeal Pro — Opened Belly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --green-deep: #174f19;
+  --green-mid: #2d7a30;
+  --green-sage: #a3d9a5;
+  --green-light: #cfe2d0;
+  --green-pale: #eff5ef;
+  --cream: #f7e5d7;
+  --brown: #95511d;
+  --fg: #061406;
+  --fg-muted: #5a6e5b;
+  --bg: #ffffff;
+  --border: #e8f0e8;
+  --font-head: 'Instrument Sans', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.25,0.1,0.25,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--fg); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 52px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: var(--transition);
+}
+.nav-logo { font-family: var(--font-head); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; color: var(--green-deep); text-transform: uppercase; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--fg-muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--fg); }
+.nav-cart { display: flex; align-items: center; gap: 8px; background: var(--green-deep); color: #fff; border: none; border-radius: 50px; padding: 8px 18px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.nav-cart:hover { background: var(--green-mid); }
+
+/* ── STICKY BUY BAR ── */
+.sticky-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 12px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25,0.1,0.25,1);
+}
+.sticky-bar.visible { transform: translateY(0); }
+.sticky-bar-left { display: flex; flex-direction: column; gap: 2px; }
+.sticky-bar-name { font-family: var(--font-head); font-weight: 600; font-size: 14px; }
+.sticky-bar-price { font-size: 13px; color: var(--fg-muted); }
+.sticky-bar-actions { display: flex; gap: 10px; }
+.btn-primary { background: var(--green-deep); color: #fff; border: none; border-radius: 50px; padding: 12px 32px; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.btn-primary:hover { background: var(--green-mid); }
+.btn-secondary { background: transparent; color: var(--green-deep); border: 1.5px solid var(--green-deep); border-radius: 50px; padding: 11px 24px; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.btn-secondary:hover { background: var(--green-pale); }
+
+/* ── HERO ── */
+.hero {
+  margin-top: 52px;
+  padding: 80px 40px 60px;
+  max-width: 1200px; margin-left: auto; margin-right: auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.hero-info { animation: fadeUp 0.7s ease both; }
+.hero-badge { display: inline-block; background: var(--green-pale); color: var(--green-deep); border-radius: 50px; padding: 5px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+.hero-title { font-family: var(--font-head); font-size: clamp(32px,4vw,52px); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 16px; }
+.hero-subtitle { font-size: 17px; line-height: 1.6; color: var(--fg-muted); margin-bottom: 32px; max-width: 440px; }
+.hero-pricing { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.hero-price { font-family: var(--font-head); font-size: 36px; font-weight: 700; color: var(--fg); }
+.hero-price-orig { font-size: 18px; color: var(--fg-muted); text-decoration: line-through; }
+.hero-price-badge { background: var(--cream); color: var(--brown); border-radius: 6px; padding: 3px 10px; font-size: 13px; font-weight: 700; }
+.hero-shipping { font-size: 13px; color: var(--fg-muted); margin-bottom: 28px; }
+.hero-shipping span { color: var(--green-mid); font-weight: 600; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+.hero-actions .btn-primary { padding: 15px 40px; font-size: 15px; border-radius: 50px; }
+.hero-actions .btn-secondary { padding: 14px 28px; font-size: 15px; }
+.hero-trust { display: flex; gap: 24px; flex-wrap: wrap; }
+.trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--fg-muted); }
+.trust-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-sage); flex-shrink: 0; }
+
+/* ── GALLERY ── */
+.gallery { animation: fadeUp 0.7s 0.15s ease both; display: flex; flex-direction: column; gap: 12px; }
+.gallery-main {
+  border-radius: var(--radius); overflow: hidden; background: var(--green-pale);
+  aspect-ratio: 1; position: relative; cursor: zoom-in;
+}
+.gallery-main img { width: 100%; height: 100%; object-fit: contain; padding: 30px; transition: transform 0.4s ease; }
+.gallery-main:hover img { transform: scale(1.04); }
+.gallery-thumb-row { display: flex; gap: 8px; }
+.thumb { flex: 1; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--green-pale); cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+.thumb.active { border-color: var(--green-deep); }
+.thumb img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+.thumb:hover { border-color: var(--green-sage); }
+
+/* placeholder SVG */
+.img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--fg-muted); font-size: 12px; font-family: monospace; text-align: center; padding: 16px; }
+.img-placeholder svg { opacity: 0.35; }
+
+/* ── SECTION LABEL ── */
+.section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 12px; }
+.section-title { font-family: var(--font-head); font-size: clamp(28px,3.5vw,44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+.section-body { font-size: 17px; line-height: 1.7; color: var(--fg-muted); max-width: 560px; }
+
+/* ── FEATURE STRIP (Apple-style chips) ── */
+.feature-strip { background: var(--green-pale); padding: 60px 0; }
+.feature-strip-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.feature-chip { background: var(--bg); padding: 36px 28px; border-radius: 0; text-align: center; }
+.feature-chip:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.feature-chip:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+.feature-chip-icon { width: 48px; height: 48px; margin: 0 auto 16px; }
+.feature-chip-num { font-family: var(--font-head); font-size: 36px; font-weight: 700; color: var(--green-deep); line-height: 1; margin-bottom: 6px; }
+.feature-chip-label { font-size: 13px; font-weight: 500; color: var(--fg-muted); line-height: 1.4; }
+
+/* ── HOW IT WORKS ── */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+.step { padding: 36px; background: var(--green-pale); border-radius: var(--radius); position: relative; overflow: hidden; }
+.step::before { content: attr(data-num); position: absolute; top: -10px; right: 16px; font-family: var(--font-head); font-size: 96px; font-weight: 800; color: var(--green-sage); opacity: 0.4; line-height: 1; }
+.step-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 10px; position: relative; }
+.step-body { font-size: 14px; line-height: 1.65; color: var(--fg-muted); position: relative; }
+
+/* ── SPECS ── */
+.specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 40px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.spec-row { display: flex; padding: 18px 24px; align-items: center; gap: 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
+.spec-row:last-child, .spec-row:nth-last-child(2) { border-bottom: none; }
+.spec-key { font-size: 13px; font-weight: 600; color: var(--fg-muted); width: 140px; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; }
+.spec-val { font-size: 14px; font-weight: 500; color: var(--fg); }
+
+/* ── WHATS IN THE BOX ── */
+.box-section { background: var(--fg); color: #fff; padding: 80px 40px; }
+.box-inner { max-width: 1200px; margin: 0 auto; }
+.box-section .section-label { color: var(--green-sage); }
+.box-section .section-title { color: #fff; }
+.box-section .section-body { color: rgba(255,255,255,0.6); }
+.box-items { display: flex; gap: 16px; margin-top: 48px; flex-wrap: wrap; }
+.box-item { flex: 1; min-width: 140px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 24px 20px; text-align: center; }
+.box-item-icon { font-size: 28px; margin-bottom: 12px; }
+.box-item-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.9); line-height: 1.4; }
+.box-item-qty { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+/* ── VARIANTS ── */
+.variants-section { padding: 20px 0 36px; }
+.variants-label { font-size: 13px; font-weight: 600; color: var(--fg-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+.variants-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.variant-btn { padding: 9px 18px; border-radius: 50px; border: 1.5px solid var(--border); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; background: var(--bg); color: var(--fg); transition: all 0.18s; }
+.variant-btn:hover { border-color: var(--green-deep); }
+.variant-btn.selected { border-color: var(--green-deep); background: var(--green-deep); color: #fff; }
+
+/* ── RATINGS ── */
+.rating-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.stars { display: flex; gap: 2px; }
+.star { width: 14px; height: 14px; fill: #f5a623; }
+.rating-text { font-size: 13px; color: var(--fg-muted); }
+.rating-big { font-family: var(--font-head); font-size: 22px; font-weight: 700; }
+
+/* ── FOOTER ── */
+.footer { background: var(--green-pale); padding: 48px 40px; text-align: center; }
+.footer-logo { font-family: var(--font-head); font-weight: 700; font-size: 18px; letter-spacing: 0.08em; color: var(--green-deep); text-transform: uppercase; margin-bottom: 12px; }
+.footer-text { font-size: 13px; color: var(--fg-muted); }
+
+/* ── TWEAKS PANEL ── */
+.tweaks-panel {
+  position: fixed; bottom: 80px; right: 20px; z-index: 9999;
+  width: 260px; background: #fff; border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  display: none;
+}
+.tweaks-panel.open { display: block; }
+.tweaks-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--fg); }
+.tweak-row { margin-bottom: 14px; }
+.tweak-row label { display: block; font-size: 12px; font-weight: 600; color: var(--fg-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.tweak-row select, .tweak-row input[type=range] { width: 100%; }
+.tweak-row select { padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: 13px; background: var(--bg); color: var(--fg); }
+.tweak-row input[type=range] { accent-color: var(--green-deep); }
+
+/* ── SCROLL REVEALS ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ── TABLET (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .hero { gap: 48px; padding: 60px 32px 48px; }
+  .hero-title { font-size: clamp(28px, 3.5vw, 44px); }
+  .feature-strip-inner { gap: 1px; }
+  .feature-chip { padding: 28px 20px; }
+  .section { padding: 64px 32px; }
+  .box-section { padding: 64px 32px; }
+}
+
+/* ── MOBILE (≤ 768px) ── */
+@media (max-width: 768px) {
+  :root { --radius: 12px; }
+
+  /* Nav */
+  .nav { padding: 0 16px; height: 56px; }
+  .nav-links { display: none; }
+  .nav-cart { padding: 7px 14px; font-size: 12px; }
+  .nav-logo { font-size: 13px; }
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 16px 40px;
+    margin-top: 56px;
+  }
+  .hero-info { order: 2; }
+  .gallery { order: 1; }
+  .hero-title { font-size: clamp(26px, 7vw, 38px); margin-bottom: 12px; }
+  .hero-subtitle { font-size: 15px; margin-bottom: 20px; max-width: 100%; }
+  .hero-price { font-size: 28px; }
+  .hero-price-orig { font-size: 15px; }
+  .hero-pricing { gap: 8px; margin-bottom: 6px; }
+  .hero-shipping { margin-bottom: 20px; }
+  .hero-badge { font-size: 11px; margin-bottom: 14px; }
+  .hero-actions { flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary { width: 100%; text-align: center; padding: 15px 20px; font-size: 15px; }
+  .hero-trust { gap: 12px; }
+  .trust-item { font-size: 12px; }
+
+  /* Gallery */
+  .gallery-main { border-radius: 12px; }
+  .gallery-thumb-row { gap: 6px; }
+  .thumb { border-radius: 8px; }
+
+  /* Variants */
+  .variants-section { padding: 16px 0 20px; }
+  .variants-row { gap: 6px; }
+  .variant-btn { padding: 8px 14px; font-size: 12px; }
+
+  /* Qty */
+  .variants-section + div { margin-bottom: 16px; }
+
+  /* Feature strip */
+  .feature-strip { padding: 40px 0; }
+  .feature-strip-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    padding: 0 16px;
+  }
+  .feature-chip { padding: 24px 16px; }
+  .feature-chip:first-child { border-radius: var(--radius) 0 0 0; }
+  .feature-chip:nth-child(2) { border-radius: 0 var(--radius) 0 0; }
+  .feature-chip:nth-child(3) { border-radius: 0 0 0 var(--radius); }
+  .feature-chip:last-child { border-radius: 0 0 var(--radius) 0; }
+  .feature-chip-num { font-size: 28px; }
+  .feature-chip-label { font-size: 12px; }
+
+  /* Sections */
+  .section { padding: 48px 16px; }
+  .section-title { font-size: clamp(24px, 6vw, 36px); }
+  .section-body { font-size: 15px; }
+
+  /* Steps */
+  .steps { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+  .step { padding: 28px 24px; }
+  .step::before { font-size: 64px; top: -4px; right: 12px; }
+  .step-title { font-size: 16px; }
+  .step-body { font-size: 14px; }
+
+  /* Specs */
+  .specs-grid { grid-template-columns: 1fr; margin-top: 28px; }
+  .spec-row { padding: 14px 16px; }
+  .spec-row:nth-last-child(2) { border-bottom: 1px solid var(--border); }
+
+  /* Box */
+  .box-section { padding: 48px 16px; }
+  .box-items { gap: 10px; margin-top: 32px; }
+  .box-item { min-width: calc(50% - 5px); padding: 20px 14px; }
+  .box-item-icon { font-size: 22px; margin-bottom: 8px; }
+  .box-item-name { font-size: 12px; }
+
+  /* Sticky bar — simplified on mobile */
+  .sticky-bar { padding: 10px 16px; gap: 12px; }
+  .sticky-bar-actions .btn-secondary { display: none; }
+  .sticky-bar-actions .btn-primary { padding: 11px 20px; font-size: 13px; }
+  .sticky-bar-name { font-size: 13px; }
+  .sticky-bar-price { font-size: 12px; }
+
+  /* Footer */
+  .footer { padding: 36px 16px; }
+
+  /* Tweaks panel */
+  .tweaks-panel { width: calc(100vw - 32px); right: 16px; bottom: 70px; }
+}
+
+/* ── SMALL MOBILE (≤ 400px) ── */
+@media (max-width: 400px) {
+  .hero-title { font-size: 24px; }
+  .hero-price { font-size: 24px; }
+  .feature-strip-inner { grid-template-columns: 1fr 1fr; }
+  .box-item { min-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Opened Belly</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How it Works</a>
+    <a href="#specs">Specs</a>
+    <a href="#inbox">In the Box</a>
+  </div>
+  <button class="nav-cart" onclick="document.getElementById('purchase-section').scrollIntoView({behavior:'smooth'})">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Add to Cart
+  </button>
+</nav>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-bar-left">
+    <div class="sticky-bar-name">VacuSeal Pro</div>
+    <div class="sticky-bar-price">€14.31 <span style="color:#95511d;font-weight:700;font-size:12px;margin-left:4px">▼ 28% off</span></div>
+  </div>
+  <div class="sticky-bar-actions">
+    <button class="btn-secondary">Save for Later</button>
+    <button class="btn-primary">Add to Cart — €14.31</button>
+  </div>
+</div>
+
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+// ── SVG placeholder for product ──
+const ProductPlaceholder = ({ label = "product shot", bg = "#e8f3e8", accent = "#a3d9a5" }) => (
+  <div style={{
+    width:'100%', height:'100%', background: bg,
+    display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
+    gap: 12, padding: 32, minHeight: 300
+  }}>
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+      {/* Vacuum sealer silhouette */}
+      <rect x="10" y="28" width="60" height="24" rx="6" fill={accent} opacity="0.5"/>
+      <rect x="14" y="32" width="52" height="16" rx="4" fill={accent} opacity="0.7"/>
+      <rect x="22" y="24" width="36" height="8" rx="3" fill={accent} opacity="0.4"/>
+      <circle cx="55" cy="40" r="5" fill="#174f19" opacity="0.5"/>
+      <rect x="8" y="52" width="64" height="6" rx="3" fill={accent} opacity="0.3"/>
+      <rect x="18" y="58" width="44" height="3" rx="1.5" fill={accent} opacity="0.2"/>
+    </svg>
+    <span style={{fontFamily:'monospace', fontSize:11, color:'#5a6e5b', textAlign:'center', lineHeight:1.5}}>
+      {label}
+    </span>
+  </div>
+);
+
+const images = [
+  { label: "VacuSeal Pro — front view, silver body on white surface" },
+  { label: "VacuSeal Pro — sealing a bag of coffee beans, action shot" },
+  { label: "VacuSeal Pro — angled top view showing control panel" },
+  { label: "VacuSeal Pro — in use with vacuum bag rolls" },
+  { label: "VacuSeal Pro — lifestyle kitchen counter scene" },
+];
+
+const variants = {
+  color: ["Silver", "Black", "White"],
+  bundle: ["Machine Only", "Machine + 10 Bags", "Machine + 50 Bags", "Full Kit"],
+};
+
+function StarRating({ n = 5, rating = 4.8 }) {
+  return (
+    <svg width={n * 16} height="14" viewBox={`0 0 ${n * 16} 14`}>
+      {Array.from({length: n}, (_,i) => {
+        const filled = i < Math.floor(rating);
+        const partial = !filled && i < rating;
+        return (
+          <g key={i} transform={`translate(${i*16},0)`}>
+            {partial && <defs><linearGradient id={`g${i}`}><stop offset={`${(rating%1)*100}%`} stopColor="#f5a623"/><stop offset={`${(rating%1)*100}%`} stopColor="#d1d5db"/></linearGradient></defs>}
+            <path d="M7 1.5l1.5 4.5H14L9.5 9l1.5 4.5L7 11 2.5 13.5 4 9 0 6h5.5z"
+              fill={filled ? "#f5a623" : partial ? `url(#g${i})` : "#d1d5db"}/>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function App() {
+  const [activeImg, setActiveImg] = useState(0);
+  const [selectedVariant, setSelectedVariant] = useState({ color: "Silver", bundle: "Machine Only" });
+  const [qty, setQty] = useState(1);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const heroRef = useRef(null);
+
+  // Sticky bar
+  useEffect(() => {
+    const bar = document.getElementById('sticky-bar');
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > 500) bar.classList.add('visible');
+      else bar.classList.remove('visible');
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Scroll reveal
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  const handleAddToCart = () => {
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2200);
+  };
+
+  const price = selectedVariant.bundle === "Machine Only" ? 14.31
+    : selectedVariant.bundle === "Machine + 10 Bags" ? 18.90
+    : selectedVariant.bundle === "Machine + 50 Bags" ? 24.50
+    : 29.99;
+
+  return (
+    <>
+      {/* ── HERO ── */}
+      <div style={{marginTop: 52}}>
+        <div className="hero" ref={heroRef}>
+          {/* Gallery */}
+          <div className="gallery">
+            <div className="gallery-main">
+              <ProductPlaceholder label={images[activeImg].label} />
+            </div>
+            <div className="gallery-thumb-row">
+              {images.map((img, i) => (
+                <div key={i} className={`thumb ${activeImg === i ? 'active' : ''}`} onClick={() => setActiveImg(i)}>
+                  <ProductPlaceholder label="" bg={activeImg===i?"#cfe2d0":"#eff5ef"} accent={activeImg===i?"#174f19":"#a3d9a5"} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Info */}
+          <div className="hero-info">
+            <div style={{display:'flex', alignItems:'center', gap:12, marginBottom:16}}>
+              <div className="hero-badge">Kitchen Essential</div>
+              <div style={{display:'flex', alignItems:'center', gap:6}}>
+                <StarRating rating={4.8}/>
+                <span style={{fontSize:13, color:'var(--fg-muted)'}}>4.8 · 1,007 orders</span>
+              </div>
+            </div>
+
+            <h1 className="hero-title">VacuSeal Pro<br/>Kitchen Sealer</h1>
+            <p className="hero-subtitle">Professional-grade vacuum sealing for freshness that lasts up to 5× longer. Compact, whisper-quiet, and built for daily kitchen use.</p>
+
+            <div className="hero-pricing">
+              <div className="hero-price">€{price.toFixed(2)}</div>
+              <div className="hero-price-orig">€19.80</div>
+              <div className="hero-price-badge">28% off</div>
+            </div>
+            <div className="hero-shipping">Free shipping · <span>Estimated delivery 12–18 days</span></div>
+
+            {/* Variant pickers */}
+            <div id="purchase-section">
+              <div className="variants-section">
+                <div className="variants-label">Color: {selectedVariant.color}</div>
+                <div className="variants-row">
+                  {variants.color.map(c => (
+                    <button key={c} className={`variant-btn ${selectedVariant.color===c?'selected':''}`}
+                      onClick={() => setSelectedVariant(v=>({...v, color:c}))}>{c}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="variants-section" style={{paddingTop:0}}>
+                <div className="variants-label">Bundle</div>
+                <div className="variants-row">
+                  {variants.bundle.map(b => (
+                    <button key={b} className={`variant-btn ${selectedVariant.bundle===b?'selected':''}`}
+                      onClick={() => setSelectedVariant(v=>({...v, bundle:b}))}>{b}</button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Qty */}
+              <div style={{display:'flex', alignItems:'center', gap:12, marginBottom:24}}>
+                <span style={{fontSize:13, fontWeight:600, color:'var(--fg-muted)', textTransform:'uppercase', letterSpacing:'0.06em'}}>Qty</span>
+                <div style={{display:'flex', alignItems:'center', gap:0, border:'1.5px solid var(--border)', borderRadius:50, overflow:'hidden'}}>
+                  <button onClick={() => setQty(q=>Math.max(1,q-1))} style={{width:36,height:36,border:'none',background:'none',cursor:'pointer',fontSize:18,color:'var(--fg)',display:'flex',alignItems:'center',justifyContent:'center'}}>−</button>
+                  <span style={{width:32,textAlign:'center',fontSize:14,fontWeight:600}}>{qty}</span>
+                  <button onClick={() => setQty(q=>q+1)} style={{width:36,height:36,border:'none',background:'none',cursor:'pointer',fontSize:18,color:'var(--fg)',display:'flex',alignItems:'center',justifyContent:'center'}}>+</button>
+                </div>
+              </div>
+
+              <div className="hero-actions">
+                <button className="btn-primary" onClick={handleAddToCart} style={{minWidth:200, transition:'all 0.2s', background: addedToCart ? '#2d7a30' : undefined}}>
+                  {addedToCart ? '✓ Added to Cart' : `Add to Cart — €${(price*qty).toFixed(2)}`}
+                </button>
+                <button className="btn-secondary">Save for Later</button>
+              </div>
+            </div>
+
+            <div className="hero-trust">
+              {['Free Returns','2-Year Warranty','Secure Checkout','Ships Worldwide'].map(t=>(
+                <div key={t} className="trust-item"><div className="trust-dot"/>{t}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── FEATURE STRIP ── */}
+      <div className="feature-strip" id="features">
+        <div className="feature-strip-inner">
+          {[
+            { num:"5×", label:"Longer freshness vs. standard storage" },
+            { num:"60s", label:"Full vacuum seal cycle time" },
+            { num:"0.8kPa", label:"Maximum vacuum pressure" },
+            { num:"110dB", label:"Ultra-quiet motor technology" },
+          ].map((f,i) => (
+            <div key={i} className="feature-chip reveal" style={{transitionDelay:`${i*0.08}s`}}>
+              <div className="feature-chip-num">{f.num}</div>
+              <div className="feature-chip-label">{f.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── HOW IT WORKS ── */}
+      <div className="section" id="how-it-works">
+        <p className="section-label reveal">How it works</p>
+        <h2 className="section-title reveal">Three steps.<br/>Perfect seal, every time.</h2>
+        <div className="steps">
+          {[
+            { num:"01", title:"Place Your Food", body:"Load your ingredients into a compatible vacuum bag or use the included resealable pouches. Works with liquids, solids, and dry goods." },
+            { num:"02", title:"Insert & Lock", body:"Slide the open end of the bag into the sealing channel. The auto-lock mechanism secures the bag for an airtight chamber." },
+            { num:"03", title:"Press & Seal", body:"Press the vacuum button. The machine extracts all air in under 60 seconds, then heat-seals the bag. Done — no mess, no fuss." },
+          ].map((s,i) => (
+            <div key={i} className="step reveal" data-num={s.num} style={{transitionDelay:`${i*0.1}s`}}>
+              <h3 className="step-title">{s.title}</h3>
+              <p className="step-body">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── SPECS ── */}
+      <div className="section" id="specs" style={{paddingTop:0}}>
+        <p className="section-label reveal">Technical Specifications</p>
+        <h2 className="section-title reveal">Built to perform.</h2>
+        <div className="specs-grid reveal">
+          {[
+            ["Power","≤ 110W"],["Voltage","220V / 50Hz"],
+            ["Vacuum Pressure","0.8 kPa"],["Seal Time","≤ 10 sec"],
+            ["Bag Width","28 cm max"],["Noise Level","< 60 dB"],
+            ["Dimensions","37 × 14 × 8 cm"],["Weight","1.2 kg"],
+            ["Material","ABS + Stainless"],["Certification","CE / RoHS"],
+          ].map(([k,v],i) => (
+            <div key={i} className="spec-row">
+              <div className="spec-key">{k}</div>
+              <div className="spec-val">{v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── IN THE BOX ── */}
+      <div className="box-section" id="inbox">
+        <div className="box-inner">
+          <p className="section-label">In the Box</p>
+          <h2 className="section-title">Everything you need<br/>to get started.</h2>
+          <div className="box-items">
+            {[
+              {icon:"🔧", name:"VacuSeal Pro Machine", qty:"× 1"},
+              {icon:"🛍️", name:"Vacuum Bags (assorted)", qty:"× 5"},
+              {icon:"🔌", name:"Power Adapter", qty:"× 1"},
+              {icon:"📖", name:"User Manual", qty:"× 1"},
+              {icon:"🎁", name:"Bag Roll (3m)", qty:"× 1"},
+            ].map((item,i) => (
+              <div key={i} className="box-item">
+                <div className="box-item-icon">{item.icon}</div>
+                <div className="box-item-name">{item.name}</div>
+                <div className="box-item-qty">{item.qty}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── FOOTER ── */}
+      <div className="footer">
+        <div className="footer-logo">Opened Belly</div>
+        <div className="footer-text">© 2026 Opened Belly. All rights reserved.</div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<!-- TWEAKS -->
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#174f19",
+  "heroLayout": "split",
+  "pageBg": "#ffffff"
+}/*EDITMODE-END*/;
+
+let tweakState = {...TWEAK_DEFAULTS};
+
+function applyTweaks(t) {
+  document.documentElement.style.setProperty('--green-deep', t.accentColor);
+  document.documentElement.style.setProperty('--bg', t.pageBg);
+}
+applyTweaks(tweakState);
+
+window.addEventListener('message', e => {
+  if (e.data.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+  if (e.data.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+function updateTweak(key, val) {
+  tweakState[key] = val;
+  applyTweaks(tweakState);
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits: {[key]: val}}, '*');
+}
+</script>
+
+<div id="tweaks-panel" class="tweaks-panel">
+  <div class="tweaks-title">Tweaks</div>
+  <div class="tweak-row">
+    <label>Accent Color</label>
+    <select onchange="updateTweak('accentColor', this.value)">
+      <option value="#174f19">Forest Green</option>
+      <option value="#1a3d6e">Navy Blue</option>
+      <option value="#5f2d07">Warm Brown</option>
+      <option value="#2d2d2d">Charcoal</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Background</label>
+    <select onchange="updateTweak('pageBg', this.value)">
+      <option value="#ffffff">Pure White</option>
+      <option value="#fafaf8">Warm White</option>
+      <option value="#f5f5f0">Off White</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Card Radius</label>
+    <input type="range" min="0" max="24" step="4" value="16"
+      oninput="document.documentElement.style.setProperty('--radius', this.value+'px')"/>
+  </div>
+</div>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="80" fill="#eff5ef"/>
+  <rect x="10" y="10" width="50" height="60" rx="4" fill="#a3d9a5"/>
+  <rect x="70" y="20" width="40" height="8" rx="2" fill="#174f19" opacity="0.7"/>
+  <rect x="70" y="34" width="32" height="4" rx="2" fill="#174f19" opacity="0.3"/>
+  <rect x="70" y="44" width="36" height="14" rx="7" fill="#174f19"/>
+</svg>
+</template>
+</body>
+</html>
