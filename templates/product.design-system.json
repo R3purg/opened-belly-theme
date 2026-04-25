@@ -59,7 +59,7 @@
       "settings": {
         "section_kicker": "Why it works",
         "section_heading": "Your spine deserves real support.",
-        "section_description": "Poor posture contributes to chronic back pain, fatigue, and reduced confidence. Our support belt gently guides your spine back into alignment — without restricting movement.",
+        "section_description": "<p>Poor posture contributes to chronic back pain, fatigue, and reduced confidence. Our support belt gently guides your spine back into alignment — without restricting movement.</p>",
         "show_benefits_list": true,
         "benefit_1": "Reduces strain on lumbar and thoracic vertebrae",
         "benefit_2": "Supports abdominal muscles during recovery or heavy lifting",
@@ -71,7 +71,7 @@
           "type": "benefit_card",
           "settings": {
             "card_title": "Spine Alignment",
-            "card_description": "Rigid stay rods on either side of the spine prevent lateral slouching and keep your vertebrae in a neutral position.",
+            "card_description": "<p>Rigid stay rods on either side of the spine prevent lateral slouching and keep your vertebrae in a neutral position.</p>",
             "card_emoji": "🦴"
           }
         },
@@ -79,7 +79,7 @@
           "type": "benefit_card",
           "settings": {
             "card_title": "Waist Correction",
-            "card_description": "The abdominal panel applies gentle inward pressure, training your core to hold proper posture naturally.",
+            "card_description": "<p>The abdominal panel applies gentle inward pressure, training your core to hold proper posture naturally.</p>",
             "card_emoji": "🎯"
           }
         },
@@ -95,7 +95,7 @@
           "type": "benefit_card",
           "settings": {
             "card_title": "Breathable Build",
-            "card_description": "Perforated neoprene fabric prevents heat buildup so you can wear it for 8+ hours without discomfort.",
+            "card_description": "<p>Perforated neoprene fabric prevents heat buildup so you can wear it for 8+ hours without discomfort.</p>",
             "card_emoji": "💨"
           }
         }

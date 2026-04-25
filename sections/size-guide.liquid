@@ -75,13 +75,19 @@
 <div class="size-guide" id="size-guide">
   <div class="size-guide-inner">
     {% if section.settings.section_kicker %}
-      <p class="reveal" style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-mid);margin-bottom:10px">
+      <p
+        class="reveal"
+        style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-mid);margin-bottom:10px"
+      >
         {{ section.settings.section_kicker }}
       </p>
     {% endif %}
 
     {% if section.settings.section_heading %}
-      <h2 class="reveal" style="font-family:var(--font-head);font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin-bottom:8px">
+      <h2
+        class="reveal"
+        style="font-family:var(--font-head);font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin-bottom:8px"
+      >
         {{ section.settings.section_heading }}
       </h2>
     {% endif %}
@@ -103,7 +109,9 @@
       <tbody>
         {% for block in section.blocks %}
           <tr>
-            <td><span class="size-badge">{{ block.settings.size_label }}</span></td>
+            <td>
+              <span class="size-badge">{{ block.settings.size_label }}</span>
+            </td>
             <td>{{ block.settings.size_value_1 }}</td>
             <td>{{ block.settings.size_value_2 }}</td>
             <td>{{ block.settings.size_value_3 }}</td>
