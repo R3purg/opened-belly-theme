@@ -5,7 +5,7 @@
       "settings": {
         "hero_kicker": "Premium Support Belt",
         "hero_heading": "Stand taller. Feel stronger.",
-        "hero_description": "Adjustable back support belt for abdominal waist correction and spine alignment. Unisex design — wear it under or over clothing, all day long.",
+        "hero_description": "<p>Adjustable back support belt for abdominal waist correction and spine alignment. Unisex design — wear it under or over clothing, all day long.</p>",
         "show_original_price": true,
         "original_price": "€38.00",
         "discount_badge": "50% off",
@@ -87,7 +87,7 @@
           "type": "benefit_card",
           "settings": {
             "card_title": "Adjustable Compression",
-            "card_description": "Dual velcro straps let you dial in exactly the right level of support — from light daily wear to post-exercise recovery.",
+            "card_description": "<p>Dual velcro straps let you dial in exactly the right level of support — from light daily wear to post-exercise recovery.</p>",
             "card_emoji": "🔧"
           }
         },
