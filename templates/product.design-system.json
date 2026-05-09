@@ -102,6 +102,18 @@
     },
     "specs": {
       "type": "specs",
+      "blocks": {
+        "spec_MrADye": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Material",
+            "spec_value": "Neoprene + Oxford Fabric"
+          }
+        }
+      },
+      "block_order": [
+        "spec_MrADye"
+      ],
       "settings": {
         "section_kicker": "Specifications",
         "section_heading": "Built for daily use."
@@ -109,6 +121,19 @@
     },
     "in_the_box": {
       "type": "in-the-box",
+      "blocks": {
+        "box_item_L77zYw": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "📦",
+            "item_name": "Product Name",
+            "item_quantity": "× 1"
+          }
+        }
+      },
+      "block_order": [
+        "box_item_L77zYw"
+      ],
       "settings": {
         "section_label": "In the Box",
         "section_title": "Ready to wear straight away."
