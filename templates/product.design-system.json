@@ -32,10 +32,35 @@
     },
     "proof_bar": {
       "type": "proof-bar",
+      "blocks": {
+        "stat_tNTtDQ": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "50%",
+            "stat_label": "Average pain reduction reported"
+          }
+        }
+      },
+      "block_order": [
+        "stat_tNTtDQ"
+      ],
       "settings": {}
     },
     "benefits": {
       "type": "body-benefits",
+      "blocks": {
+        "benefit_card_dgQVAQ": {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Benefit Title",
+            "card_description": "<p>Benefit description goes here.</p>",
+            "card_emoji": "🎯"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_card_dgQVAQ"
+      ],
       "settings": {
         "section_kicker": "Why it works",
         "section_heading": "Your spine deserves real support.",
