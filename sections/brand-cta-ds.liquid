@@ -1,0 +1,170 @@
+{% stylesheet %}
+  .brand-cta {
+    background: var(--green-deep);
+    padding: 80px 40px;
+  }
+
+  .brand-cta__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .brand-cta__kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-sage);
+    margin-bottom: 12px;
+  }
+
+  .brand-cta__heading {
+    font-family: var(--font-head);
+    font-size: clamp(26px, 3.5vw, 44px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .brand-cta__sub {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .brand-cta__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  .brand-cta__actions .btn-primary {
+    background: #fff;
+    color: var(--green-deep);
+    padding: 16px 36px;
+    font-size: 15px;
+  }
+
+  .brand-cta__actions .btn-primary:hover {
+    background: var(--cream);
+  }
+
+  .brand-cta__actions .btn-outline {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    padding: 15px 28px;
+    font-size: 15px;
+  }
+
+  .brand-cta__actions .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .brand-cta {
+      padding: 52px 16px;
+    }
+
+    .brand-cta__inner {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .brand-cta__actions {
+      flex-direction: column;
+    }
+
+    .brand-cta__actions .btn-primary,
+    .brand-cta__actions .btn-outline {
+      width: 100%;
+      text-align: center;
+    }
+  }
+{% endstylesheet %}
+
+<div class="brand-cta reveal">
+  <div class="brand-cta__inner">
+    <div>
+      {% if section.settings.kicker %}
+        <div class="brand-cta__kicker">{{ section.settings.kicker }}</div>
+      {% endif %}
+      <h2 class="brand-cta__heading">{{ section.settings.heading }}</h2>
+      {% if section.settings.subtext %}
+        <p class="brand-cta__sub">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="brand-cta__actions">
+      {% if section.settings.primary_label %}
+        <a href="{{ section.settings.primary_link | default: '/collections/all' }}" class="btn-primary">
+          {{ section.settings.primary_label }}
+        </a>
+      {% endif %}
+      {% if section.settings.secondary_label %}
+        <a href="{{ section.settings.secondary_link | default: '/pages/about' }}" class="btn-outline">
+          {{ section.settings.secondary_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker Text",
+      "default": "Limited Time Offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Start your journey to comfort today."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Free shipping on all orders. 30-day hassle-free returns. Clinically tested materials."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary Button Label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand CTA"
+    }
+  ]
+}
+{% endschema %}

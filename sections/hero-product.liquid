@@ -64,16 +64,19 @@
         {% endif %}
       </div>
 
-      <div class="hero-btns">
-        <button class="btn-primary" form="AddToCartForm">
-          {{ section.settings.add_to_cart_label | default: 'Add to Cart' }}
-        </button>
-        {% if section.settings.show_size_guide %}
-          <button class="btn-outline" onclick="alert('Size Guide')">
-            {{ section.settings.size_guide_label | default: 'View Size Guide' }}
+      {% form 'product', product, id: 'AddToCartForm', novalidate: true %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <div class="hero-btns">
+          <button type="submit" name="add" class="btn-primary">
+            {{ section.settings.add_to_cart_label | default: 'Add to Cart' }}
           </button>
-        {% endif %}
-      </div>
+          {% if section.settings.show_size_guide %}
+            <a href="#size-guide" class="btn-outline">
+              {{ section.settings.size_guide_label | default: 'View Size Guide' }}
+            </a>
+          {% endif %}
+        </div>
+      {% endform %}
 
       {% if section.settings.show_micro_features %}
         <div class="hero-micro">
