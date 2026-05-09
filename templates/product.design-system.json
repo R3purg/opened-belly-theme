@@ -33,6 +33,27 @@
     "proof_bar": {
       "type": "proof-bar",
       "blocks": {
+        "stat_LmmYqH": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "50%",
+            "stat_label": "Average pain reduction reported"
+          }
+        },
+        "stat_y4rBVq": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "50%",
+            "stat_label": "Average pain reduction reported"
+          }
+        },
+        "stat_eUt8BL": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "50%",
+            "stat_label": "Average pain reduction reported"
+          }
+        },
         "stat_tNTtDQ": {
           "type": "stat",
           "settings": {
@@ -42,6 +63,9 @@
         }
       },
       "block_order": [
+        "stat_LmmYqH",
+        "stat_y4rBVq",
+        "stat_eUt8BL",
         "stat_tNTtDQ"
       ],
       "settings": {}
@@ -49,6 +73,30 @@
     "benefits": {
       "type": "body-benefits",
       "blocks": {
+        "benefit_card_ba3ca7": {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Benefit Title",
+            "card_description": "<p>Benefit description goes here.</p>",
+            "card_emoji": "🎯"
+          }
+        },
+        "benefit_card_ihNkMC": {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Benefit Title",
+            "card_description": "<p>Benefit description goes here.</p>",
+            "card_emoji": "🎯"
+          }
+        },
+        "benefit_card_9crB8c": {
+          "type": "benefit_card",
+          "settings": {
+            "card_title": "Benefit Title",
+            "card_description": "<p>Benefit description goes here.</p>",
+            "card_emoji": "🎯"
+          }
+        },
         "benefit_card_dgQVAQ": {
           "type": "benefit_card",
           "settings": {
@@ -59,6 +107,9 @@
         }
       },
       "block_order": [
+        "benefit_card_ba3ca7",
+        "benefit_card_ihNkMC",
+        "benefit_card_9crB8c",
         "benefit_card_dgQVAQ"
       ],
       "settings": {
@@ -128,6 +179,27 @@
     "specs": {
       "type": "specs",
       "blocks": {
+        "spec_Km844J": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Material",
+            "spec_value": "Neoprene + Oxford Fabric"
+          }
+        },
+        "spec_Y4jhqW": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Material",
+            "spec_value": "Neoprene + Oxford Fabric"
+          }
+        },
+        "spec_y8dkw8": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Material",
+            "spec_value": "Neoprene + Oxford Fabric"
+          }
+        },
         "spec_MrADye": {
           "type": "spec",
           "settings": {
@@ -137,6 +209,9 @@
         }
       },
       "block_order": [
+        "spec_Km844J",
+        "spec_Y4jhqW",
+        "spec_y8dkw8",
         "spec_MrADye"
       ],
       "settings": {
@@ -147,6 +222,22 @@
     "in_the_box": {
       "type": "in-the-box",
       "blocks": {
+        "box_item_X6D3ii": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "📦",
+            "item_name": "Product Name",
+            "item_quantity": "× 1"
+          }
+        },
+        "box_item_TdJd74": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "📦",
+            "item_name": "Product Name",
+            "item_quantity": "× 1"
+          }
+        },
         "box_item_L77zYw": {
           "type": "box_item",
           "settings": {
@@ -157,6 +248,8 @@
         }
       },
       "block_order": [
+        "box_item_X6D3ii",
+        "box_item_TdJd74",
         "box_item_L77zYw"
       ],
       "settings": {
