@@ -124,10 +124,11 @@
         "tile_ggbAtq": {
           "type": "tile",
           "settings": {
-            "label": "Featured",
-            "name": "Support Belts",
+            "image": "shopify://shop_images/1620808871792.jpg",
+            "label": "Kitchen Appliances",
+            "name": "Professional Vacuum Packaging Machine",
             "btn_text": "View All",
-            "link": "",
+            "link": "shopify://collections/kitchen-appliances",
             "wide": false
           }
         },
@@ -152,23 +153,12 @@
             "link": "shopify://collections/pet-supplies",
             "wide": false
           }
-        },
-        "tile_3": {
-          "type": "tile",
-          "settings": {
-            "label": "Kitchen Appliances",
-            "name": "Professional Vacuum Packaging Machine",
-            "btn_text": "View All",
-            "link": "shopify://collections/kitchen-appliances",
-            "wide": false
-          }
         }
       },
       "block_order": [
         "tile_ggbAtq",
         "tile_1",
-        "tile_2",
-        "tile_3"
+        "tile_2"
       ],
       "settings": {
         "kicker": "Shop by Category",
