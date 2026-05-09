@@ -1,18 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "home_hero": {
       "type": "home-hero",
       "settings": {
-        "kicker": "Natural Comfort Solutions",
+        "kicker": "Professional Posture Correction Belt",
         "heading": "Feel better. Move freely. Live fully.",
-        "description": "Premium body support products designed to help you move with confidence. Scientifically crafted for lasting comfort and real results.",
+        "description": "Premium body support product designed to help you move with confidence. Scientifically crafted for lasting comfort and real results.",
+        "hero_image": "shopify://shop_images/1305838158542.jpg",
         "primary_btn_label": "Shop Now",
+        "primary_btn_link": "shopify://products/back-posture-corrector",
         "secondary_btn_label": "Learn More",
+        "secondary_btn_link": "shopify://products/back-posture-corrector",
         "trust_1": "Free Shipping",
-        "trust_2": "30-Day Returns",
-        "trust_3": "Clinically Tested",
-        "badge_num": "50%",
-        "badge_text": "off today"
+        "trust_2": "No Returns",
+        "trust_3": "Only Professional",
+        "badge_num": "NEW",
+        "badge_text": ""
       }
     },
     "proof_bar": {
@@ -47,19 +59,21 @@
           }
         }
       },
-      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"]
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {}
     },
     "featured_products": {
       "type": "featured-products-ds",
-      "settings": {
-        "kicker": "Our Products",
-        "heading": "Designed for your wellbeing.",
-        "see_all_label": "View all →"
-      },
       "blocks": {
         "product_1": {
           "type": "product",
           "settings": {
+            "product": "portable-pet-hair-removal-glove",
             "badge_text": "Best Seller",
             "btn_label": "Shop Now"
           }
@@ -67,71 +81,103 @@
         "product_2": {
           "type": "product",
           "settings": {
+            "product": "vacuum-packaging-machine-10pcs-packing-bags",
             "badge_text": "New",
             "btn_label": "Shop Now"
           }
         },
         "product_3": {
           "type": "product",
+          "disabled": true,
           "settings": {
+            "product": "",
             "badge_text": "",
             "btn_label": "Shop Now"
           }
         },
         "product_4": {
           "type": "product",
+          "disabled": true,
           "settings": {
+            "product": "",
             "badge_text": "Sale",
             "btn_label": "Shop Now"
           }
         }
       },
-      "block_order": ["product_1", "product_2", "product_3", "product_4"]
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3",
+        "product_4"
+      ],
+      "settings": {
+        "kicker": "Our Products",
+        "heading": "Designed for your wellbeing.",
+        "see_all_link": "",
+        "see_all_label": "View all →"
+      }
     },
     "collection_split": {
       "type": "collection-split-ds",
-      "settings": {
-        "kicker": "Shop by Category",
-        "heading": "Find what works for you.",
-        "columns": 3
-      },
       "blocks": {
+        "tile_ggbAtq": {
+          "type": "tile",
+          "settings": {
+            "label": "Featured",
+            "name": "Support Belts",
+            "btn_text": "View All",
+            "link": "",
+            "wide": false
+          }
+        },
         "tile_1": {
           "type": "tile",
           "settings": {
-            "label": "Posture Support",
-            "name": "Back & Lumbar",
+            "image": "shopify://shop_images/1305838158542.jpg",
+            "label": "Personal Care",
+            "name": "Professional Posture Correction Belt",
             "btn_text": "Shop Now",
+            "link": "shopify://collections/personal-care",
             "wide": false
           }
         },
         "tile_2": {
           "type": "tile",
           "settings": {
-            "label": "Abdominal",
-            "name": "Waist Trainers",
-            "btn_text": "Shop Now",
+            "image": "shopify://shop_images/6f8760bb-9962-4a75-bf44-9dda6fd2ef94.jpg",
+            "label": "Pet Supplies",
+            "name": "Professional Pet Grooming And Hair Removal Glove",
+            "btn_text": "View All",
+            "link": "shopify://collections/pet-supplies",
             "wide": false
           }
         },
         "tile_3": {
           "type": "tile",
           "settings": {
-            "label": "Daily Comfort",
-            "name": "All Products",
+            "label": "Kitchen Appliances",
+            "name": "Professional Vacuum Packaging Machine",
             "btn_text": "View All",
+            "link": "shopify://collections/kitchen-appliances",
             "wide": false
           }
         }
       },
-      "block_order": ["tile_1", "tile_2", "tile_3"]
+      "block_order": [
+        "tile_ggbAtq",
+        "tile_1",
+        "tile_2",
+        "tile_3"
+      ],
+      "settings": {
+        "kicker": "Shop by Category",
+        "heading": "Find what works for you.",
+        "columns": 3
+      }
     },
     "testimonials": {
       "type": "testimonials-ds",
-      "settings": {
-        "kicker": "Real Results",
-        "heading": "Loved by thousands of customers."
-      },
       "blocks": {
         "review_1": {
           "type": "review",
@@ -161,7 +207,15 @@
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3"]
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "kicker": "Real Results",
+        "heading": "Loved by thousands of customers."
+      }
     },
     "brand_cta": {
       "type": "brand-cta-ds",
@@ -170,7 +224,9 @@
         "heading": "Start your journey to comfort today.",
         "subtext": "Free shipping on all orders. 30-day hassle-free returns. Clinically tested materials.",
         "primary_label": "Shop Now",
-        "secondary_label": "Learn More"
+        "primary_link": "",
+        "secondary_label": "Learn More",
+        "secondary_link": ""
       }
     }
   },
