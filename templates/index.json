@@ -111,6 +111,7 @@
         "product_3",
         "product_4"
       ],
+      "disabled": true,
       "settings": {
         "kicker": "Our Products",
         "heading": "Designed for your wellbeing.",
@@ -214,9 +215,9 @@
         "heading": "Start your journey to comfort today.",
         "subtext": "Free shipping on all orders. 30-day hassle-free returns. Clinically tested materials.",
         "primary_label": "Shop Now",
-        "primary_link": "",
+        "primary_link": "shopify://collections",
         "secondary_label": "Learn More",
-        "secondary_link": ""
+        "secondary_link": "shopify://collections"
       }
     }
   },
