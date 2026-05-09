@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -23,36 +32,7 @@
     },
     "proof_bar": {
       "type": "proof-bar",
-      "blocks": {
-        "stat_1": {
-          "type": "stat",
-          "settings": {
-            "stat_number": "50%",
-            "stat_label": "Average pain reduction reported"
-          }
-        },
-        "stat_2": {
-          "type": "stat",
-          "settings": {
-            "stat_number": "S–XXL",
-            "stat_label": "Full size range, fits all bodies"
-          }
-        },
-        "stat_3": {
-          "type": "stat",
-          "settings": {
-            "stat_number": "8h+",
-            "stat_label": "Comfortable all-day wear"
-          }
-        },
-        "stat_4": {
-          "type": "stat",
-          "settings": {
-            "stat_number": "Unisex",
-            "stat_label": "Designed for men and women"
-          }
-        }
-      }
+      "settings": {}
     },
     "benefits": {
       "type": "body-benefits",
@@ -65,70 +45,12 @@
         "benefit_2": "Supports abdominal muscles during recovery or heavy lifting",
         "benefit_3": "Encourages muscle memory for upright posture over time",
         "benefit_4": "Adjustable compression via dual velcro straps"
-      },
-      "blocks": {
-        "card_1": {
-          "type": "benefit_card",
-          "settings": {
-            "card_title": "Spine Alignment",
-            "card_description": "<p>Rigid stay rods on either side of the spine prevent lateral slouching and keep your vertebrae in a neutral position.</p>",
-            "card_emoji": "🦴"
-          }
-        },
-        "card_2": {
-          "type": "benefit_card",
-          "settings": {
-            "card_title": "Waist Correction",
-            "card_description": "<p>The abdominal panel applies gentle inward pressure, training your core to hold proper posture naturally.</p>",
-            "card_emoji": "🎯"
-          }
-        },
-        "card_3": {
-          "type": "benefit_card",
-          "settings": {
-            "card_title": "Adjustable Compression",
-            "card_description": "<p>Dual velcro straps let you dial in exactly the right level of support — from light daily wear to post-exercise recovery.</p>",
-            "card_emoji": "🔧"
-          }
-        },
-        "card_4": {
-          "type": "benefit_card",
-          "settings": {
-            "card_title": "Breathable Build",
-            "card_description": "<p>Perforated neoprene fabric prevents heat buildup so you can wear it for 8+ hours without discomfort.</p>",
-            "card_emoji": "💨"
-          }
-        }
       }
     },
     "size_guide": {
       "type": "size-guide",
-      "settings": {
-        "section_kicker": "Size Guide",
-        "section_heading": "Find your perfect fit.",
-        "section_description": "Measure your waist at the navel. When between sizes, size up for more comfort.",
-        "table_headers": "Size,Waist,Hip,Body Weight"
-      },
       "blocks": {
-        "xs": {
-          "type": "size_row",
-          "settings": {
-            "size_label": "XS",
-            "size_value_1": "60–70 cm",
-            "size_value_2": "80–88 cm",
-            "size_value_3": "40–50 kg"
-          }
-        },
-        "s": {
-          "type": "size_row",
-          "settings": {
-            "size_label": "S",
-            "size_value_1": "70–80 cm",
-            "size_value_2": "88–96 cm",
-            "size_value_3": "50–60 kg"
-          }
-        },
-        "m": {
+        "size_row_aeCiMr": {
           "type": "size_row",
           "settings": {
             "size_label": "M",
@@ -137,33 +59,45 @@
             "size_value_3": "60–75 kg"
           }
         },
-        "l": {
+        "size_row_GHwJME": {
           "type": "size_row",
           "settings": {
-            "size_label": "L",
-            "size_value_1": "90–100 cm",
-            "size_value_2": "104–112 cm",
-            "size_value_3": "75–90 kg"
+            "size_label": "M",
+            "size_value_1": "80–90 cm",
+            "size_value_2": "96–104 cm",
+            "size_value_3": "60–75 kg"
           }
         },
-        "xl": {
+        "size_row_NtjiRR": {
           "type": "size_row",
           "settings": {
-            "size_label": "XL",
-            "size_value_1": "100–115 cm",
-            "size_value_2": "112–124 cm",
-            "size_value_3": "90–110 kg"
+            "size_label": "M",
+            "size_value_1": "80–90 cm",
+            "size_value_2": "96–104 cm",
+            "size_value_3": "60–75 kg"
           }
         },
-        "xxl": {
+        "size_row_ycrgd8": {
           "type": "size_row",
           "settings": {
-            "size_label": "XXL",
-            "size_value_1": "115–130 cm",
-            "size_value_2": "124–140 cm",
-            "size_value_3": "110–130 kg"
+            "size_label": "M",
+            "size_value_1": "80–90 cm",
+            "size_value_2": "96–104 cm",
+            "size_value_3": "60–75 kg"
           }
         }
+      },
+      "block_order": [
+        "size_row_aeCiMr",
+        "size_row_GHwJME",
+        "size_row_NtjiRR",
+        "size_row_ycrgd8"
+      ],
+      "settings": {
+        "section_kicker": "Size Guide",
+        "section_heading": "Find your perfect fit.",
+        "section_description": "Measure your waist at the navel. When between sizes, size up for more comfort.",
+        "table_headers": "Size,Waist,Hip,Body Weight"
       }
     },
     "specs": {
@@ -171,64 +105,6 @@
       "settings": {
         "section_kicker": "Specifications",
         "section_heading": "Built for daily use."
-      },
-      "blocks": {
-        "material": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Material",
-            "spec_value": "Neoprene + Oxford Fabric"
-          }
-        },
-        "closure": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Closure",
-            "spec_value": "Dual Velcro Straps"
-          }
-        },
-        "sizes": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Sizes Available",
-            "spec_value": "XS / S / M / L / XL / XXL"
-          }
-        },
-        "colors": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Colors",
-            "spec_value": "Black, Beige, Navy"
-          }
-        },
-        "gender": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Gender",
-            "spec_value": "Unisex"
-          }
-        },
-        "support_type": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Support Type",
-            "spec_value": "Lumbar + Abdominal"
-          }
-        },
-        "wear_duration": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Wear Duration",
-            "spec_value": "2–8 hours/day recommended"
-          }
-        },
-        "washable": {
-          "type": "spec",
-          "settings": {
-            "spec_key": "Washable",
-            "spec_value": "Hand wash, air dry"
-          }
-        }
       }
     },
     "in_the_box": {
@@ -236,32 +112,6 @@
       "settings": {
         "section_label": "In the Box",
         "section_title": "Ready to wear straight away."
-      },
-      "blocks": {
-        "item_1": {
-          "type": "box_item",
-          "settings": {
-            "item_icon": "🩹",
-            "item_name": "Support Belt",
-            "item_quantity": "× 1"
-          }
-        },
-        "item_2": {
-          "type": "box_item",
-          "settings": {
-            "item_icon": "📏",
-            "item_name": "Measuring Tape",
-            "item_quantity": "× 1"
-          }
-        },
-        "item_3": {
-          "type": "box_item",
-          "settings": {
-            "item_icon": "📖",
-            "item_name": "Wear Guide & Care Card",
-            "item_quantity": "× 1"
-          }
-        }
       }
     }
   },
