@@ -1,166 +1,93 @@
 {
   "sections": {
-    "collection_list_Wfgh3m": {
-      "type": "main-collection-list",
+    "collections_hero": {
+      "type": "collections-page-hero",
+      "settings": {
+        "page_title": "Collections",
+        "eyebrow": "All Collections",
+        "heading_line1": "Curated picks for",
+        "heading_line2": "every corner of life.",
+        "subheading": "From kitchen essentials to wellness staples and pet-care must-haves — every product hand-tested by our team.",
+        "stat_1_num": "8",
+        "stat_1_label": "Collections",
+        "stat_2_num": "240+",
+        "stat_2_label": "Products",
+        "stat_3_num": "12.4k",
+        "stat_3_label": "Happy Customers",
+        "stat_4_num": "4.8★",
+        "stat_4_label": "Avg. Rating"
+      }
+    },
+    "collections_grid": {
+      "type": "collections-featured-grid",
+      "settings": {
+        "section_label": "Browse the Shop",
+        "section_title": "Pick your category.",
+        "section_body": "Eight collections, all built around things that genuinely make daily life better.",
+        "show_sort": true,
+        "max_collections": 12
+      }
+    },
+    "collections_help_strip": {
+      "type": "collections-help-strip",
       "blocks": {
-        "group_4FtiAg": {
-          "type": "group",
-          "name": "t:names.header",
+        "cell_1": {
+          "type": "cell",
           "settings": {
-            "open_in_new_tab": false,
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 0,
-            "padding-block-end": 48,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_fRMQMR": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h1>Collections</h1>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 16,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_fRMQMR"
-          ]
+            "icon": "shipping",
+            "title": "Free EU shipping",
+            "body": "On orders over €40 — delivered in 5–9 days"
+          }
         },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
+        "cell_2": {
+          "type": "cell",
           "settings": {
-            "placement": "below_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "collection_card_gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0
-          },
-          "blocks": {
-            "collection_title_7YgBPU": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "adapt",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_7YgBPU"
-          ]
+            "icon": "returns",
+            "title": "30-day returns",
+            "body": "Send anything back, no questions asked"
+          }
+        },
+        "cell_3": {
+          "type": "cell",
+          "settings": {
+            "icon": "secure",
+            "title": "Secure checkout",
+            "body": "Stripe-encrypted payments, every order"
+          }
+        },
+        "cell_4": {
+          "type": "cell",
+          "settings": {
+            "icon": "rating",
+            "title": "4.8★ from 12,400+",
+            "body": "Real reviews on Trustpilot & Google"
+          }
         }
       },
       "block_order": [
-        "group_4FtiAg"
-      ],
-      "name": "Collection list",
+        "cell_1",
+        "cell_2",
+        "cell_3",
+        "cell_4"
+      ]
+    },
+    "collections_editorial": {
+      "type": "collections-editorial",
       "settings": {
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "columns": 3,
-        "mobile_columns": "2",
-        "columns_gap": 12,
-        "bento_gap": 8,
-        "rows_gap": 24,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "color_scheme": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "vis_tag": "Editor’s pick",
+        "label": "Bundle Up & Save",
+        "title_line1": "The Pet Owner Bundle.",
+        "title_line2": "3 essentials, one price.",
+        "body": "Lint brush + anti-static glove + furniture roller. Curated for cat and dog parents — saves €18 vs. buying separately.",
+        "button_label": "Shop the bundle",
+        "button_url": ""
       }
     }
   },
   "order": [
-    "collection_list_Wfgh3m"
+    "collections_hero",
+    "collections_grid",
+    "collections_help_strip",
+    "collections_editorial"
   ]
 }

@@ -1,0 +1,196 @@
+<style>
+  .ced {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .ced__vis {
+    aspect-ratio: 5 / 4;
+    border-radius: 16px;
+    background: #f7e5d7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .ced__vis img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ced__vis-tag {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    background: #174f19;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 50px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+  .ced__vis-placeholder {
+    width: 60%;
+    opacity: .35;
+  }
+  .ced__label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #2d7a30;
+    margin-bottom: 10px;
+  }
+  .ced__title {
+    font-family: var(--font-heading--family, var(--font-primary--family, sans-serif));
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    color: #061406;
+    margin-bottom: 16px;
+  }
+  .ced__title em {
+    font-style: normal;
+    color: #2d7a30;
+    display: block;
+  }
+  .ced__body {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #5a6e5b;
+    margin-bottom: 24px;
+    max-width: 440px;
+  }
+  .ced__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #174f19;
+    color: #fff;
+    border-radius: 50px;
+    padding: 13px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .ced__btn:hover { background: #2d7a30; }
+  @media (max-width: 1024px) {
+    .ced { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 768px) {
+    .ced { padding: 48px 16px; }
+  }
+</style>
+
+<section class="ced">
+  <div class="ced__vis">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: section.settings.image.alt | default: section.settings.label }}
+    {% else %}
+      <svg class="ced__vis-placeholder" viewBox="0 0 200 160" fill="none" aria-hidden="true">
+        <rect x="20" y="40" width="160" height="80" rx="14" fill="rgba(149,81,29,.18)"/>
+        <rect x="32" y="52" width="140" height="56" rx="8" fill="rgba(149,81,29,.32)"/>
+        <circle cx="60" cy="80" r="14" fill="rgba(255,255,255,.6)"/>
+        <rect x="86" y="68" width="80" height="6" rx="3" fill="rgba(255,255,255,.55)"/>
+        <rect x="86" y="80" width="60" height="4" rx="2" fill="rgba(255,255,255,.4)"/>
+        <rect x="86" y="90" width="40" height="4" rx="2" fill="rgba(255,255,255,.3)"/>
+      </svg>
+    {% endif %}
+    {% if section.settings.vis_tag != blank %}
+      <span class="ced__vis-tag">{{ section.settings.vis_tag }}</span>
+    {% endif %}
+  </div>
+
+  <div>
+    {% if section.settings.label != blank %}
+      <div class="ced__label">{{ section.settings.label }}</div>
+    {% endif %}
+    <h2 class="ced__title">
+      {{ section.settings.title_line1 }}
+      {% if section.settings.title_line2 != blank %}
+        <em>{{ section.settings.title_line2 }}</em>
+      {% endif %}
+    </h2>
+    {% if section.settings.body != blank %}
+      <p class="ced__body">{{ section.settings.body }}</p>
+    {% endif %}
+    {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+      <a href="{{ section.settings.button_url }}" class="ced__btn">
+        {{ section.settings.button_label }}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections Editorial",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "vis_tag",
+      "label": "Image Badge",
+      "default": "Editor's pick"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Eyebrow Label",
+      "default": "Bundle Up & Save"
+    },
+    {
+      "type": "text",
+      "id": "title_line1",
+      "label": "Title Line 1",
+      "default": "The Pet Owner Bundle."
+    },
+    {
+      "type": "text",
+      "id": "title_line2",
+      "label": "Title Line 2 (accent)",
+      "default": "3 essentials, one price."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body Text",
+      "default": "Lint brush + anti-static glove + furniture roller. Curated for cat and dog parents — saves €18 vs. buying separately."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop the bundle"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Collections Editorial"
+    }
+  ]
+}
+{% endschema %}
