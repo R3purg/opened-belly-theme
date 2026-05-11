@@ -33,18 +33,18 @@
     font-weight: 700;
     padding: 6px 12px;
     border-radius: 50px;
-    letter-spacing: .06em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     z-index: 1;
   }
   .ced__vis-placeholder {
     width: 60%;
-    opacity: .35;
+    opacity: 0.35;
   }
   .ced__label {
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: .14em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #2d7a30;
     margin-bottom: 10px;
@@ -53,7 +53,7 @@
     font-family: var(--font-heading--family, var(--font-primary--family, sans-serif));
     font-size: clamp(28px, 3vw, 40px);
     font-weight: 700;
-    letter-spacing: -.02em;
+    letter-spacing: -0.02em;
     line-height: 1.1;
     color: #061406;
     margin-bottom: 16px;
@@ -81,21 +81,33 @@
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    transition: background .2s;
+    transition: background 0.2s;
   }
-  .ced__btn:hover { background: #2d7a30; }
+  .ced__btn:hover {
+    background: #2d7a30;
+  }
   @media (max-width: 1024px) {
-    .ced { grid-template-columns: 1fr; gap: 32px; }
+    .ced {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
   }
   @media (max-width: 768px) {
-    .ced { padding: 48px 16px; }
+    .ced {
+      padding: 48px 16px;
+    }
   }
 </style>
 
 <section class="ced">
   <div class="ced__vis">
     {% if section.settings.image != blank %}
-      {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: section.settings.image.alt | default: section.settings.label }}
+      {{
+        section.settings.image
+        | image_url: width: 800
+        | image_tag: loading: 'lazy', alt: section.settings.image.alt
+        | default: section.settings.label
+      }}
     {% else %}
       <svg class="ced__vis-placeholder" viewBox="0 0 200 160" fill="none" aria-hidden="true">
         <rect x="20" y="40" width="160" height="80" rx="14" fill="rgba(149,81,29,.18)"/>
@@ -127,7 +139,9 @@
     {% if section.settings.button_label != blank and section.settings.button_url != blank %}
       <a href="{{ section.settings.button_url }}" class="ced__btn">
         {{ section.settings.button_label }}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
       </a>
     {% endif %}
   </div>

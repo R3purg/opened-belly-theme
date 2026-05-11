@@ -1,66 +1,237 @@
 {
   "sections": {
     "main": {
-      "type": "product-brusher",
+      "type": "hero-product",
+      "settings": {
+        "hero_kicker": "Pet Hair Removal",
+        "hero_heading": "No more lint, no more mess.",
+        "hero_description": "<p>Reusable lint brush and anti-static glove that remove pet hair, lint, and dust from any fabric surface in seconds. No refills. No waste.</p>",
+        "show_original_price": true,
+        "original_price": "€14.00",
+        "discount_badge": "87% off",
+        "shipping_text": "Free shipping · Arrives in 10–16 days",
+        "add_to_cart_label": "Add to Cart",
+        "show_size_guide": false,
+        "show_micro_features": true,
+        "feature_1": "Fully reusable — rinse & reuse",
+        "feature_2": "Anti-static glove included",
+        "feature_3": "Works on pet hair & lint",
+        "feature_4": "Fits all fabric types",
+        "show_thumbnails": true
+      }
+    },
+    "proof_bar": {
+      "type": "proof-bar",
       "blocks": {
-        "trust_1": { "type": "trust_cell",   "settings": { "emoji": "♻️", "label": "100% Reusable",     "sub": "No disposable sheets needed" } },
-        "trust_2": { "type": "trust_cell",   "settings": { "emoji": "🐾", "label": "Works on Pet Hair", "sub": "Cat, dog & more" } },
-        "trust_3": { "type": "trust_cell",   "settings": { "emoji": "⚡", "label": "Anti-Static Glove", "sub": "Neutralises static cling" } },
-        "trust_4": { "type": "trust_cell",   "settings": { "emoji": "🛋️","label": "All Fabric Types",  "sub": "Sofa, clothing, carpet" } },
-        "chip_1":  { "type": "feature_chip", "settings": { "num": "2-Pack", "label": "Brush + anti-static glove included" } },
-        "chip_2":  { "type": "feature_chip", "settings": { "num": "∞",      "label": "Fully reusable, rinse & reuse" } },
-        "chip_3":  { "type": "feature_chip", "settings": { "num": "2,432",  "label": "Orders placed & counting" } },
-        "chip_4":  { "type": "feature_chip", "settings": { "num": "87%",    "label": "Savings vs. original price" } },
-        "ben_1": { "type": "benefit_card", "settings": { "title": "No More Sticky Rollers",  "body": "Traditional tape rollers run out fast and create plastic waste. LintAway is fully reusable — just rinse and air dry." } },
-        "ben_2": { "type": "benefit_card", "settings": { "title": "Anti-Static Glove",       "body": "The included glove neutralises static electricity that attracts pet hair to fabric, making removal effortless." } },
-        "ben_3": { "type": "benefit_card", "settings": { "title": "Works Everywhere",        "body": "Sofas, car seats, curtains, clothing, bedding — the dual-direction brush lifts lint from any woven or knitted surface." } },
-        "ben_4": { "type": "benefit_card", "settings": { "title": "Pet-Owner Approved",      "body": "Specifically designed for cat and dog hair, which is finer and clingier than lint. Works even on thick fur." } },
-        "ben_5": { "type": "benefit_card", "settings": { "title": "Rinse Clean, Use Again",  "body": "Both the brush and glove clean in 10 seconds under running water. Fully dry in minutes. Ready to go again." } },
-        "ben_6": { "type": "benefit_card", "settings": { "title": "Compact & Travel-Ready",  "body": "Lightweight enough to toss in a bag. Perfect for the office, car, or anywhere your pet's hair follows you." } },
-        "how_1": { "type": "how_step", "settings": { "title": "Slip on the Glove",  "body": "Wear the anti-static glove on one hand to neutralise cling before you even start brushing." } },
-        "how_2": { "type": "how_step", "settings": { "title": "Glide Over Fabric",  "body": "Run the gloved hand over the surface in long strokes. Hair and lint clump together immediately." } },
-        "how_3": { "type": "how_step", "settings": { "title": "Brush It Away",       "body": "Use the reusable lint brush to sweep up the clumped hair. Press and lift for full coverage." } },
-        "how_4": { "type": "how_step", "settings": { "title": "Rinse & Store",       "body": "Rinse both tools under water, shake dry, and store. Ready for the next round." } },
-        "spec_1": { "type": "spec_row", "settings": { "key": "Contents",            "value": "1× Lint Brush + 1× Anti-Static Glove" } },
-        "spec_2": { "type": "spec_row", "settings": { "key": "Material",            "value": "PP Bristles + TPE Glove" } },
-        "spec_3": { "type": "spec_row", "settings": { "key": "Brush Size",          "value": "18 × 7 cm" } },
-        "spec_4": { "type": "spec_row", "settings": { "key": "Glove Size",          "value": "One size fits most" } },
-        "spec_5": { "type": "spec_row", "settings": { "key": "Reusability",         "value": "Fully washable, unlimited reuse" } },
-        "spec_6": { "type": "spec_row", "settings": { "key": "Compatible Surfaces", "value": "Fabric, velvet, wool, cotton, carpet" } },
-        "spec_7": { "type": "spec_row", "settings": { "key": "Pack Options",        "value": "1-Pack, 2-Pack, 4-Pack" } },
-        "spec_8": { "type": "spec_row", "settings": { "key": "Colors",              "value": "Blue, Green, Pink, Black" } },
-        "box_1": { "type": "box_item", "settings": { "emoji": "🪥", "name": "Reusable Lint Brush", "qty": "× 1" } },
-        "box_2": { "type": "box_item", "settings": { "emoji": "🧤", "name": "Anti-Static Glove",   "qty": "× 1" } },
-        "box_3": { "type": "box_item", "settings": { "emoji": "📖", "name": "Care Instructions",   "qty": "× 1" } }
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "2-Pack",
+            "stat_label": "Brush + anti-static glove included"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "2,432",
+            "stat_label": "Orders placed and counting"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "∞",
+            "stat_label": "Fully reusable, rinse & reuse"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "87%",
+            "stat_label": "Savings vs. original price"
+          }
+        }
       },
       "block_order": [
-        "trust_1", "trust_2", "trust_3", "trust_4",
-        "chip_1", "chip_2", "chip_3", "chip_4",
-        "ben_1", "ben_2", "ben_3", "ben_4", "ben_5", "ben_6",
-        "how_1", "how_2", "how_3", "how_4",
-        "spec_1", "spec_2", "spec_3", "spec_4", "spec_5", "spec_6", "spec_7", "spec_8",
-        "box_1", "box_2", "box_3"
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {}
+    },
+    "benefits": {
+      "type": "body-benefits",
+      "blocks": {
+        "ben_1": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "♻️",
+            "card_title": "No More Sticky Rollers",
+            "card_description": "<p>Traditional tape rollers run out fast and create plastic waste. LintAway is fully reusable — just rinse and air dry.</p>"
+          }
+        },
+        "ben_2": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "⚡",
+            "card_title": "Anti-Static Glove",
+            "card_description": "<p>The included glove neutralises static electricity that attracts pet hair to fabric — making removal effortless before you even start brushing.</p>"
+          }
+        },
+        "ben_3": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "🛋️",
+            "card_title": "Works Everywhere",
+            "card_description": "<p>Sofas, car seats, curtains, clothing, bedding — the dual-direction brush lifts lint from any woven or knitted surface.</p>"
+          }
+        },
+        "ben_4": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "🐾",
+            "card_title": "Pet-Owner Approved",
+            "card_description": "<p>Specifically designed for cat and dog hair, which is finer and clingier than lint. Works even on thick fur and long-haired breeds.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ben_1",
+        "ben_2",
+        "ben_3",
+        "ben_4"
       ],
       "settings": {
-        "eyebrow_text":      "Pet Hair Removal",
-        "hero_title":        "LintAway Pro\n2-Pack Kit",
-        "hero_subtitle":     "Reusable lint brushes + anti-static glove — remove pet hair, lint, and dust from any fabric surface in seconds. No refills. No waste.",
-        "hero_shipping":     "Free shipping · Estimated delivery 10–16 days",
-        "gallery_label":     "Product Gallery",
-        "benefits_label":    "Why LintAway Pro",
-        "benefits_title":    "Clean any fabric.\nIn seconds.",
-        "how_label":         "How it Works",
-        "how_title":         "Four moves.\nPerfectly clean.",
-        "purchase_title":    "LintAway Pro\n2-Pack Cleaning Kit",
-        "purchase_subtitle": "Reusable lint brush set with anti-static glove. Designed for everyday pet hair and lint removal on any fabric.",
-        "purchase_shipping": "Free shipping · Ships in 1–2 business days",
-        "purchase_trust":    "Free Returns,2-Year Guarantee,Secure Checkout,Eco Friendly",
-        "specs_label":       "Specifications",
-        "specs_title":       "What's inside the kit.",
-        "box_label":         "In the Box",
-        "box_title":         "Everything to get\npet hair-free."
+        "section_kicker": "Why it works",
+        "section_heading": "Lint-free. Every time.",
+        "section_description": "<p>Static electricity is what makes pet hair and lint cling to fabric. The LintAway system attacks the problem at the source — neutralise cling first, then sweep it away. No chemicals, no waste, no running out of tape.</p>",
+        "show_benefits_list": true,
+        "benefit_1": "Works on cat hair, dog hair, and everyday lint",
+        "benefit_2": "Safe for delicate fabrics including wool and velvet",
+        "benefit_3": "Zero plastic waste — replaces hundreds of tape rolls",
+        "benefit_4": "Compact enough for a gym bag or car glove box"
+      }
+    },
+    "specs": {
+      "type": "specs",
+      "blocks": {
+        "spec_1": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Contents",
+            "spec_value": "1× Lint Brush + 1× Anti-Static Glove"
+          }
+        },
+        "spec_2": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Material",
+            "spec_value": "PP Bristles + TPE Glove"
+          }
+        },
+        "spec_3": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Brush Size",
+            "spec_value": "18 × 7 cm"
+          }
+        },
+        "spec_4": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Glove Size",
+            "spec_value": "One size fits most"
+          }
+        },
+        "spec_5": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Reusability",
+            "spec_value": "Fully washable, unlimited reuse"
+          }
+        },
+        "spec_6": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Compatible Surfaces",
+            "spec_value": "Fabric, velvet, wool, cotton, carpet"
+          }
+        },
+        "spec_7": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Pack Options",
+            "spec_value": "1-Pack, 2-Pack, 4-Pack"
+          }
+        },
+        "spec_8": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Colors",
+            "spec_value": "Blue, Green, Pink, Black"
+          }
+        }
+      },
+      "block_order": [
+        "spec_1",
+        "spec_2",
+        "spec_3",
+        "spec_4",
+        "spec_5",
+        "spec_6",
+        "spec_7",
+        "spec_8"
+      ],
+      "settings": {
+        "section_kicker": "Specifications",
+        "section_heading": "Simple tools, serious results."
+      }
+    },
+    "in_the_box": {
+      "type": "in-the-box",
+      "blocks": {
+        "box_1": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "🪥",
+            "item_name": "Reusable Lint Brush",
+            "item_quantity": "× 1"
+          }
+        },
+        "box_2": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "🧤",
+            "item_name": "Anti-Static Glove",
+            "item_quantity": "× 1"
+          }
+        },
+        "box_3": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "📖",
+            "item_name": "Care Instructions",
+            "item_quantity": "× 1"
+          }
+        }
+      },
+      "block_order": [
+        "box_1",
+        "box_2",
+        "box_3"
+      ],
+      "settings": {
+        "section_label": "In the Box",
+        "section_title": "Everything you need, nothing you don't."
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "proof_bar",
+    "benefits",
+    "specs",
+    "in_the_box"
+  ]
 }

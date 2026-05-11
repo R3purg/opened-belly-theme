@@ -1,405 +1,293 @@
 {
   "sections": {
     "main": {
-      "type": "product-information",
-      "blocks": {
-        "media-gallery": {
-          "type": "_product-media-gallery",
-          "static": true,
-          "settings": {
-            "media_presentation": "grid",
-            "media_columns": "two",
-            "image_gap": 4,
-            "large_first_image": false,
-            "icons_style": "none",
-            "slideshow_controls_style": "counter",
-            "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "aspect_ratio": "adapt",
-            "constrain_to_viewport": true,
-            "media_fit": "contain",
-            "media_radius": 0,
-            "extend_media": false,
-            "zoom": true,
-            "video_loop": false,
-            "hide_variants": true,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "product-details": {
-          "type": "_product-details",
-          "static": true,
-          "settings": {
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "details_position": "flex-start",
-            "gap": 28,
-            "sticky_details_desktop": true,
-            "inherit_color_scheme": true,
-            "color_scheme": "scheme-1",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 24,
-            "padding-block-end": 24,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "group_icgrde": {
-              "type": "group",
-              "name": "Header",
-              "settings": {
-                "open_in_new_tab": false,
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "text_xrnftG": {
-                  "type": "text",
-                  "name": "Product title",
-                  "settings": {
-                    "text": "<h1>{{ closest.product.title }}</h1>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-primary--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "price_tVjtKg": {
-                  "type": "price",
-                  "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "paragraph",
-                    "width": "100%",
-                    "alignment": "left",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "color": "var(--color-foreground)",
-                    "padding-block-start": 4,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_xrnftG",
-                "price_tVjtKg"
-              ]
-            },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
-            "variant_picker_R3rGDr": {
-              "type": "variant-picker",
-              "settings": {
-                "variant_style": "buttons",
-                "show_swatches": false,
-                "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "buy_buttons_eYQEYi": {
-              "type": "buy-buttons",
-              "settings": {
-                "stacking": true,
-                "show_pickup_availability": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
-              },
-              "block_order": []
-            },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "Product description",
-              "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "group_icgrde",
-            "divider_VJhene",
-            "variant_picker_R3rGDr",
-            "buy_buttons_eYQEYi",
-            "text_aEtTtq"
-          ]
-        }
-      },
+      "type": "hero-product",
       "settings": {
-        "content_width": "content-center-aligned",
-        "desktop_media_position": "left",
-        "equal_columns": false,
-        "limit_details_width": false,
-        "gap": 48,
-        "color_scheme": "",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "hero_kicker": "Back & Posture Support",
+        "hero_heading": "Stand taller. Feel stronger.",
+        "hero_description": "<p>Adjustable back support belt for abdominal waist correction and spine alignment. Unisex design — wear it under or over clothing, all day long.</p>",
+        "show_original_price": true,
+        "original_price": "€38.00",
+        "discount_badge": "50% off",
+        "shipping_text": "Free shipping · Arrives in 10–16 days",
+        "add_to_cart_label": "Add to Cart",
+        "show_size_guide": true,
+        "size_guide_label": "View Size Guide",
+        "show_micro_features": true,
+        "feature_1": "Adjustable fit S–XXL",
+        "feature_2": "Unisex design",
+        "feature_3": "Breathable neoprene fabric",
+        "feature_4": "Discreet under clothing",
+        "show_thumbnails": true
       }
     },
-    "product_recommendations_qggXJq": {
-      "type": "product-recommendations",
+    "proof_bar": {
+      "type": "proof-bar",
       "blocks": {
-        "text_cbcgyb": {
-          "type": "text",
-          "name": "t:names.header",
+        "stat_1": {
+          "type": "stat",
           "settings": {
-            "text": "<h3>You may also like </h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h4",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "stat_number": "50%",
+            "stat_label": "Average back pain reduction reported"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "stat_2": {
+          "type": "stat",
           "settings": {
-            "product_card_gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_DNizbJ": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_M7MJkb": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_gLWgA6": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_DNizbJ",
-            "product_title_M7MJkb",
-            "price_gLWgA6"
-          ]
+            "stat_number": "8,200+",
+            "stat_label": "Happy customers worldwide"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "4.9★",
+            "stat_label": "Average review rating"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "S–XXL",
+            "stat_label": "Available in five sizes"
+          }
         }
       },
       "block_order": [
-        "text_cbcgyb"
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
       ],
-      "name": "t:names.product_recommendations",
+      "settings": {}
+    },
+    "benefits": {
+      "type": "body-benefits",
+      "blocks": {
+        "ben_1": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "🦴",
+            "card_title": "Lumbar Spine Support",
+            "card_description": "<p>Gently compresses and aligns the lumbar vertebrae, reducing strain during prolonged sitting or standing at work.</p>"
+          }
+        },
+        "ben_2": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "🧠",
+            "card_title": "Posture Memory Training",
+            "card_description": "<p>Wearing the belt regularly trains your muscles and spine to hold an upright posture naturally — even when not wearing it.</p>"
+          }
+        },
+        "ben_3": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "💪",
+            "card_title": "Abdominal Muscle Support",
+            "card_description": "<p>The wide front panel supports the abdominal wall, reducing strain after surgery, heavy lifting, or postpartum recovery.</p>"
+          }
+        },
+        "ben_4": {
+          "type": "benefit_card",
+          "settings": {
+            "card_emoji": "👔",
+            "card_title": "All-Day Wearable",
+            "card_description": "<p>Thin enough to hide under a shirt. Breathable neoprene prevents heat build-up during extended wear throughout the day.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ben_1",
+        "ben_2",
+        "ben_3",
+        "ben_4"
+      ],
       "settings": {
-        "product": "{{ closest.product }}",
-        "recommendation_type": "related",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "columns_gap": 12,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 28,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "section_kicker": "Why it works",
+        "section_heading": "Your spine deserves real support.",
+        "section_description": "<p>Poor posture contributes to chronic back pain, fatigue, and reduced confidence. Our support belt gently guides your spine back into alignment — without restricting movement or causing dependency.</p>",
+        "show_benefits_list": true,
+        "benefit_1": "Reduces strain on lumbar and thoracic vertebrae",
+        "benefit_2": "Supports the abdominal wall during recovery or heavy lifting",
+        "benefit_3": "Encourages muscle memory for upright posture over time",
+        "benefit_4": "Adjustable compression via dual velcro straps"
+      }
+    },
+    "size_guide": {
+      "type": "size-guide",
+      "blocks": {
+        "size_1": {
+          "type": "size_row",
+          "settings": {
+            "size_label": "S",
+            "size_value_1": "68–76 cm",
+            "size_value_2": "88–96 cm",
+            "size_value_3": "45–55 kg"
+          }
+        },
+        "size_2": {
+          "type": "size_row",
+          "settings": {
+            "size_label": "M",
+            "size_value_1": "76–88 cm",
+            "size_value_2": "92–104 cm",
+            "size_value_3": "55–70 kg"
+          }
+        },
+        "size_3": {
+          "type": "size_row",
+          "settings": {
+            "size_label": "L",
+            "size_value_1": "88–100 cm",
+            "size_value_2": "100–116 cm",
+            "size_value_3": "68–85 kg"
+          }
+        },
+        "size_4": {
+          "type": "size_row",
+          "settings": {
+            "size_label": "XL",
+            "size_value_1": "100–114 cm",
+            "size_value_2": "112–128 cm",
+            "size_value_3": "82–100 kg"
+          }
+        },
+        "size_5": {
+          "type": "size_row",
+          "settings": {
+            "size_label": "XXL",
+            "size_value_1": "114–130 cm",
+            "size_value_2": "126–140 cm",
+            "size_value_3": "98–120 kg"
+          }
+        }
+      },
+      "block_order": [
+        "size_1",
+        "size_2",
+        "size_3",
+        "size_4",
+        "size_5"
+      ],
+      "settings": {
+        "section_kicker": "Size Guide",
+        "section_heading": "Find your perfect fit.",
+        "section_description": "Measure your waist at the navel. When between sizes, size up for more comfort. The belt's velcro straps allow fine-tuning within each size range.",
+        "table_headers": "Size,Waist,Hip,Body Weight"
+      }
+    },
+    "specs": {
+      "type": "specs",
+      "blocks": {
+        "spec_1": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Material",
+            "spec_value": "Neoprene + Oxford Fabric"
+          }
+        },
+        "spec_2": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Closure",
+            "spec_value": "Double Velcro Straps"
+          }
+        },
+        "spec_3": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Available Sizes",
+            "spec_value": "S / M / L / XL / XXL"
+          }
+        },
+        "spec_4": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Back Panel Width",
+            "spec_value": "22 cm"
+          }
+        },
+        "spec_5": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Front Panel Width",
+            "spec_value": "26 cm"
+          }
+        },
+        "spec_6": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Washing",
+            "spec_value": "Hand wash ≤30°C"
+          }
+        },
+        "spec_7": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Certification",
+            "spec_value": "CE Certified"
+          }
+        },
+        "spec_8": {
+          "type": "spec",
+          "settings": {
+            "spec_key": "Colors",
+            "spec_value": "Black, Beige"
+          }
+        }
+      },
+      "block_order": [
+        "spec_1",
+        "spec_2",
+        "spec_3",
+        "spec_4",
+        "spec_5",
+        "spec_6",
+        "spec_7",
+        "spec_8"
+      ],
+      "settings": {
+        "section_kicker": "Specifications",
+        "section_heading": "Built for daily use."
+      }
+    },
+    "in_the_box": {
+      "type": "in-the-box",
+      "blocks": {
+        "box_1": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "🧥",
+            "item_name": "Back Support Belt",
+            "item_quantity": "× 1"
+          }
+        },
+        "box_2": {
+          "type": "box_item",
+          "settings": {
+            "item_icon": "📖",
+            "item_name": "Size & Care Guide",
+            "item_quantity": "× 1"
+          }
+        }
+      },
+      "block_order": [
+        "box_1",
+        "box_2"
+      ],
+      "settings": {
+        "section_label": "In the Box",
+        "section_title": "Ready to wear straight away."
       }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "proof_bar",
+    "benefits",
+    "size_guide",
+    "specs",
+    "in_the_box"
   ]
 }
